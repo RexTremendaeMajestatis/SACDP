@@ -34,6 +34,19 @@ namespace task1
         {
             return Find(root, data);
         }
+        public void Remove(T data)
+        {
+            if (root == null)
+            {
+                return;
+            }
+            if (root.data.Equals(data))
+            {
+                root = refreshNode(root);
+                return;
+            }
+            Remove(root, data);
+        }
         void Add(Node<T> node, T data)
         {
             if (node.data.Equals(data))
@@ -42,24 +55,24 @@ namespace task1
             }
             if (node.data.CompareTo(data) > 0)
             {
-                if (node.right == null)
+                if (node.Right == null)
                 {
-                    node.right = new Node<T>(data);
+                    node.Right = new Node<T>(data);
                 }
                 else
                 {
-                    Add(node.right, data);
+                    Add(node.Right, data);
                 }
             }
             else
             {
-                if (node.left == null)
+                if (node.Left == null)
                 {
-                    node.left = new Node<T>(data);
+                    node.Left = new Node<T>(data);
                 }
                 else
                 {
-                    Add(node.left, data);
+                    Add(node.Left, data);
                 }
             }
         }
@@ -75,10 +88,55 @@ namespace task1
             }
             if (node.data.CompareTo(data) > 0)
             {
-                return Find(node.right, data);
+                return Find(node.Right, data);
             }
-                return Find(node.left, data);
+                return Find(node.Left, data);
             
+        }
+        void Remove(Node<T> node, T data)
+        {
+            if (node.data.CompareTo(data) > 0)
+            {
+                if (node.Right == null)
+                {
+                    return;
+                }
+                if (node.Right.data.Equals(data))
+                {
+                    node.Right = refreshNode(node.Right);
+                    return;
+                }
+                Remove(node.Right, data);
+            }
+            else
+            {
+                if (node.Left == null)
+                {
+                    return;
+                }
+                if (node.Left.data.Equals(data))
+                {
+                    node.Left = refreshNode(node.Left);
+                    return;
+                }
+                Remove(node.Left, data);
+            }
+        }
+        Node<T> refreshNode(Node<T> node)
+        {
+            if (node.Right != null && node.Left != null)
+            {
+                Node<T> temp = node.Right;
+
+                while (temp.Left != null)
+                {
+                    temp = temp.Left;
+                }
+
+                temp.Left = node.Left;
+                return node.Right;
+            }
+            return node.Left != null ? node.Left : node.Right;
         }
     }
 }

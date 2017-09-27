@@ -12,13 +12,14 @@ namespace task1
         public class Node<T>
         {
             public T data { get; }
-            public Node<T> left { get; set; }
-            public Node<T> right { get; set; }
+            public Node<T> Left { get; set; }
+            public Node<T> Right { get; set; }
+            public Node<T> Parent { get; set; }
             public Node(T data)
             {
                 this.data = data;
-                this.left = null;
-                this.right = null;
+                this.Left = null;
+                this.Right = null;
             }
         }
     }
