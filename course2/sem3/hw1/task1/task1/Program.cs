@@ -10,6 +10,12 @@ namespace task1
     {
         static void Main(string[] args)
         {
+            BinaryTree<Int32> a = new BinaryTree<Int32>(2);
+            a.Add(3);
+            a.Add(1);
+            a.Remove(2);
+            a.ConsoleShow();
+            Console.ReadKey();
         }
     }
 }
