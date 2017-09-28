@@ -13,13 +13,11 @@ namespace task1
         private class BinaryTreeEnumerator : IEnumerator<T>
         {
 
-            public T Current
-            {
-                get { return current.Data; }
-            }
+            public T Current => current.Data;
 
             private Node<T> current;
-            private Node<T> next;
+
+            private bool isFirst;
             object IEnumerator.Current
             {
                 get { return current.Data; }
@@ -27,37 +25,41 @@ namespace task1
 
             public BinaryTreeEnumerator()
             {
-                current = null;
-                next = root;
+                current = root;
+                isFirst = true;
 
-                while (next != null && next.Left != null)
+                while (current != null && current.Left != null)
                 {
-                    next = next.Left;
+                    current = current.Left;
                 }
             }
 
             public void Dispose()
             {
-                throw new NotImplementedException();
+
             }
 
             public bool MoveNext()
             {
-                Node<T> next = GetNext();
-
-                if (next != null)
+                if (isFirst)
                 {
-                    current = next;
+                    isFirst = false;
+                    return true;
                 }
-
-                return next != null;
+                if (current != null)
+                {
+                    current = GetNext();
+                }
+                
+                return current != null;
             }
 
             public void Reset()
             {
                 current = root;
+                isFirst = true;
 
-                while (current.Left != null)
+                while (current != null && current.Left != null)
                 {
                     current = current.Left;
                 }
@@ -69,16 +71,16 @@ namespace task1
                 {
                     Node<T> tmp = current.Right;
 
-                    while (tmp.Right != null)
+                    while (tmp.Left != null)
                     {
-                        tmp = tmp.Right;
+                        tmp = tmp.Left;
                     }
 
                     return tmp;
                 }
 
                 Node<T> temp = current;
-                while (temp.Parent != null && temp.Parent.Right.Equals(temp))
+                while (temp.Parent != null && temp.Parent.Right != null && temp.Parent.Right.Equals(temp))
                 {
                     temp = temp.Parent;
                 }

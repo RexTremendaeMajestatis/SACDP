@@ -11,17 +11,16 @@ namespace task1
     {
         static void Main(string[] args)
         {
-            List<string> a = new List<string>();
-            for (int i = 0; i < 10; i++)
+            BinaryTree<Int32> a = new BinaryTree<Int32>();
+            a.Add(2);
+            a.Add(1);
+            a.Add(3);
+            int i = 0;
+            foreach (var value in a)
             {
-                a.Add("kek");
+                Console.WriteLine(value);
+                i++;
             }
-            IEnumerator<string> b = a.GetEnumerator();
-            for (int i = 0; i < 100; i++)
-            {
-                b.MoveNext();
-            }
-            Console.WriteLine(b.Current);
             Console.ReadKey();
         }
     }

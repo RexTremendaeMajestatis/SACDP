@@ -26,7 +26,7 @@ namespace task1
             root = null;
         }
         /// <summary>
-        /// Constructor that recieve generic type
+        /// Constructor that recieve a generic type
         /// </summary>
         /// <param name="data"></param>
         public BinaryTree(T data)
@@ -46,7 +46,7 @@ namespace task1
 
         }
         /// <summary>
-        /// Overloaded public method that add new nodes to tree
+        /// Method that add new nodes to tree
         /// </summary>
         /// <param name="data"></param>
         public void Add(T data)
@@ -61,7 +61,7 @@ namespace task1
             }
         }
         /// <summary>
-        /// Overloaded public method that finds node
+        /// Method that finds node
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -210,7 +210,8 @@ namespace task1
                 {
                     temp = temp.Right;
                 }
-                temp.Left = node.Right;
+                temp.Right = node.Right;
+                node.Right.Parent = temp;
             }
             else
             {
@@ -223,7 +224,7 @@ namespace task1
             }
             else
             {
-                if (node.Parent.Left.Equals(node))
+                if (node.Parent.Left != null && node.Parent.Left.Equals(node))
                 {
                     node.Parent.Left = refresh;
                 }
