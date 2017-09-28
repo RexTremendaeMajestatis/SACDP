@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,17 @@ namespace task1
     {
         static void Main(string[] args)
         {
-            BinaryTree<Int32> a = new BinaryTree<Int32>(2);
-            a.Add(3);
-            a.Add(1);
-            a.Remove(2);
-            a.ConsoleShow();
+            List<string> a = new List<string>();
+            for (int i = 0; i < 10; i++)
+            {
+                a.Add("kek");
+            }
+            IEnumerator<string> b = a.GetEnumerator();
+            for (int i = 0; i < 100; i++)
+            {
+                b.MoveNext();
+            }
+            Console.WriteLine(b.Current);
             Console.ReadKey();
         }
     }

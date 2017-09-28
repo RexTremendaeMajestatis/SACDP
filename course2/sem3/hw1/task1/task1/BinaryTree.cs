@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +11,13 @@ namespace task1
     /// Class that describes binary search tree
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public partial class BinaryTree<T>
+    public partial class BinaryTree<T> : IEnumerable<T>
         where T : IComparable
     {
         /// <summary>
         /// Root of the tree
         /// </summary>
-        private Node<T> root;
+        private static Node<T> root;
         /// <summary>
         /// Constructor without any arguments
         /// </summary>
@@ -64,7 +65,7 @@ namespace task1
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Node<T> Find(T data)
+        public bool Find(T data)
         {
             return Find(root, data);
         }
@@ -80,7 +81,7 @@ namespace task1
             }
             if (root.Data.Equals(data))
             {
-                refreshNode(root);
+                RefreshNode(root);
                 return;
             }
             Remove(root, data);
@@ -140,15 +141,15 @@ namespace task1
         /// <param name="node"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        private Node<T> Find(Node<T> node, T data)
+        private bool Find(Node<T> node, T data)
         {
             if (node == null)
             {
-                return null;
+                return false;
             }
             if (node.Data.Equals(data))
             {
-                return node;
+                return true;
             }
             if (data.CompareTo(node.Data) > 0)
             {
@@ -172,7 +173,7 @@ namespace task1
                 }
                 if (node.Right.Data.Equals(data))
                 {
-                    refreshNode(node.Right);
+                    RefreshNode(node.Right);
                     return;
                 }
                 Remove(node.Right, data);
@@ -185,7 +186,7 @@ namespace task1
                 }
                 if (node.Left.Data.Equals(data))
                 {
-                    refreshNode(node.Left);
+                    RefreshNode(node.Left);
                     return;
                 }
                 Remove(node.Left, data);
@@ -196,7 +197,7 @@ namespace task1
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        private void refreshNode(Node<T> node)
+        private void RefreshNode(Node<T> node)
         {
             Node<T> refresh = null;
 
@@ -237,5 +238,20 @@ namespace task1
                 refresh.Parent = node.Parent;
             }
         }
+
+        /// <summary>
+        /// IEnumerable intefrace realisation
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new BinaryTreeEnumerator();
+        }
+
+        /// <summary>
+        /// IEnumerable interface realisation
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

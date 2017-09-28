@@ -13,7 +13,7 @@ namespace task1
         /// Node that contains data & references to another nodes
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public class Node<T>
+        protected class Node<T>
         {
             /// <summary>
             /// Contains info
