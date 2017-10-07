@@ -12,6 +12,12 @@ namespace task2
         static void Main(string[] args)
         {
             Network a = new Network(@"C:\Users\pavel\Documents\SPbSU\course2\sem3\hw1\task2\task2\input.txt");
+            Console.WriteLine(a.State());
+            Console.WriteLine(a.Graph());
+            a.Plague();
+            Console.WriteLine(a.State());
+            Console.WriteLine(a.Graph());
+            Console.ReadKey();
         }
     }
 }

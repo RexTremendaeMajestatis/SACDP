@@ -28,8 +28,8 @@ namespace task2
             set { isInfected = value; }
         }
         private static double osWindows = 0.7;
-        private static double osLinux = 0.1;
-        private static double osMacOS = 0.2;
+        private static double osLinux = 0.5;
+        private static double osMacOS = 0.4;
         private static double defect;
         private String os;
         private bool isInfected;
@@ -64,7 +64,8 @@ namespace task2
         public void TryToInfect()
         {
             Random rand = new Random();
-            double probability = rand.Next(100) / 100;
+            double probability = rand.Next(100);
+            probability /= 100;
             if (probability < defect)
             {
                 isInfected = true;
