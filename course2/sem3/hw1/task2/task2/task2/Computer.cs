@@ -17,17 +17,19 @@ namespace task2
         /// </summary>
         public bool IsInfected { get; set; }
 
-        private static readonly double osWindows = 0.7;
-        private static readonly double osLinux = 0.5;
-        private static readonly double osMacOS = 0.4;
-        private static double _defect;
+        private static readonly int osWindows = 70;
+        private static readonly int osLinux = 50;
+        private static readonly int osMacOS = 40;
+        private ICustomRandom randomizer;
+        private static int _defect;
 
         /// <summary>
         /// Initialize new computer object
         /// </summary>
         /// <param name="os"></param>
-        public Computer(String os)
+        public Computer(String os, ICustomRandom randomizer)
         {
+            this.randomizer = randomizer;
             IsInfected = false;
             if (os == "")
             {
@@ -55,9 +57,7 @@ namespace task2
         /// </summary>
         public void TryToInfect()
         {
-            Random rand = new Random();
-            double probability = rand.Next(100);
-            probability /= 100;
+            int probability = randomizer.Random();
             if (probability < _defect)
             {
                 IsInfected = true;
