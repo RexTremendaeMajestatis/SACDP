@@ -1,10 +1,10 @@
 6
-Windows
+MacOS
 Windows
 Windows
 Linux
 Linux
-Mac OS
+MacOS
 
 1
 

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace task2
 {
@@ -14,26 +10,17 @@ namespace task2
         /// <summary>
         /// Operating system of computer
         /// </summary>
-        public String OS
-        {
-            get { return os; }
-        }
+        public String OS { get; }
 
         /// <summary>
         /// Viral condition of computer
         /// </summary>
-        public bool IsInfected
-        {
-            get { return isInfected; }
-            set { isInfected = value; }
-        }
-        private static double osWindows = 0.7;
-        private static double osLinux = 0.5;
-        private static double osMacOS = 0.4;
-        private static double defect;
-        private String os;
-        private bool isInfected;
+        public bool IsInfected { get; set; }
 
+        private static readonly double osWindows = 0.7;
+        private static readonly double osLinux = 0.5;
+        private static readonly double osMacOS = 0.4;
+        private static double _defect;
 
         /// <summary>
         /// Initialize new computer object
@@ -41,23 +28,28 @@ namespace task2
         /// <param name="os"></param>
         public Computer(String os)
         {
-            isInfected = false;
-            this.os = os;
+            IsInfected = false;
+            if (os == "")
+            {
+                throw new Exception(message: "Empty string");
+            }
+            OS = os;
 
-            if (this.os == "Windows")
+            if (OS == "Windows")
             {
-                defect = osWindows;
+                _defect = osWindows;
             }
-            if (this.os == "Linux")
+            if (OS == "Linux")
             {
-                defect = osLinux;
+                _defect = osLinux;
             }
-            if (this.os == "MacOS")
+            if (OS == "MacOS")
             {
-                defect = osMacOS;
+                _defect = osMacOS;
             }
+
+
         }
-
         /// <summary>
         /// Try to infect the computer
         /// </summary>
@@ -66,18 +58,17 @@ namespace task2
             Random rand = new Random();
             double probability = rand.Next(100);
             probability /= 100;
-            if (probability < defect)
+            if (probability < _defect)
             {
-                isInfected = true;
+                IsInfected = true;
             }
         }
-
         /// <summary>
         /// Infect the computer
         /// </summary>
         public void Infect()
         {
-            isInfected = true;
+            IsInfected = true;
         }
     }
 }
