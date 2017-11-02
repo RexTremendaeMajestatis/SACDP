@@ -20,13 +20,17 @@ namespace task2
         private static readonly int osWindows = 70;
         private static readonly int osLinux = 50;
         private static readonly int osMacOS = 40;
+        /// <summary>
+        /// Custom randomizer for testing ability
+        /// </summary>
         private ICustomRandom randomizer;
-        private static int _defect;
+        private static int defect;
 
         /// <summary>
-        /// Initialize new computer object
+        /// Computer class constructor
         /// </summary>
         /// <param name="os"></param>
+        /// <param name="randomizer"></param>
         public Computer(String os, ICustomRandom randomizer)
         {
             this.randomizer = randomizer;
@@ -39,15 +43,15 @@ namespace task2
 
             if (OS == "Windows")
             {
-                _defect = osWindows;
+                defect = osWindows;
             }
             if (OS == "Linux")
             {
-                _defect = osLinux;
+                defect = osLinux;
             }
             if (OS == "MacOS")
             {
-                _defect = osMacOS;
+                defect = osMacOS;
             }
 
 
@@ -58,7 +62,7 @@ namespace task2
         public void TryToInfect()
         {
             int probability = randomizer.Random();
-            if (probability < _defect)
+            if (probability < defect)
             {
                 IsInfected = true;
             }

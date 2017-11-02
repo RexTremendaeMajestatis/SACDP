@@ -14,9 +14,9 @@ namespace task2
         int Random();
     }
     /// <summary>
-    /// Class for custom random
+    /// Custom random class
     /// </summary>
-    public class CustomRandom: ICustomRandom
+    internal class CustomRandom: ICustomRandom
     {
         int ICustomRandom.Random()
         {

@@ -9,22 +9,23 @@ namespace task2
     /// <summary>
     /// Network class
     /// </summary>
-    public class Network
+    public sealed class Network
     {
         private readonly bool[,] _adjacencyMatrix;
         private readonly Computer[] _computers;
 
         /// <summary>
-        /// Load network info from file
+        /// Network constructor
         /// </summary>
         /// <param name="path"></param>
-        public Network(String path, ICustomRandom randomizer)
+        /// <param name="randomizer"></param>
+        public Network(string path, ICustomRandom randomizer)
         {
             try
             {
                 using (StreamReader file = new StreamReader(path))
                 {
-                    Int32 size = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
+                    int size = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
 
                     _computers = LoadComputers(file, size, randomizer);
                     _adjacencyMatrix = LoadMatrix(file, size);
@@ -36,14 +37,10 @@ namespace task2
             }
         }
         /// <summary>
-        /// Try to infect neighbour computers
-        /// </summary>
-      
-        /// <summary>
         /// Returns current state of network
         /// </summary>
         /// <returns></returns>
-        public String State()
+        public string State()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -51,7 +48,7 @@ namespace task2
             {
                 sb.Append(i + 1);
                 sb.Append(") ");
-                sb.Append(_computers[i].OS);
+                sb.Append(_computers[i].Os);
 
                 if (_computers[i].IsInfected)
                 {
@@ -66,7 +63,7 @@ namespace task2
         /// Returns adjacency matrix of network
         /// </summary>
         /// <returns></returns>
-        public String Graph()
+        public string Graph()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -99,22 +96,23 @@ namespace task2
         /// Start plague game
         /// </summary>
         /// <returns></returns>
-        public String Game()
+        public string Game()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(this.State());
-            sb.Append(this.Graph());
+            sb.Append(State());
+            sb.Append(Graph());
             bool temp = true;
 
             while (CountUninfected() != 0 && temp)
             {
-                temp = this.Plague();
-                sb.Append(this.State());
-                sb.Append(this.Graph());
+                temp = Plague();
+                sb.Append(State());
+                sb.Append(Graph());
             }
 
             return temp ? sb.ToString() : "";
         }
+
         private int CountUninfected()
         {
             int i = 0;
@@ -132,20 +130,20 @@ namespace task2
             if (file == null) throw new ArgumentNullException(nameof(file));
             Computer[] computers = new Computer[size];
 
-            for (Int32 i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
             {
                 computers[i] = new Computer(file.ReadLine(), randomizer);
             }
 
             file.ReadLine();
 
-            String infect = file.ReadLine();
+            string infect = file.ReadLine();
             if (infect != null)
             {
-                String[] infectList = infect.Split(' ');
-                for (Int32 i = 0; i < infectList.Length; i++)
+                string[] infectList = infect.Split(' ');
+                for (int i = 0; i < infectList.Length; i++)
                 {
-                    Int32 enemy = Int32.Parse(infectList[i]) - 1;
+                    int enemy = int.Parse(infectList[i]) - 1;
                     computers[enemy].Infect();
                 }
             }
@@ -159,23 +157,23 @@ namespace task2
             if (file == null) throw new ArgumentNullException(nameof(file));
             bool[,] adjacencyMatrix = new bool[size, size];
 
-            for (Int32 i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
             {
-                for (Int32 j = 0; j < size; j++)
+                for (int j = 0; j < size; j++)
                 {
                     adjacencyMatrix[i, j] = false;
                 }
             }
 
-            Int32 connections = Int32.Parse(file.ReadLine() ?? throw new InvalidOperationException());
-            for (Int32 i = 0; i < connections; i++)
+            int connections = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
+            for (int i = 0; i < connections; i++)
             {
-                String connect = file.ReadLine();
+                string connect = file.ReadLine();
                 if (connect != null)
                 {
-                    String[] connectionPoint = connect.Split(' ');
-                    Int32 x = Int32.Parse(connectionPoint[0]) - 1;
-                    Int32 y = Int32.Parse(connectionPoint[1]) - 1;
+                    string[] connectionPoint = connect.Split(' ');
+                    int x = int.Parse(connectionPoint[0]) - 1;
+                    int y = int.Parse(connectionPoint[1]) - 1;
 
                     adjacencyMatrix[x, y] = true;
                     adjacencyMatrix[y, x] = true;
@@ -190,7 +188,7 @@ namespace task2
         {
             HashSet<Computer> toInfect = new HashSet<Computer>();
 
-            for (Int32 i = 0; i < _computers.Length; i++)
+            for (int i = 0; i < _computers.Length; i++)
             {
                 if (_computers[i].IsInfected)
                 {
