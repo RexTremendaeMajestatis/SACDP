@@ -13,7 +13,6 @@ namespace task2
     {
         int Random();
     }
-
     /// <summary>
     /// Class for custom random
     /// </summary>

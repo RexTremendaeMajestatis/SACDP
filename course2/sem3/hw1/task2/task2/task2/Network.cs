@@ -9,7 +9,7 @@ namespace task2
     /// <summary>
     /// Network class
     /// </summary>
-    class Network
+    public class Network
     {
         private readonly bool[,] _adjacencyMatrix;
         private readonly Computer[] _computers;
