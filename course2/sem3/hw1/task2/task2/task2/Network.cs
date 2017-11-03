@@ -57,6 +57,7 @@ namespace task2
                 sb.Append("\n");
             }
             sb.Append("\n");
+
             return sb.ToString();
         }
         /// <summary>
@@ -73,7 +74,6 @@ namespace task2
                 sb.Append("    ");
                 sb.Append(i + 1);
             }
-
             sb.Append("\n\n");
 
             for (int i = 0; i < _adjacencyMatrix.GetLength(0); i++)
@@ -88,8 +88,8 @@ namespace task2
                 }
                 sb.Append("\n");
             }
-
             sb.Append("\n");
+
             return sb.ToString();
         }
         /// <summary>
@@ -113,6 +113,8 @@ namespace task2
             return temp ? sb.ToString() : "";
         }
 
+        public void OneCycleOfGame() => Plague();
+
         private int CountUninfected()
         {
             int i = 0;
@@ -134,7 +136,6 @@ namespace task2
             {
                 computers[i] = new Computer(file.ReadLine(), randomizer);
             }
-
             file.ReadLine();
 
             string infect = file.ReadLine();
@@ -147,7 +148,6 @@ namespace task2
                     computers[enemy].Infect();
                 }
             }
-
             file.ReadLine();
 
             return computers;
@@ -166,6 +166,7 @@ namespace task2
             }
 
             int connections = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
+
             for (int i = 0; i < connections; i++)
             {
                 string connect = file.ReadLine();
@@ -179,7 +180,6 @@ namespace task2
                     adjacencyMatrix[y, x] = true;
                 }
             }
-
             file.ReadLine();
 
             return adjacencyMatrix;

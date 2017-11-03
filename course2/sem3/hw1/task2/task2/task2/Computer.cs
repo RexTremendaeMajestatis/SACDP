@@ -5,64 +5,60 @@ namespace task2
     /// <summary>
     /// Computer class
     /// </summary>
-    public class Computer
+    public sealed class Computer
     {
         /// <summary>
         /// Operating system of computer
         /// </summary>
-        public String OS { get; }
+        public string Os { get; }
 
         /// <summary>
         /// Viral condition of computer
         /// </summary>
         public bool IsInfected { get; set; }
 
-        private static readonly int osWindows = 70;
-        private static readonly int osLinux = 50;
-        private static readonly int osMacOS = 40;
-        /// <summary>
-        /// Custom randomizer for testing ability
-        /// </summary>
-        private ICustomRandom randomizer;
-        private static int defect;
+        private const int OsWindows = 70;
+        private const int OsLinux = 50;
+        private const int OsMac = 40;
+        private readonly ICustomRandom _randomizer;
+        private static int _defect;
 
         /// <summary>
         /// Computer class constructor
         /// </summary>
         /// <param name="os"></param>
         /// <param name="randomizer"></param>
-        public Computer(String os, ICustomRandom randomizer)
+        public Computer(string os, ICustomRandom randomizer)
         {
-            this.randomizer = randomizer;
+            _randomizer = randomizer;
             IsInfected = false;
             if (os == "")
             {
                 throw new Exception(message: "Empty string");
             }
-            OS = os;
+            Os = os;
 
-            if (OS == "Windows")
+            if (Os == "Windows")
             {
-                defect = osWindows;
+                _defect = OsWindows;
             }
-            if (OS == "Linux")
+            if (Os == "Linux")
             {
-                defect = osLinux;
+                _defect = OsLinux;
             }
-            if (OS == "MacOS")
+            if (Os == "MacOS")
             {
-                defect = osMacOS;
+                _defect = OsMac;
             }
-
-
         }
         /// <summary>
         /// Try to infect the computer
         /// </summary>
         public void TryToInfect()
         {
-            int probability = randomizer.Random();
-            if (probability < defect)
+            int probability = _randomizer.Random();
+
+            if (probability < _defect)
             {
                 IsInfected = true;
             }

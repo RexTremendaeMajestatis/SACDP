@@ -16,12 +16,12 @@ namespace task2
     /// <summary>
     /// Custom random class
     /// </summary>
-    internal class CustomRandom: ICustomRandom
+    public sealed class CustomRandom: ICustomRandom
     {
         int ICustomRandom.Random()
         {
             Random c = new Random();
-            return c.Next(100);
+            return 0; //c.Next(100);
         }
     }
 }
