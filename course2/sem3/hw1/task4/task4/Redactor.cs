@@ -10,11 +10,36 @@ using System.Windows.Forms;
 
 namespace task4
 {
-    public partial class Form1 : Form
+    public partial class Redactor : Form
     {
-        public Form1()
+        public Redactor()
         {
             InitializeComponent();
+        }
+
+        private void UndoButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RedoButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DrawArea_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void DrawArea_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void DrawArea_MouseClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
