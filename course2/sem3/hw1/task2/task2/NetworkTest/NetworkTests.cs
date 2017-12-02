@@ -15,10 +15,9 @@ namespace NetworkTest
     [TestClass]
     public class NetworkTests
     {
-        private const string consequencePath = @"C:\Users\pavel\Documents\SPbSU\course2\sem3\hw1\task2\task2\consequence.txt";
-        private const string parallelPath = @"C:\Users\pavel\Documents\SPbSU\course2\sem3\hw1\task2\task2\parallel.txt";
-        private const string path = @"C:\Users\pavel\Documents\SPbSU\course2\sem3\hw1\task2\task2\input.txt";
-        private TestRandom _tr = new TestRandom();
+        private const string SequencePath = "consequence.txt";
+        private const string ParallelPath = "parallel.txt";
+        private TestRandom TRand = new TestRandom();
 
         /// <summary>
         /// Try to initialize network class
@@ -26,7 +25,8 @@ namespace NetworkTest
         [TestMethod]
         public void CreationTest()
         {
-            var network = new Network(path, _tr);
+            GenerateComputerSequence();
+            var network = new Network(SequencePath, TRand);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace NetworkTest
         public void SequenceTest()
         {
             GenerateComputerSequence();
-            var network = new Network(consequencePath, _tr);
+            var network = new Network(SequencePath, TRand);
 
             string[] state = network.State().Split('\n');
             Assert.IsTrue(IsInfected(state[0]) 
@@ -57,7 +57,7 @@ namespace NetworkTest
         public void DetailSequenceTest()
         {
             GenerateComputerSequence();
-            var network = new Network(consequencePath, _tr);
+            var network = new Network(SequencePath, TRand);
             string[] state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0]) 
@@ -86,7 +86,7 @@ namespace NetworkTest
         public void ParallelTest()
         {
             GenerateComputerParallel();
-            var network = new Network(parallelPath, _tr);
+            var network = new Network(ParallelPath, TRand);
             string[] state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0])
@@ -113,7 +113,7 @@ namespace NetworkTest
         public void DetailParralelTest()
         {
             GenerateComputerParallel();
-            var network = new Network(parallelPath, _tr);
+            var network = new Network(ParallelPath, TRand);
             string[] state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0])
@@ -149,7 +149,7 @@ namespace NetworkTest
 
         private void GenerateComputerSequence()
         {
-            using (StreamWriter sw = new StreamWriter(consequencePath, false))
+            using (StreamWriter sw = new StreamWriter(SequencePath, false))
             {
                 sw.WriteLine(3);
                 sw.WriteLine("Windows");
@@ -166,7 +166,7 @@ namespace NetworkTest
 
         private void GenerateComputerParallel()
         {
-            using (StreamWriter sw = new StreamWriter(parallelPath, false))
+            using (StreamWriter sw = new StreamWriter(ParallelPath, false))
             {
                 sw.WriteLine("7");
                 sw.WriteLine("Windows");
@@ -194,7 +194,7 @@ namespace NetworkTest
         /// </summary>
         private bool IsInfected(string config)
         {
-            //In case of infected computer the length of string is more than 9
+            //In case of infected computer the length of string is more than 11
             int length = config.Length;
             return length > 11;
         }
