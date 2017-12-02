@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Task2;
 
@@ -27,7 +26,7 @@ namespace NetworkTest
         [TestMethod]
         public void CreationTest()
         {
-            Network network = new Network(path, _tr);
+            var network = new Network(path, _tr);
         }
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace NetworkTest
         public void SequenceTest()
         {
             GenerateComputerSequence();
-            Network network = new Network(consequencePath, _tr);
+            var network = new Network(consequencePath, _tr);
 
             string[] state = network.State().Split('\n');
             Assert.IsTrue(IsInfected(state[0]) 
@@ -58,7 +57,7 @@ namespace NetworkTest
         public void DetailSequenceTest()
         {
             GenerateComputerSequence();
-            Network network = new Network(consequencePath, _tr);
+            var network = new Network(consequencePath, _tr);
             string[] state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0]) 
@@ -87,7 +86,7 @@ namespace NetworkTest
         public void ParallelTest()
         {
             GenerateComputerParallel();
-            Network network = new Network(parallelPath, _tr);
+            var network = new Network(parallelPath, _tr);
             string[] state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0])
@@ -114,7 +113,7 @@ namespace NetworkTest
         public void DetailParralelTest()
         {
             GenerateComputerParallel();
-            Network network = new Network(parallelPath, _tr);
+            var network = new Network(parallelPath, _tr);
             string[] state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0])
@@ -147,6 +146,7 @@ namespace NetworkTest
                           && IsInfected(state[5])
                           && IsInfected(state[6]));
         }
+
         private void GenerateComputerSequence()
         {
             using (StreamWriter sw = new StreamWriter(consequencePath, false))
