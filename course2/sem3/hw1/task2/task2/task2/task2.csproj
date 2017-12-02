@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Computer.cs" />
     <Compile Include="CustomRandom.cs" />
+    <Compile Include="ICustomInterface.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

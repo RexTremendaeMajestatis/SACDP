@@ -11,8 +11,8 @@ namespace Task2
     /// </summary>
     public sealed class Network
     {
-        private readonly bool[,] _adjacencyMatrix;
-        private readonly Computer[] _computers;
+        private readonly bool[,] AdjacencyMatrix;
+        private readonly Computer[] Computers;
 
         /// <summary>
         /// Network constructor
@@ -25,11 +25,11 @@ namespace Task2
                 {
                     int size = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
 
-                    _computers = LoadComputers(file, size, randomizer);
-                    _adjacencyMatrix = LoadMatrix(file, size);
+                    Computers = LoadComputers(file, size, randomizer);
+                    AdjacencyMatrix = LoadMatrix(file, size);
                 }
             }
-            catch(FileNotFoundException e)
+            catch (FileNotFoundException e)
             {
                 throw new FileNotFoundException(message: "Invalid file path", innerException: e); 
             }
@@ -42,13 +42,13 @@ namespace Task2
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < _computers.Length; i++)
+            for (int i = 0; i < Computers.Length; i++)
             {
                 sb.Append(i + 1);
                 sb.Append(") ");
-                sb.Append(_computers[i].Os);
+                sb.Append(Computers[i].Os);
 
-                if (_computers[i].IsInfected)
+                if (Computers[i].IsInfected)
                 {
                     sb.Append(" (Infected)");
                 }
@@ -67,21 +67,21 @@ namespace Task2
             StringBuilder sb = new StringBuilder();
 
             sb.Append(" ");
-            for (int i = 0; i < _adjacencyMatrix.GetLength(0); i++)
+            for (int i = 0; i < AdjacencyMatrix.GetLength(0); i++)
             {
                 sb.Append("    ");
                 sb.Append(i + 1);
             }
             sb.Append("\n\n");
 
-            for (int i = 0; i < _adjacencyMatrix.GetLength(0); i++)
+            for (int i = 0; i < AdjacencyMatrix.GetLength(0); i++)
             {
                 sb.Append(i + 1);
                 sb.Append("    ");
 
-                for (int j = 0; j < _adjacencyMatrix.GetLength(1); j++)
+                for (int j = 0; j < AdjacencyMatrix.GetLength(1); j++)
                 {
-                    sb.Append(_adjacencyMatrix[i, j] ? 1 : 0);
+                    sb.Append(AdjacencyMatrix[i, j] ? 1 : 0);
                     sb.Append("    ");
                 }
                 sb.Append("\n");
@@ -119,7 +119,7 @@ namespace Task2
         private int CountUninfected()
         {
             int i = 0;
-            foreach (Computer t in _computers)
+            foreach (Computer t in Computers)
             {
                 if (!t.IsInfected)
                 {
@@ -130,8 +130,12 @@ namespace Task2
         }
         private static Computer[] LoadComputers(StreamReader file, int size, ICustomRandom randomizer)
         {
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            Computer[] computers = new Computer[size];
+            if (file == null)
+            {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            var computers = new Computer[size];
 
             for (int i = 0; i < size; i++)
             {
@@ -155,8 +159,12 @@ namespace Task2
         }
         private static bool[,] LoadMatrix(StreamReader file, int size)
         {
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            bool[,] adjacencyMatrix = new bool[size, size];
+            if (file == null)
+            {
+                throw new ArgumentNullException(nameof(file));
+            }
+
+            var adjacencyMatrix = new bool[size, size];
 
             for (int i = 0; i < size; i++)
             {
@@ -187,17 +195,17 @@ namespace Task2
         }
         private bool Plague()
         {
-            HashSet<Computer> toInfect = new HashSet<Computer>();
+            var toInfect = new HashSet<Computer>();
 
-            for (int i = 0; i < _computers.Length; i++)
+            for (int i = 0; i < Computers.Length; i++)
             {
-                if (_computers[i].IsInfected)
+                if (Computers[i].IsInfected)
                 {
-                    for (int j = 0; j < _adjacencyMatrix.GetLength(0); j++)
+                    for (int j = 0; j < AdjacencyMatrix.GetLength(0); j++)
                     {
-                        if (_adjacencyMatrix[i, j] && !_computers[j].IsInfected)
+                        if (AdjacencyMatrix[i, j] && !Computers[j].IsInfected)
                         {
-                            toInfect.Add(_computers[j]);
+                            toInfect.Add(Computers[j]);
                         }
                     }
                 }

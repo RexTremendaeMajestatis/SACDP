@@ -13,8 +13,8 @@ namespace Task2
     {
         int ICustomRandom.Random()
         {
-            Random c = new Random();
-            return c.Next(100);
+            Random rand = new Random();
+            return rand.Next(100);
         }
     }
 }

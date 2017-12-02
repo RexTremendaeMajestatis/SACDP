@@ -192,8 +192,6 @@ namespace NetworkTest
         /// <summary>
         /// Returns true if computer is infected
         /// </summary>
-        /// <param name="config"></param>
-        /// <returns></returns>
         private bool IsInfected(string config)
         {
             //In case of infected computer the length of string is more than 9

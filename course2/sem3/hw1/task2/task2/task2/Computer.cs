@@ -20,15 +20,15 @@ namespace Task2
         private const int OsWindows = 70;
         private const int OsLinux = 50;
         private const int OsMac = 40;
-        private readonly ICustomRandom _randomizer;
-        private static int _defect;
+        private readonly ICustomRandom Randomizer;
+        private static int Defect;
 
         /// <summary>
         /// Computer class constructor
         /// </summary>
         public Computer(string os, ICustomRandom randomizer)
         {
-            _randomizer = randomizer;
+            Randomizer = randomizer;
             IsInfected = false;
             if (os == "")
             {
@@ -39,13 +39,13 @@ namespace Task2
             switch (Os)
             {
                 case "Windows":
-                    _defect = OsWindows;
+                    Defect = OsWindows;
                     break;
                 case "Linux":
-                    _defect = OsLinux;
+                    Defect = OsLinux;
                     break;
                 case "MacOs":
-                    _defect = OsMac;
+                    Defect = OsMac;
                     break;
             }
         }
@@ -55,9 +55,9 @@ namespace Task2
         /// </summary>
         public void TryToInfect()
         {
-            int probability = _randomizer.Random();
+            int probability = Randomizer.Random();
 
-            if (probability < _defect)
+            if (probability < Defect)
             {
                 IsInfected = true;
             }
