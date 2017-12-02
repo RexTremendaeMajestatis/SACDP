@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Net;
 
 namespace Task2
 {
@@ -128,6 +127,7 @@ namespace Task2
             }
             return i;
         }
+
         private static Computer[] LoadComputers(StreamReader file, int size, ICustomRandom randomizer)
         {
             if (file == null)
@@ -157,6 +157,7 @@ namespace Task2
 
             return computers;
         }
+
         private static bool[,] LoadMatrix(StreamReader file, int size)
         {
             if (file == null)
@@ -193,6 +194,7 @@ namespace Task2
 
             return adjacencyMatrix;
         }
+
         private bool Plague()
         {
             var toInfect = new HashSet<Computer>();
