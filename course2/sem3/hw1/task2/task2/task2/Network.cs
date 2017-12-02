@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 
-namespace task2
+namespace Task2
 {
     /// <summary>
     /// Network class
@@ -17,8 +17,6 @@ namespace task2
         /// <summary>
         /// Network constructor
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="randomizer"></param>
         public Network(string path, ICustomRandom randomizer)
         {
             try
@@ -36,10 +34,10 @@ namespace task2
                 throw new FileNotFoundException(message: "Invalid file path", innerException: e); 
             }
         }
+
         /// <summary>
         /// Returns current state of network
         /// </summary>
-        /// <returns></returns>
         public string State()
         {
             StringBuilder sb = new StringBuilder();
@@ -60,10 +58,10 @@ namespace task2
 
             return sb.ToString();
         }
+
         /// <summary>
         /// Returns adjacency matrix of network
         /// </summary>
-        /// <returns></returns>
         public string Graph()
         {
             StringBuilder sb = new StringBuilder();
@@ -92,11 +90,11 @@ namespace task2
 
             return sb.ToString();
         }
+
         /// <summary>
         /// Start plague game
         /// </summary>
-        /// <returns></returns>
-        public string Game()
+        public string StartGame()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(State());
@@ -113,7 +111,10 @@ namespace task2
             return temp ? sb.ToString() : "";
         }
 
-        public void OneCycleOfGame() => Plague();
+        /// <summary>
+        /// Start one cycle of game
+        /// </summary>
+        public void StartOneCycleOfGame() => Plague();
 
         private int CountUninfected()
         {

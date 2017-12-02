@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace task2
+namespace Task2
 {
     /// <summary>
     /// Computer class
@@ -26,31 +26,30 @@ namespace task2
         /// <summary>
         /// Computer class constructor
         /// </summary>
-        /// <param name="os"></param>
-        /// <param name="randomizer"></param>
         public Computer(string os, ICustomRandom randomizer)
         {
             _randomizer = randomizer;
             IsInfected = false;
             if (os == "")
             {
-                throw new Exception(message: "Empty string");
+                
             }
             Os = os;
 
-            if (Os == "Windows")
+            switch (Os)
             {
-                _defect = OsWindows;
-            }
-            if (Os == "Linux")
-            {
-                _defect = OsLinux;
-            }
-            if (Os == "MacOS")
-            {
-                _defect = OsMac;
+                case "Windows":
+                    _defect = OsWindows;
+                    break;
+                case "Linux":
+                    _defect = OsLinux;
+                    break;
+                case "MacOs":
+                    _defect = OsMac;
+                    break;
             }
         }
+
         /// <summary>
         /// Try to infect the computer
         /// </summary>
@@ -63,6 +62,7 @@ namespace task2
                 IsInfected = true;
             }
         }
+
         /// <summary>
         /// Infect the computer
         /// </summary>

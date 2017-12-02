@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using task2;
+using Task2;
 
 namespace NetworkTest
 {
@@ -44,7 +44,7 @@ namespace NetworkTest
                 && !IsInfected(state[1]) 
                 && !IsInfected(state[2]));
 
-            network.Game();
+            network.StartGame();
             state = network.State().Split('\n');
             Assert.IsTrue(IsInfected(state[0]) 
                 && IsInfected(state[1]) 
@@ -65,14 +65,14 @@ namespace NetworkTest
                 && !IsInfected(state[1]) 
                 && !IsInfected(state[2]));
 
-            network.OneCycleOfGame();
+            network.StartOneCycleOfGame();
             state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0]) 
                 && IsInfected(state[1]) 
                 && !IsInfected(state[2]));
 
-            network.OneCycleOfGame();
+            network.StartOneCycleOfGame();
             state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0]) 
@@ -98,7 +98,7 @@ namespace NetworkTest
                 && !IsInfected(state[5])
                 && !IsInfected(state[6]));
 
-            network.Game();
+            network.StartGame();
             state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0])         
@@ -125,7 +125,7 @@ namespace NetworkTest
                           && !IsInfected(state[5])
                           && !IsInfected(state[6]));
 
-            network.OneCycleOfGame();
+            network.StartOneCycleOfGame();
             state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0])
@@ -136,7 +136,7 @@ namespace NetworkTest
                           && !IsInfected(state[5])
                           && !IsInfected(state[6]));
 
-            network.OneCycleOfGame();
+            network.StartOneCycleOfGame();
             state = network.State().Split('\n');
 
             Assert.IsTrue(IsInfected(state[0])
@@ -198,14 +198,7 @@ namespace NetworkTest
         {
             //In case of infected computer the length of string is more than 9
             int length = config.Length;
-            if (length > 11)
-            {
-                return true;
-            }
-            return false;
+            return length > 11;
         }
-
-
-        
     }
 }

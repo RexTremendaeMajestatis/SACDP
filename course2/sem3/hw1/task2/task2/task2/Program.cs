@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace task2
+namespace Task2
 {
     class Program
     {
@@ -13,7 +13,7 @@ namespace task2
         {
             ICustomRandom randomizer = new CustomRandom();
             Network a = new Network(@"C:\Users\pavel\Documents\SPbSU\course2\sem3\hw1\task2\task2\parallel.txt", randomizer);
-            Console.WriteLine(a.Game());
+            Console.WriteLine(a.StartGame());
             Console.ReadKey();
         }
     }

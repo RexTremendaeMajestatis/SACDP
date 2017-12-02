@@ -4,24 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace task2
+namespace Task2
 {
-    /// <summary>
-    /// Interface for custom random
-    /// </summary>
-    public interface ICustomRandom
-    {
-        int Random();
-    }
     /// <summary>
     /// Custom random class
     /// </summary>
-    public sealed class CustomRandom: ICustomRandom
+    public sealed class CustomRandom : ICustomRandom
     {
         int ICustomRandom.Random()
         {
             Random c = new Random();
-            return 0; //c.Next(100);
+            return c.Next(100);
         }
     }
 }
