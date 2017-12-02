@@ -15,12 +15,16 @@ namespace task1
             a.Add(2);
             a.Add(1);
             a.Add(3);
+
+            
+            Console.WriteLine(a.Find(2));
             int i = 0;
             foreach (var value in a)
             {
                 Console.WriteLine(value);
                 i++;
             }
+
             Console.ReadKey();
         }
     }

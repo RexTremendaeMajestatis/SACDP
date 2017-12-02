@@ -10,29 +10,27 @@ namespace task1
     /// <summary>
     /// Class that describes binary search tree
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public partial class BinaryTree<T> : IEnumerable<T>
         where T : IComparable
     {
         /// <summary>
         /// Root of the tree
         /// </summary>
-        private static Node<T> root;
+        private Node<T> root;
+
         /// <summary>
         /// Constructor without any arguments
         /// </summary>
-        public BinaryTree()
-        {
-            root = null;
-        }
+        public BinaryTree() { }
+
         /// <summary>
         /// Constructor that recieve a generic type
         /// </summary>
-        /// <param name="data"></param>
         public BinaryTree(T data)
         { 
             root = new Node<T>(data);
         }
+
         /// <summary>
         /// Method that shows all the tree nodes
         /// </summary>
@@ -45,10 +43,10 @@ namespace task1
             ConsoleShow(root);
 
         }
+
         /// <summary>
         /// Method that add new nodes to tree
         /// </summary>
-        /// <param name="data"></param>
         public void Add(T data)
         {
             if (root == null)
@@ -60,19 +58,15 @@ namespace task1
                 Add(root, data);
             }
         }
+
         /// <summary>
         /// Method that finds node
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public bool Find(T data)
-        {
-            return Find(root, data);
-        }
+        public bool Find(T data) => Find(root, data);
+
         /// <summary>
         /// Overloaded public method that removes node from tree
         /// </summary>
-        /// <param name="data"></param>
         public void Remove(T data)
         {
             if (root == null)
@@ -86,10 +80,10 @@ namespace task1
             }
             Remove(root, data);
         }
+
         /// <summary>
         /// Private method that shows subtree
         /// </summary>
-        /// <param name="node"></param>
         private void ConsoleShow(Node<T> node)
         {
             if (node != null)
@@ -99,11 +93,10 @@ namespace task1
                 ConsoleShow(node.Right);
             }
         }
+
         /// <summary>
         /// Private method that adds new node to subtree
         /// </summary>
-        /// <param name="node"></param>
-        /// <param name="data"></param>
         private void Add(Node<T> node, T data)
         {
             if (node.Data.Equals(data))
@@ -135,12 +128,10 @@ namespace task1
                 }
             }
         }
+
         /// <summary>
-        /// Private method that finds node in subtree
+        /// Says if there is an elemnt with key
         /// </summary>
-        /// <param name="node"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
         private bool Find(Node<T> node, T data)
         {
             if (node == null)
@@ -156,13 +147,11 @@ namespace task1
                 return Find(node.Right, data);
             }
                 return Find(node.Left, data);
-            
         }
+
         /// <summary>
-        /// Private method that remove node from subtree
+        /// Remove node using key
         /// </summary>
-        /// <param name="node"></param>
-        /// <param name="data"></param>
         private void Remove(Node<T> node, T data)
         {
             if (data.CompareTo(node.Data) > 0)
@@ -192,11 +181,10 @@ namespace task1
                 Remove(node.Left, data);
             }
         }
+
         /// <summary>
-        /// Private method that
+        /// Refresh node
         /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
         private void RefreshNode(Node<T> node)
         {
             Node<T> refresh = null;
@@ -243,16 +231,93 @@ namespace task1
         /// <summary>
         /// IEnumerable intefrace realisation
         /// </summary>
-        /// <returns></returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new BinaryTreeEnumerator();
-        }
+        public IEnumerator<T> GetEnumerator() => new BinaryTreeEnumerator(root);
 
         /// <summary>
         /// IEnumerable interface realisation
         /// </summary>
-        /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        private class BinaryTreeEnumerator : IEnumerator<T>
+        {
+
+            public T Current => current.Data;
+
+            private Node<T> current;
+            private Node<T> root;
+
+            private bool isFirst;
+
+            object IEnumerator.Current
+            {
+                get { return current.Data; }
+            }
+
+            public BinaryTreeEnumerator(Node<T> root)
+            {
+                this.root = root;
+                current = root;
+                isFirst = true;
+
+                while (current != null && current.Left != null)
+                {
+                    current = current.Left;
+                }
+            }
+
+            public void Dispose()
+            {
+                this.root = null;
+            }
+
+            public bool MoveNext()
+            {
+                if (isFirst)
+                {
+                    isFirst = false;
+                    return true;
+                }
+                if (current != null)
+                {
+                    current = GetNext();
+                }
+
+                return current != null;
+            }
+
+            public void Reset()
+            {
+                current = root;
+                isFirst = true;
+
+                while (current != null && current.Left != null)
+                {
+                    current = current.Left;
+                }
+            }
+
+            private Node<T> GetNext()
+            {
+                if (current.Right != null)
+                {
+                    Node<T> tmp = current.Right;
+
+                    while (tmp.Left != null)
+                    {
+                        tmp = tmp.Left;
+                    }
+
+                    return tmp;
+                }
+
+                Node<T> temp = current;
+                while (temp.Parent != null && temp.Parent.Right != null && temp.Parent.Right.Equals(temp))
+                {
+                    temp = temp.Parent;
+                }
+
+                return temp.Parent;
+            }
+        }
     }
 }
