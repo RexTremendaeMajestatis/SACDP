@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace task1
+namespace Task1
 {
     /// <summary>
-    /// Class that describes binary search tree
+    /// Binary search tree class
     /// </summary>
-    public partial class BinaryTree<T> : IEnumerable<T>
+    public class BinaryTree<T> : IEnumerable<T>
         where T : IComparable
     {
         /// <summary>
@@ -19,17 +16,16 @@ namespace task1
         private Node<T> root;
 
         /// <summary>
-        /// Constructor without any arguments
+        /// Initializes a new instance of the BinaryTree class
         /// </summary>
-        public BinaryTree() { }
+        public BinaryTree()
+        {
+        }
 
         /// <summary>
-        /// Constructor that recieve a generic type
+        /// Initializes a new instance of the BinaryTree class
         /// </summary>
-        public BinaryTree(T data)
-        { 
-            root = new Node<T>(data);
-        }
+        public BinaryTree(T data) => this.root = new Node<T>(data);
 
         /// <summary>
         /// Method that shows all the tree nodes
@@ -40,8 +36,8 @@ namespace task1
             {
                 Console.WriteLine("empty tree");
             }
-            ConsoleShow(root);
 
+            ConsoleShow(root);
         }
 
         /// <summary>
@@ -73,13 +69,25 @@ namespace task1
             {
                 return;
             }
+
             if (root.Data.Equals(data))
             {
                 RefreshNode(root);
                 return;
             }
+
             Remove(root, data);
         }
+
+        /// <summary>
+        /// Get enumerator
+        /// </summary>
+        public IEnumerator<T> GetEnumerator() => new BinaryTreeEnumerator(root);
+
+        /// <summary>
+        /// IEnumerable interface realisation
+        /// </summary>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Private method that shows subtree
@@ -95,7 +103,7 @@ namespace task1
         }
 
         /// <summary>
-        /// Private method that adds new node to subtree
+        /// Private method that adds new node to tree
         /// </summary>
         private void Add(Node<T> node, T data)
         {
@@ -103,6 +111,7 @@ namespace task1
             {
                 return;
             }
+
             if (data.CompareTo(node.Data) > 0)
             {
                 if (node.Right == null)
@@ -138,15 +147,18 @@ namespace task1
             {
                 return false;
             }
+
             if (node.Data.Equals(data))
             {
                 return true;
             }
+
             if (data.CompareTo(node.Data) > 0)
             {
                 return Find(node.Right, data);
             }
-                return Find(node.Left, data);
+
+            return Find(node.Left, data);
         }
 
         /// <summary>
@@ -160,11 +172,13 @@ namespace task1
                 {
                     return;
                 }
+
                 if (node.Right.Data.Equals(data))
                 {
                     RefreshNode(node.Right);
                     return;
                 }
+
                 Remove(node.Right, data);
             }
             else
@@ -173,11 +187,13 @@ namespace task1
                 {
                     return;
                 }
+
                 if (node.Left.Data.Equals(data))
                 {
                     RefreshNode(node.Left);
                     return;
                 }
+
                 Remove(node.Left, data);
             }
         }
@@ -198,6 +214,7 @@ namespace task1
                 {
                     temp = temp.Right;
                 }
+
                 temp.Right = node.Right;
                 node.Right.Parent = temp;
             }
@@ -228,30 +245,12 @@ namespace task1
             }
         }
 
-        /// <summary>
-        /// IEnumerable intefrace realisation
-        /// </summary>
-        public IEnumerator<T> GetEnumerator() => new BinaryTreeEnumerator(root);
-
-        /// <summary>
-        /// IEnumerable interface realisation
-        /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
         private class BinaryTreeEnumerator : IEnumerator<T>
         {
-
-            public T Current => current.Data;
-
             private Node<T> current;
             private Node<T> root;
 
             private bool isFirst;
-
-            object IEnumerator.Current
-            {
-                get { return current.Data; }
-            }
 
             public BinaryTreeEnumerator(Node<T> root)
             {
@@ -263,6 +262,13 @@ namespace task1
                 {
                     current = current.Left;
                 }
+            }
+
+            public T Current => current.Data;
+
+            object IEnumerator.Current
+            {
+                get { return current.Data; }
             }
 
             public void Dispose()
@@ -318,6 +324,47 @@ namespace task1
 
                 return temp.Parent;
             }
+        }
+
+        /// <summary>
+        /// Contains data & references to another nodes
+        /// </summary>
+        private class Node<T>
+        {
+            /// <summary>
+            /// Initializes a new instance of Node class
+            /// </summary>
+            public Node(T data)
+            {
+                this.Data = data;
+                this.Left = null;
+                this.Right = null;
+            }
+
+            /// <summary>
+            /// Gets info
+            /// </summary>
+            public T Data { get; }
+
+            /// <summary>
+            /// Gets and sets reference to left node
+            /// </summary>
+            public Node<T> Left { get; set; }
+
+            /// <summary>
+            /// Gets and sets reference to right node
+            /// </summary>
+            public Node<T> Right { get; set; }
+
+            /// <summary>
+            /// Gets and sets reference to parent node
+            /// </summary>
+            public Node<T> Parent { get; set; }
+
+            /// <summary>
+            /// Method that allows turn node into string
+            /// </summary>
+            public override string ToString() => "(" + this.GetType() + ";" + Data.ToString() + ")";
         }
     }
 }
