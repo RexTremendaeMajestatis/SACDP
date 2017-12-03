@@ -1,20 +1,21 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using task1;
+using Task1;
 
 namespace Task1Tests
 {
     [TestClass]
     public class BinaryTreeTests
     {
+        Random rand = new Random();
+
         [TestMethod]
         public void AddTest()
         {
-            var tree = new BinaryTree<Int32>();
-            var list = new List<Int32>();
-            Random rand = new Random();
-            Int32 temp;
+            var tree = new BinaryTree<int>();
+            var list = new List<int>();
+            int temp;
 
             for (int i = 0; i < 10; i++)
             {
@@ -29,25 +30,20 @@ namespace Task1Tests
             }
 
             Assert.IsFalse(tree.Find(1001));
-
         }
 
         [TestMethod]
         public void FindNothingTest()
         {
-            Random rand = new Random();
-            var tree = new BinaryTree<Int32>();
+            var tree = new BinaryTree<int>();
             Assert.IsFalse(tree.Find(rand.Next(1000)));
         }
-
-    
 
         [TestMethod]
         public void AdvancedFindNothingTest()
         {
-            Random rand = new Random();
-            Int32 temp = rand.Next(1000);
-            var tree = new BinaryTree<Int32>();
+            int temp = rand.Next(1000);
+            var tree = new BinaryTree<int>();
             Assert.IsFalse(tree.Find(rand.Next(1000)));
             tree.Add(temp);
             tree.Remove(temp);
@@ -57,10 +53,9 @@ namespace Task1Tests
         [TestMethod]
         public void RemoveTest()
         {
-            var tree = new BinaryTree<Int32>();
-            var list = new List<Int32>();
-            Random rand = new Random();
-            Int32 temp;
+            var tree = new BinaryTree<int>();
+            var list = new List<int>();
+            int temp;
 
             for (int i = 0; i < 10; i++)
             {
@@ -76,10 +71,9 @@ namespace Task1Tests
         [TestMethod]
         public void AdvancedRemoveTest()
         {
-            var tree = new BinaryTree<Int32>();
-            var list = new List<Int32>();
-            Random rand = new Random();
-            Int32 temp;
+            var tree = new BinaryTree<int>();
+            var list = new List<int>();
+            int temp;
 
             for (int i = 0; i < 10; i++)
             {
@@ -98,7 +92,7 @@ namespace Task1Tests
         [TestMethod]
         public void RemoveFromEmptyTest()
         {
-            var tree = new BinaryTree<Int32>();
+            var tree = new BinaryTree<int>();
             Assert.IsFalse(tree.Find(10));
             tree.Remove(10);
             Assert.IsFalse(tree.Find(10));
@@ -107,10 +101,8 @@ namespace Task1Tests
         [TestMethod]
         public void IteratorTest()
         {
-            var tree = new BinaryTree<Int32>();
-            Int32[] values = new Int32[10];
-
-            Random rand = new Random();
+            var tree = new BinaryTree<int>();
+            var values = new int[10];
 
             for (int i = 0; i < values.Length; i++)
             {
@@ -122,7 +114,7 @@ namespace Task1Tests
                 tree.Add(values[i]);
             }
 
-            IEnumerator<Int32> iterator = tree.GetEnumerator();
+            IEnumerator<int> iterator = tree.GetEnumerator();
 
             int buff = iterator.Current;
             for (int i = 0; i < values.Length - 1; i++)
@@ -139,7 +131,7 @@ namespace Task1Tests
         [TestMethod]
         public void IenumenatorTest()
         {
-            var tree = new BinaryTree<Int32>
+            var tree = new BinaryTree<int>
             {
                 2,
                 1,
@@ -155,6 +147,5 @@ namespace Task1Tests
 
             Assert.AreEqual(3, i);
         }
-
     }
 }
