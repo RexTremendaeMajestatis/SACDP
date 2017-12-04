@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Task3
 {
+    /// <summary>
+    /// Class that realize homework algorithm
+    /// </summary>
     public class RobotGraph
     {
         private int VerticesAmount;
@@ -14,6 +13,10 @@ namespace Task3
         private bool[] Positions;
         private bool[] Visited;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RobotGraph"> class
+        /// </summary>
+        /// <param name="path">Path to file</param>
         public RobotGraph(string path)
         {
             try
@@ -34,12 +37,40 @@ namespace Task3
                     this.Matrix = LoadMatrix(file, VerticesAmount);
                 }
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
-
+                throw new FileNotFoundException();
             }
         }
 
+        /// <summary>
+        /// Check ability of crash after teleportation
+        /// </summary>
+        /// <returns>True if robots crash after teleportation</returns>
+        public bool CheckExistOrNot()
+        {
+            for (int i = 0; i < VerticesAmount; i++)
+            {
+                if (!Visited[i] && Positions[i])
+                {
+                    int numberConected = 0;
+                    FindNeighbours(i, ref numberConected);
+                    if (numberConected == 1)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Load robots positions from file
+        /// </summary>
+        /// <param name="file">StreamReader example</param>
+        /// <param name="verticesAmount">Amount of vertices</param>
+        /// <returns>0-1 vector of positions</returns>
         private static bool[] LoadPositions(StreamReader file, int verticesAmount)
         {
             int robotsAmount = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
@@ -63,6 +94,12 @@ namespace Task3
             return positions;
         }
 
+        /// <summary>
+        /// Load adjacency matrix from file
+        /// </summary>
+        /// <param name="file">StreamReader example</param>
+        /// <param name="verticesAmount">Amount if vertices</param>
+        /// <returns>Boolean massive</returns>
         private static bool[,] LoadMatrix(StreamReader file, int verticesAmount)
         {
             var matrix = new bool[verticesAmount, verticesAmount];
@@ -94,6 +131,40 @@ namespace Task3
             }
 
             return matrix;
+        }
+
+        /// <summary>
+        /// Finds connected robots
+        /// </summary>
+        /// <param name="vertex">Vertex number</param>
+        /// <param name="connected">Amount of connected robots</param>
+        private void FindNeighbours(int vertex, ref int connected)
+        {
+            if (Visited[vertex])
+            {
+                return;
+            }
+
+            if (Positions[vertex])
+            {
+                connected++;
+            }
+
+            Visited[vertex] = true;
+
+            for (int i = 0; i < VerticesAmount; i++)
+            {
+                if (Matrix[vertex, i])
+                {
+                    for (int j = 0; j < VerticesAmount; j++)
+                    {
+                        if (Matrix[i, j])
+                        {
+                            FindNeighbours(j, ref connected);
+                        }
+                    }
+                }
+            }
         }
     }
 }
