@@ -329,13 +329,9 @@ namespace Task1
             }
 
             public T Data { get; }
-
             public Node<T> Left { get; set; }
-
             public Node<T> Right { get; set; }
-
             public Node<T> Parent { get; set; }
-
             public override string ToString() => "(" + this.GetType() + ";" + Data.ToString() + ")";
         }
     }
