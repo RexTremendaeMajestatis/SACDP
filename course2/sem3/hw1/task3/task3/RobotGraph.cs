@@ -47,7 +47,7 @@ namespace Task3
         /// Check ability of crash after teleportation
         /// </summary>
         /// <returns>True if robots crash after teleportation</returns>
-        public bool CheckExistOrNot()
+        public bool CheckCrash()
         {
             for (int i = 0; i < VerticesAmount; i++)
             {
