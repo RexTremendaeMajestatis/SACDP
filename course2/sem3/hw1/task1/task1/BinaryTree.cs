@@ -5,8 +5,9 @@ using System.Collections.Generic;
 namespace Task1
 {
     /// <summary>
-    /// Binary search tree class
+    /// Binary tree class
     /// </summary>
+    /// <typeparam name="T">Any type that implements IComparable</typeparam>
     public class BinaryTree<T> : IEnumerable<T>
         where T : IComparable
     {
@@ -16,15 +17,16 @@ namespace Task1
         private Node<T> root;
 
         /// <summary>
-        /// Initializes a new instance of the BinaryTree class
-        /// </summary>
+        /// Initializes a new instance of the <see cref="BinaryTree{T}"/> class
+        /// </summary>>
         public BinaryTree()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the BinaryTree class
+        /// Initializes a new instance of the <see cref="BinaryTree{T}"/> class
         /// </summary>
+        /// <param name="data">Data of root</param>
         public BinaryTree(T data) => this.root = new Node<T>(data);
 
         /// <summary>
@@ -41,8 +43,9 @@ namespace Task1
         }
 
         /// <summary>
-        /// Method that add new nodes to tree
+        /// Add new nodes
         /// </summary>
+        /// <param name="data">A data to add</param>
         public void Add(T data)
         {
             if (root == null)
@@ -56,13 +59,16 @@ namespace Task1
         }
 
         /// <summary>
-        /// Method that finds node
+        /// Find node in tree
         /// </summary>
+        /// <param name="data">A data to find</param>
+        /// <returns>True if tree contains node</returns>
         public bool Find(T data) => Find(root, data);
 
         /// <summary>
-        /// Overloaded public method that removes node from tree
+        /// Remove a node from tree
         /// </summary>
+        /// <param name="data">A data to remove</param>
         public void Remove(T data)
         {
             if (root == null)
@@ -80,18 +86,17 @@ namespace Task1
         }
 
         /// <summary>
-        /// Get enumerator
+        /// Get IEnumerator
         /// </summary>
+        /// <returns>BinaryTreeEminerator</returns>
         public IEnumerator<T> GetEnumerator() => new BinaryTreeEnumerator(root);
 
         /// <summary>
-        /// IEnumerable interface realisation
+        /// IEnumerable interface 
         /// </summary>
+        /// <returns>BinaryTreeEnumerator</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        /// <summary>
-        /// Private method that shows subtree
-        /// </summary>
         private void ConsoleShow(Node<T> node)
         {
             if (node != null)
@@ -102,9 +107,6 @@ namespace Task1
             }
         }
 
-        /// <summary>
-        /// Private method that adds new node to tree
-        /// </summary>
         private void Add(Node<T> node, T data)
         {
             if (node.Data.Equals(data))
@@ -138,9 +140,6 @@ namespace Task1
             }
         }
 
-        /// <summary>
-        /// Says if there is an elemnt with key
-        /// </summary>
         private bool Find(Node<T> node, T data)
         {
             if (node == null)
@@ -161,9 +160,6 @@ namespace Task1
             return Find(node.Left, data);
         }
 
-        /// <summary>
-        /// Remove node using key
-        /// </summary>
         private void Remove(Node<T> node, T data)
         {
             if (data.CompareTo(node.Data) > 0)
@@ -198,9 +194,6 @@ namespace Task1
             }
         }
 
-        /// <summary>
-        /// Refresh node
-        /// </summary>
         private void RefreshNode(Node<T> node)
         {
             Node<T> refresh = null;
@@ -326,14 +319,8 @@ namespace Task1
             }
         }
 
-        /// <summary>
-        /// Contains data & references to another nodes
-        /// </summary>
         private class Node<T>
         {
-            /// <summary>
-            /// Initializes a new instance of Node class
-            /// </summary>
             public Node(T data)
             {
                 this.Data = data;
@@ -341,29 +328,14 @@ namespace Task1
                 this.Right = null;
             }
 
-            /// <summary>
-            /// Gets info
-            /// </summary>
             public T Data { get; }
 
-            /// <summary>
-            /// Gets and sets reference to left node
-            /// </summary>
             public Node<T> Left { get; set; }
 
-            /// <summary>
-            /// Gets and sets reference to right node
-            /// </summary>
             public Node<T> Right { get; set; }
 
-            /// <summary>
-            /// Gets and sets reference to parent node
-            /// </summary>
             public Node<T> Parent { get; set; }
 
-            /// <summary>
-            /// Method that allows turn node into string
-            /// </summary>
             public override string ToString() => "(" + this.GetType() + ";" + Data.ToString() + ")";
         }
     }
