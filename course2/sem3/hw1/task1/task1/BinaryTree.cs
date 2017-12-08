@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace Task1
+﻿namespace Task1
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Binary tree class
     /// </summary>
-    /// <typeparam name="T">Any type that implements IComparable</typeparam>
+    /// <typeparam name="T">Type of value in a tree nodes</typeparam>
     public class BinaryTree<T> : IEnumerable<T>
         where T : IComparable
     {
@@ -86,7 +86,7 @@ namespace Task1
         }
 
         /// <summary>
-        /// Get IEnumerator
+        /// Get IEnumerator object that allows walking the tree
         /// </summary>
         /// <returns>BinaryTreeEminerator</returns>
         public IEnumerator<T> GetEnumerator() => new BinaryTreeEnumerator(root);
@@ -257,7 +257,7 @@ namespace Task1
                 }
             }
 
-            public T Current => current.Data;
+            public T Current { get => current.Data; }
 
             object IEnumerator.Current
             {

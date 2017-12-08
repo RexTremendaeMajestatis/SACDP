@@ -1,32 +1,31 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using Task1;
-
-namespace Task1Tests
+﻿namespace Task1Tests
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Collections.Generic;
+    using Task1;
+
     [TestClass]
     public class BinaryTreeTests
     {
-        Random rand = new Random();
+        private Random rand = new Random();
+        private int[] addArray = new int[10] { 3, 31, 1, 6, 4, 75, 12, 9, 23, 8 };
+        private int someValue = 31415;
 
         [TestMethod]
         public void AddTest()
         {
             var tree = new BinaryTree<int>();
             var list = new List<int>();
-            int temp;
-
+ 
             for (int i = 0; i < 10; i++)
             {
-                temp = rand.Next(1000);
-                tree.Add(temp);
-                list.Add(temp);
+                tree.Add(addArray[i]);
             }
 
             for (int i = 0; i < 10; i++)
             {
-                Assert.IsTrue(tree.Find(list[i]));
+                Assert.IsTrue(tree.Find(addArray[i]));
             }
 
             Assert.IsFalse(tree.Find(1001));
@@ -36,56 +35,47 @@ namespace Task1Tests
         public void FindNothingTest()
         {
             var tree = new BinaryTree<int>();
-            Assert.IsFalse(tree.Find(rand.Next(1000)));
+            Assert.IsFalse(tree.Find(someValue));
         }
 
         [TestMethod]
         public void AdvancedFindNothingTest()
         {
-            int temp = rand.Next(1000);
             var tree = new BinaryTree<int>();
-            Assert.IsFalse(tree.Find(rand.Next(1000)));
-            tree.Add(temp);
-            tree.Remove(temp);
-            Assert.IsFalse(tree.Find(temp));
+            Assert.IsFalse(tree.Find(someValue));
+            tree.Add(someValue);
+            tree.Remove(someValue);
+            Assert.IsFalse(tree.Find(someValue));
         }
 
         [TestMethod]
         public void RemoveTest()
         {
             var tree = new BinaryTree<int>();
-            var list = new List<int>();
-            int temp;
 
             for (int i = 0; i < 10; i++)
             {
-                temp = rand.Next(100);
-                tree.Add(temp);
-                list.Add(temp);
+                tree.Add(addArray[i]);
             }
 
-            tree.Remove(list[5]);
-            Assert.IsFalse(tree.Find(list[5]));
+            tree.Remove(addArray[5]);
+            Assert.IsFalse(tree.Find(addArray[5]));
         }
 
         [TestMethod]
         public void AdvancedRemoveTest()
         {
             var tree = new BinaryTree<int>();
-            var list = new List<int>();
-            int temp;
 
             for (int i = 0; i < 10; i++)
             {
-                temp = rand.Next(1000);
-                tree.Add(temp);
-                list.Add(temp);
+                tree.Add(addArray[i]);
             }
 
             for (int i = 0; i < 10; i++)
             {
-                tree.Remove(list[i]);
-                Assert.IsFalse(tree.Find(list[i]));
+                tree.Remove(addArray[i]);
+                Assert.IsFalse(tree.Find(addArray[i]));
             }
         }
 
@@ -102,22 +92,18 @@ namespace Task1Tests
         public void IteratorTest()
         {
             var tree = new BinaryTree<int>();
-            var values = new int[10];
+            int[] save = new int[10] { 20, 10, 51, 21, 34, 37, 21, 58, 51, 67 };
 
-            for (int i = 0; i < values.Length; i++)
+            for (int i = 0; i < 10; i++)
             {
-                values[i] = rand.Next(100);
-            }
-
-            for (int i = 0; i < values.Length; i++)
-            {
-                tree.Add(values[i]);
+                tree.Add(save[i]);
             }
 
             IEnumerator<int> iterator = tree.GetEnumerator();
 
             int buff = iterator.Current;
-            for (int i = 0; i < values.Length - 1; i++)
+
+            for (int i = 0; i < 10 - 1; i++)
             {
                 iterator.MoveNext();
                 int temp = iterator.Current;
@@ -126,10 +112,12 @@ namespace Task1Tests
 
                 buff = temp;
             }
+
+           
         }
 
         [TestMethod]
-        public void IenumenatorTest()
+        public void IEnumenatorTest()
         {
             var tree = new BinaryTree<int>
             {
@@ -147,5 +135,7 @@ namespace Task1Tests
 
             Assert.AreEqual(3, i);
         }
+
+
     }
 }
