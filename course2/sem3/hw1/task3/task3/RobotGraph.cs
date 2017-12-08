@@ -1,20 +1,20 @@
-﻿using System;
-using System.IO;
-
-namespace Task3
+﻿namespace Task3
 {
+    using System;
+    using System.IO;
+
     /// <summary>
     /// Class that realize homework algorithm
     /// </summary>
     public class RobotGraph
     {
-        private int VerticesAmount;
-        private bool[,] Matrix;
-        private bool[] Positions;
-        private bool[] Visited;
+        private int verticesAmount;
+        private bool[,] matrix;
+        private bool[] positions;
+        private bool[] visited;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RobotGraph"> class
+        /// Initializes a new instance of the <see cref="RobotGraph"/> class
         /// </summary>
         /// <param name="path">Path to file</param>
         public RobotGraph(string path)
@@ -23,18 +23,18 @@ namespace Task3
             {
                 using (StreamReader file = new StreamReader(path))
                 {
-                    this.VerticesAmount = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
+                    this.verticesAmount = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
                     file.ReadLine();
 
-                    this.Visited = new bool[VerticesAmount];
+                    this.visited = new bool[this.verticesAmount];
 
-                    for (int i = 0; i < VerticesAmount; i++)
+                    for (int i = 0; i < this.verticesAmount; i++)
                     {
-                        Visited[i] = false;
+                        this.visited[i] = false;
                     }
 
-                    this.Positions = LoadPositions(file, VerticesAmount);
-                    this.Matrix = LoadMatrix(file, VerticesAmount);
+                    this.positions = LoadPositions(file, this.verticesAmount);
+                    this.matrix = LoadMatrix(file, this.verticesAmount);
                 }
             }
             catch (FileNotFoundException)
@@ -49,12 +49,12 @@ namespace Task3
         /// <returns>True if robots crash after teleportation</returns>
         public bool CheckCrash()
         {
-            for (int i = 0; i < VerticesAmount; i++)
+            for (int i = 0; i < this.verticesAmount; i++)
             {
-                if (!Visited[i] && Positions[i])
+                if (!this.visited[i] && this.positions[i])
                 {
                     int numberConected = 0;
-                    FindNeighbours(i, ref numberConected);
+                    this.FindNeighbours(i, ref numberConected);
                     if (numberConected == 1)
                     {
                         return false;
@@ -140,27 +140,27 @@ namespace Task3
         /// <param name="connected">Amount of connected robots</param>
         private void FindNeighbours(int vertex, ref int connected)
         {
-            if (Visited[vertex])
+            if (this.visited[vertex])
             {
                 return;
             }
 
-            if (Positions[vertex])
+            if (this.positions[vertex])
             {
                 connected++;
             }
 
-            Visited[vertex] = true;
+            this.visited[vertex] = true;
 
-            for (int i = 0; i < VerticesAmount; i++)
+            for (int i = 0; i < this.verticesAmount; i++)
             {
-                if (Matrix[vertex, i])
+                if (this.matrix[vertex, i])
                 {
-                    for (int j = 0; j < VerticesAmount; j++)
+                    for (int j = 0; j < this.verticesAmount; j++)
                     {
-                        if (Matrix[i, j])
+                        if (this.matrix[i, j])
                         {
-                            FindNeighbours(j, ref connected);
+                            this.FindNeighbours(j, ref connected);
                         }
                     }
                 }

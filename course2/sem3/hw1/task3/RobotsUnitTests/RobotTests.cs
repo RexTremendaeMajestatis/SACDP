@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Task3;
-using System.IO;
-
-namespace RobotsUnitTests
+﻿namespace RobotsUnitTests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Task3;
+    using System.IO;
+
     [TestClass]
     public class RobotTests
     {
