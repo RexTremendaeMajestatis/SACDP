@@ -27,19 +27,13 @@
                     file.ReadLine();
 
                     this.visited = new bool[this.verticesAmount];
-
-                    for (int i = 0; i < this.verticesAmount; i++)
-                    {
-                        this.visited[i] = false;
-                    }
-
                     this.positions = LoadPositions(file, this.verticesAmount);
                     this.matrix = LoadMatrix(file, this.verticesAmount);
                 }
             }
-            catch (FileNotFoundException)
+            catch (FileNotFoundException e)
             {
-                throw new FileNotFoundException();
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -78,11 +72,6 @@
 
             var positions = new bool[verticesAmount];
 
-            for (int i = 0; i < verticesAmount; i++)
-            {
-                positions[i] = false;
-            }
-
             for (int i = 0; i < robotsAmount; i++)
             {
                 int temp = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
@@ -99,18 +88,10 @@
         /// </summary>
         /// <param name="file">StreamReader example</param>
         /// <param name="verticesAmount">Amount if vertices</param>
-        /// <returns>Boolean massive</returns>
+        /// <returns>Boolean adjacency matrix</returns>
         private static bool[,] LoadMatrix(StreamReader file, int verticesAmount)
         {
             var matrix = new bool[verticesAmount, verticesAmount];
-
-            for (int i = 0; i < verticesAmount; i++)
-            {
-                for (int j = 0; j < verticesAmount; j++)
-                {
-                    matrix[i, j] = false;
-                }
-            }
 
             int connectionsAmount = int.Parse(file.ReadLine() ?? throw new InvalidOperationException());
             file.ReadLine();
