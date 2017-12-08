@@ -112,8 +112,6 @@
 
                 buff = temp;
             }
-
-           
         }
 
         [TestMethod]
@@ -135,7 +133,5 @@
 
             Assert.AreEqual(3, i);
         }
-
-
     }
 }
