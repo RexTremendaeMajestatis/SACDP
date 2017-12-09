@@ -89,7 +89,7 @@
         }
 
         [TestMethod]
-        public void IteratorTest()
+        public void RepeatedIteratorTest()
         {
             var tree = new BinaryTree<int>();
             int[] save = new int[10] { 20, 10, 51, 21, 34, 37, 21, 58, 51, 67 };
@@ -101,9 +101,10 @@
 
             IEnumerator<int> iterator = tree.GetEnumerator();
 
+            iterator.MoveNext();
             int buff = iterator.Current;
 
-            for (int i = 0; i < 10 - 1; i++)
+            for (int i = 0; i < tree.Size - 1; i++)
             {
                 iterator.MoveNext();
                 int temp = iterator.Current;
@@ -112,6 +113,37 @@
 
                 buff = temp;
             }
+        }
+
+        [TestMethod]
+        public void TreeSizeTest()
+        {
+            var tree = new BinaryTree<int>
+            {
+                2,
+                1,
+                3
+            };
+
+            int expectedSize = 3;
+            Assert.AreEqual(tree.Size, expectedSize);
+        }
+
+        [TestMethod]
+        public void AdvancedTreeSizeTest()
+        {
+            var tree = new BinaryTree<int>
+            {
+                2,
+                1,
+                3
+            };
+
+            tree.Remove(2);
+            tree.Add(10);
+
+            int expectedSize = 3;
+            Assert.AreEqual(tree.Size, expectedSize);
         }
 
         [TestMethod]

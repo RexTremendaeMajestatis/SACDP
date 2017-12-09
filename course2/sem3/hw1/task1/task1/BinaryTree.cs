@@ -16,6 +16,8 @@
         /// </summary>
         private Node<T> root;
 
+        private int size;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryTree{T}"/> class
         /// </summary>>
@@ -30,16 +32,27 @@
         public BinaryTree(T data) => this.root = new Node<T>(data);
 
         /// <summary>
+        /// Amount of tree elements
+        /// </summary>
+        public int Size
+        {
+            get
+            {
+                return this.size;
+            }
+        }
+
+        /// <summary>
         /// Method that shows all the tree nodes
         /// </summary>
         public void ConsoleShow()
         {
-            if (root == null)
+            if (this.root == null)
             {
                 Console.WriteLine("empty tree");
             }
 
-            ConsoleShow(root);
+            this.ConsoleShow(this.root);
         }
 
         /// <summary>
@@ -48,13 +61,14 @@
         /// <param name="data">A data to add</param>
         public void Add(T data)
         {
-            if (root == null)
+            if (this.root == null)
             {
-                root = new Node<T>(data);
+                this.root = new Node<T>(data);
+                this.size++;
             }
             else
             {
-                Add(root, data);
+                this.Add(this.root, data);
             }
         }
 
@@ -63,7 +77,7 @@
         /// </summary>
         /// <param name="data">A data to find</param>
         /// <returns>True if tree contains node</returns>
-        public bool Find(T data) => Find(root, data);
+        public bool Find(T data) => this.Find(this.root, data);
 
         /// <summary>
         /// Remove a node from tree
@@ -71,39 +85,40 @@
         /// <param name="data">A data to remove</param>
         public void Remove(T data)
         {
-            if (root == null)
+            if (this.root == null)
             {
                 return;
             }
 
-            if (root.Data.Equals(data))
+            if (this.root.Data.Equals(data))
             {
-                RefreshNode(root);
+                this.RefreshNode(this.root);
+                this.size--;
                 return;
             }
 
-            Remove(root, data);
+            this.Remove(this.root, data);
         }
 
         /// <summary>
         /// Get IEnumerator object that allows walking the tree
         /// </summary>
         /// <returns>BinaryTreeEminerator</returns>
-        public IEnumerator<T> GetEnumerator() => new BinaryTreeEnumerator(root);
+        public IEnumerator<T> GetEnumerator() => new BinaryTreeEnumerator(this.root);
 
         /// <summary>
         /// IEnumerable interface 
         /// </summary>
         /// <returns>BinaryTreeEnumerator</returns>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         private void ConsoleShow(Node<T> node)
         {
             if (node != null)
             {
-                ConsoleShow(node.Left);
+                this.ConsoleShow(node.Left);
                 Console.WriteLine(node);
-                ConsoleShow(node.Right);
+                this.ConsoleShow(node.Right);
             }
         }
 
@@ -120,10 +135,11 @@
                 {
                     node.Right = new Node<T>(data);
                     node.Right.Parent = node;
+                    this.size++;
                 }
                 else
                 {
-                    Add(node.Right, data);
+                    this.Add(node.Right, data);
                 }
             }
             else
@@ -132,10 +148,11 @@
                 {
                     node.Left = new Node<T>(data);
                     node.Left.Parent = node;
+                    this.size++;
                 }
                 else
                 {
-                    Add(node.Left, data);
+                    this.Add(node.Left, data);
                 }
             }
         }
@@ -154,10 +171,10 @@
 
             if (data.CompareTo(node.Data) > 0)
             {
-                return Find(node.Right, data);
+                return this.Find(node.Right, data);
             }
 
-            return Find(node.Left, data);
+            return this.Find(node.Left, data);
         }
 
         private void Remove(Node<T> node, T data)
@@ -171,11 +188,12 @@
 
                 if (node.Right.Data.Equals(data))
                 {
-                    RefreshNode(node.Right);
+                    this.RefreshNode(node.Right);
+                    this.size--;
                     return;
                 }
 
-                Remove(node.Right, data);
+                this.Remove(node.Right, data);
             }
             else
             {
@@ -186,11 +204,12 @@
 
                 if (node.Left.Data.Equals(data))
                 {
-                    RefreshNode(node.Left);
+                    this.RefreshNode(node.Left);
+                    this.size--;
                     return;
                 }
 
-                Remove(node.Left, data);
+                this.Remove(node.Left, data);
             }
         }
 
@@ -218,7 +237,7 @@
 
             if (node.Parent == null)
             {
-                root = refresh;
+                this.root = refresh;
             }
             else
             {
@@ -248,20 +267,20 @@
             public BinaryTreeEnumerator(Node<T> root)
             {
                 this.root = root;
-                current = root;
-                isFirst = true;
+                this.current = root;
+                this.isFirst = true;
 
-                while (current != null && current.Left != null)
+                while (this.current != null && this.current.Left != null)
                 {
-                    current = current.Left;
+                    this.current = this.current.Left;
                 }
             }
 
-            public T Current { get => current.Data; }
+            public T Current { get => this.current.Data; }
 
             object IEnumerator.Current
             {
-                get { return current.Data; }
+                get { return this.current.Data; }
             }
 
             public void Dispose()
@@ -271,35 +290,36 @@
 
             public bool MoveNext()
             {
-                if (isFirst)
+                if (this.isFirst)
                 {
-                    isFirst = false;
+                    this.isFirst = false;
                     return true;
                 }
-                if (current != null)
+
+                if (this.current != null)
                 {
-                    current = GetNext();
+                    this.current = this.GetNext();
                 }
 
-                return current != null;
+                return this.current != null;
             }
 
             public void Reset()
             {
-                current = root;
-                isFirst = true;
+                this.current = this.root;
+                this.isFirst = true;
 
-                while (current != null && current.Left != null)
+                while (this.current != null && this.current.Left != null)
                 {
-                    current = current.Left;
+                    this.current = this.current.Left;
                 }
             }
 
             private Node<T> GetNext()
             {
-                if (current.Right != null)
+                if (this.current.Right != null)
                 {
-                    Node<T> tmp = current.Right;
+                    Node<T> tmp = this.current.Right;
 
                     while (tmp.Left != null)
                     {
@@ -309,7 +329,7 @@
                     return tmp;
                 }
 
-                Node<T> temp = current;
+                Node<T> temp = this.current;
                 while (temp.Parent != null && temp.Parent.Right != null && temp.Parent.Right.Equals(temp))
                 {
                     temp = temp.Parent;
@@ -329,10 +349,14 @@
             }
 
             public T Data { get; }
+
             public Node<T> Left { get; set; }
+
             public Node<T> Right { get; set; }
+
             public Node<T> Parent { get; set; }
-            public override string ToString() => "(" + this.GetType() + ";" + Data.ToString() + ")";
+
+            public override string ToString() => "(" + this.GetType() + ";" + this.Data.ToString() + ")";
         }
     }
 }

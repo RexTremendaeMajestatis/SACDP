@@ -6,17 +6,17 @@
     {
         static void Main(string[] args)
         {
-            BinaryTree<Int32> a = new BinaryTree<Int32>();
-            a.Add(2);
-            a.Add(1);
-            a.Add(3);
+            var tree = new BinaryTree<int>();
+            int[] save = new int[10] { 20, 10, 51, 21, 34, 37, 21, 58, 51, 67 };
 
-            Console.WriteLine(a.Find(2));
-            int i = 0;
-            foreach (var value in a)
+            for (int i = 0; i < 10; i++)
             {
-                Console.WriteLine(value);
-                i++;
+                tree.Add(save[i]);
+            }
+
+            foreach (var a in tree)
+            {
+                Console.WriteLine(a);
             }
 
             Console.ReadKey();
