@@ -1,7 +1,9 @@
 ﻿namespace Task4.Model
 {
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Windows.Forms;
+    using Task4.View;
 
     public class Model
     {
@@ -31,12 +33,29 @@
             }
         }
 
+        public LineBuilder GetCurrentElementBuilder() => this.currentLine.Builder;
+
+        public Point GetCurrentElementInitPoint() => this.currentLine.InitPoint;
+
+        public void UnselectCurrent()
+        {
+            if (this.currentLine != null)
+            {
+                this.currentLine.Selected = false;
+            }
+        }
+
         public void AddLine(Line line)
         {
             this.lines.Add(line);
             this.currentLine = line;
             this.currentLine.Visible = true;
             this.currentLine.Selected = true;
+        }
+
+        public void RemoveLine(Line line)
+        {
+            this.lines.Remove(line);
         }
 
         public void RemoveCurrentLine()
@@ -47,11 +66,6 @@
             }
         }
 
-        public void RemoveLine(Line line)
-        {
-            this.lines.Remove(line);
-        }
-
         public void Draw(PaintEventArgs e)
         {
             foreach (var line in this.lines)
@@ -60,12 +74,27 @@
             }
         }
 
-        public void UnselectCurrent()
+        public bool HasSelectedPoint()
         {
             if (this.currentLine != null)
             {
-                this.currentLine.Selected = false;
+                return this.currentLine.SelectedPoint != default(Point);
             }
+            return false;
+        }
+
+        public Line FindIntersection(Point point)
+        {
+            int i = lines.Count - 1;
+            while (i >= 0 && !(lines[i].Contain(point)))
+            {
+                i--;
+            }
+            if (i >= 0)
+            {
+                return lines[i];
+            }
+            return null;
         }
     }
 }
