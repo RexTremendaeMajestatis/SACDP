@@ -50,6 +50,7 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\MoveCommand.cs" />
     <Compile Include="Controller\RemoveCommand.cs" />
+    <Compile Include="Controller\SelectLineCommand.cs" />
     <Compile Include="Model\Line.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Vector.cs" />
