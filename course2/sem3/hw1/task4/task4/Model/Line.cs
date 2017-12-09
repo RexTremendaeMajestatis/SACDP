@@ -5,7 +5,7 @@
     using System.Windows.Forms;
     using Task4.View;
 
-    public class Line 
+    public sealed class Line 
     {
         private Pen pen = new Pen(Color.Black);
         private Point firstPoint;
@@ -18,6 +18,10 @@
             this.Builder = builder;
             this.Selected = false;
             this.Visible = true;
+        }
+
+        public Line()
+        {
         }
 
         public bool Selected { get; set; }

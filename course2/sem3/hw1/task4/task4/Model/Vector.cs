@@ -3,7 +3,7 @@
     using System;
     using System.Drawing;
 
-    public class Vector
+    public sealed class Vector
     {
         private Point end;
 

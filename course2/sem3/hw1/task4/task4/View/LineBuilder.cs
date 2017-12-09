@@ -4,7 +4,7 @@
     using System.Windows.Forms;
     using Task4.Model;
 
-    public class LineBuilder
+    public sealed class LineBuilder
     {
         private Point firstPoint;
         private Point secondPoint;

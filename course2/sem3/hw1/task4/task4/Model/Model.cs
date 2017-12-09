@@ -5,7 +5,7 @@
     using System.Windows.Forms;
     using Task4.View;
 
-    public class Model
+    public sealed class Model
     {
         private List<Line> lines = new List<Line>();
         private Line currentLine = null;
