@@ -2,7 +2,7 @@
 {
     using Task4.Model;
 
-    class AddCommand : Command
+    public sealed class AddCommand : Command
     {
         private Line line;
 

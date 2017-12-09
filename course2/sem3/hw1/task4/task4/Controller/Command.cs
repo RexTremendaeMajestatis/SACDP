@@ -2,7 +2,7 @@
 {
     using Task4.Model;
 
-    abstract class Command
+    public abstract class Command
     {
         public abstract void Execute(Model model);
 

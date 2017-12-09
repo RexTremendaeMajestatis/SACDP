@@ -2,7 +2,7 @@
 {
     using Task4.Model;
 
-    class RemoveCommand: Command
+    public sealed class RemoveCommand : Command
     {
         private Line line;
 
@@ -13,9 +13,9 @@
         public override void Execute(Model model)
         {
             this.line = model.CurrentLine;
-            if (line != null)
+            if (this.line != null)
             {
-                model.RemoveLine(line);
+                model.RemoveLine(this.line);
             }
         }
 

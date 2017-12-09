@@ -9,7 +9,9 @@
         private Point firstPoint;
         private Point secondPoint;
 
-        public LineBuilder() { }
+        public LineBuilder()
+        {
+        }
 
         public void Init(Point point)
         {
