@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace task4.Properties
+namespace Task4.Properties
 {
 
 

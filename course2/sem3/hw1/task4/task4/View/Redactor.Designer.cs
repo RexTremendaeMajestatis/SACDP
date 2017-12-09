@@ -1,4 +1,4 @@
-﻿namespace task4
+﻿namespace Task4
 {
     partial class Redactor
     {

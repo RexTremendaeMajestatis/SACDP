@@ -45,11 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Line.cs" />
-    <Compile Include="Redactor.cs">
+    <Compile Include="Model\Shape.cs" />
+    <Compile Include="View\IShape.cs" />
+    <Compile Include="View\Redactor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Redactor.Designer.cs">
+    <Compile Include="View\Redactor.Designer.cs">
       <DependentUpon>Redactor.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -63,7 +64,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Redactor.resx">
+    <EmbeddedResource Include="View\Redactor.resx">
       <DependentUpon>Redactor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -78,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controller\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
