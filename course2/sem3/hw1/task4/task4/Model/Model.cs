@@ -80,20 +80,23 @@
             {
                 return this.currentLine.SelectedPoint != default(Point);
             }
+
             return false;
         }
 
         public Line FindIntersection(Point point)
         {
-            int i = lines.Count - 1;
-            while (i >= 0 && !(lines[i].Contain(point)))
+            int i = this.lines.Count - 1;
+            while (i >= 0 && !this.lines[i].Contain(point))
             {
                 i--;
             }
+
             if (i >= 0)
             {
-                return lines[i];
+                return this.lines[i];
             }
+
             return null;
         }
     }
