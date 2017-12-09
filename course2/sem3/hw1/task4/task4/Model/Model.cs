@@ -8,49 +8,49 @@
     public sealed class Model
     {
         private List<Line> lines = new List<Line>();
-        private Line currentLine = null;
+        private Line selectedLine = null;
 
         public Model()
         {
         }
 
-        public Line CurrentLine
+        public Line SelectedLine
         {
             get
             {
-                return this.currentLine;
+                return this.selectedLine;
             }
 
             set
             {
                 this.UnselectCurrent();
-                this.currentLine = value;
+                this.selectedLine = value;
 
-                if (this.currentLine != null)
+                if (this.selectedLine != null)
                 {
-                    this.currentLine.Selected = true;
+                    this.selectedLine.Selected = true;
                 }
             }
         }
 
-        public LineBuilder GetCurrentElementBuilder() => this.currentLine.Builder;
+        public LineBuilder GetCurrentElementBuilder() => this.selectedLine.Builder;
 
-        public Point GetCurrentElementInitPoint() => this.currentLine.InitPoint;
+        public Point GetCurrentElementInitPoint() => this.selectedLine.InitPoint;
 
         public void UnselectCurrent()
         {
-            if (this.currentLine != null)
+            if (this.selectedLine != null)
             {
-                this.currentLine.Selected = false;
+                this.selectedLine.Selected = false;
             }
         }
 
         public void AddLine(Line line)
         {
             this.lines.Add(line);
-            this.currentLine = line;
-            this.currentLine.Visible = true;
-            this.currentLine.Selected = true;
+            this.selectedLine = line;
+            this.selectedLine.Visible = true;
+            this.selectedLine.Selected = true;
         }
 
         public void RemoveLine(Line line)
@@ -60,9 +60,9 @@
 
         public void RemoveCurrentLine()
         {
-            if (this.currentLine != null)
+            if (this.selectedLine != null)
             {
-                this.lines.Remove(this.currentLine);
+                this.lines.Remove(this.selectedLine);
             }
         }
 
@@ -76,9 +76,9 @@
 
         public bool HasSelectedPoint()
         {
-            if (this.currentLine != null)
+            if (this.selectedLine != null)
             {
-                return this.currentLine.SelectedPoint != default(Point);
+                return this.selectedLine.SelectedPoint != default(Point);
             }
 
             return false;

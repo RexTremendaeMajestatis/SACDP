@@ -1,6 +1,6 @@
 ﻿namespace Task4.Controller
 {
-    class Controller
+    public sealed class Controller
     {
     }
 }

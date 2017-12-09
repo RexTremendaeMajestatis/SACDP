@@ -45,8 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Shape.cs" />
-    <Compile Include="View\IShape.cs" />
+    <Compile Include="Controller\AddCommand.cs" />
+    <Compile Include="Controller\Command.cs" />
+    <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Controller\MoveCommand.cs" />
+    <Compile Include="Controller\RemoveCommand.cs" />
+    <Compile Include="Model\Line.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\Vector.cs" />
+    <Compile Include="View\LineBuilder.cs" />
     <Compile Include="View\Redactor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,8 +87,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

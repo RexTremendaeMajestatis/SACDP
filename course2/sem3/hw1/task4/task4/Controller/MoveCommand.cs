@@ -7,14 +7,11 @@
         private Line newLine;
         private Line oldLine;
 
-        public MoveCommand(Line newLine)
-        {
-            this.newLine = newLine;
-        }
+        public MoveCommand(Line newLine) => this.newLine = newLine;
 
         public override void Execute(Model model)
         {
-            this.oldLine = model.CurrentLine;
+            this.oldLine = model.SelectedLine;
             model.RemoveCurrentLine();
             model.AddLine(this.newLine);
         }

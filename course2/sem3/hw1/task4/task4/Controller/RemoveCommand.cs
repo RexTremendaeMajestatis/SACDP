@@ -12,16 +12,13 @@
 
         public override void Execute(Model model)
         {
-            this.line = model.CurrentLine;
+            this.line = model.SelectedLine;
             if (this.line != null)
             {
                 model.RemoveLine(this.line);
             }
         }
 
-        public override void Unexecute(Model model)
-        {
-            model.AddLine(this.line);
-        }
+        public override void Unexecute(Model model) => model.AddLine(this.line);
     }
 }

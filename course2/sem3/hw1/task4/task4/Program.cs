@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     using System.Windows.Forms;
 
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// Главная точка входа для приложения.
