@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Task4.View
+﻿namespace Task4.View
 {
-    class LineBuilder
+    using System.Drawing;
+    using System.Windows.Forms;
+    using Task4.Model;
+
+    public class LineBuilder
     {
-        void SetPoint(Point point)
-        {
+        private Point firstPoint;
+        private Point secondPoint;
 
+        public LineBuilder() { }
+
+        public void Init(Point point)
+        {
+            this.firstPoint = point;
         }
 
-        void DragPoint(Point point)
+        public void Move(Point point)
         {
-
+            this.secondPoint = point;
         }
 
-        void Draw(PaintEventArgs e)
+        public void Draw(PaintEventArgs e)
         {
-
+            e.Graphics.DrawLine(new Pen(Color.Black), this.firstPoint, this.secondPoint);
         }
+
+        public Line GetProduct() => new Line(this.firstPoint, this.secondPoint, this);
     }
 }
