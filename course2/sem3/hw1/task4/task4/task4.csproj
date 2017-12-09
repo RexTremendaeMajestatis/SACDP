@@ -54,7 +54,9 @@
     <Compile Include="Model\Line.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Vector.cs" />
+    <Compile Include="View\IShapeBuilder.cs" />
     <Compile Include="View\LineBuilder.cs" />
+    <Compile Include="View\NullBuilder.cs" />
     <Compile Include="View\Redactor.cs">
       <SubType>Form</SubType>
     </Compile>
