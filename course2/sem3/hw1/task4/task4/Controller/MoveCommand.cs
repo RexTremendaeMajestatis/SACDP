@@ -7,8 +7,14 @@
         private Line newLine;
         private Line oldLine;
 
+        /// <summary>
+        /// Initializes the new instance <see cref="MoveCommand"/> class
+        /// </summary>
         public MoveCommand(Line newLine) => this.newLine = newLine;
 
+        /// <summary>
+        /// Execute move command
+        /// </summary>
         public override void Execute(Model model)
         {
             this.oldLine = model.SelectedLine;
@@ -16,6 +22,9 @@
             model.AddLine(this.newLine);
         }
 
+        /// <summary>
+        /// Unexecute move command
+        /// </summary>
         public override void Unexecute(Model model)
         {
             model.RemoveLine(this.newLine);

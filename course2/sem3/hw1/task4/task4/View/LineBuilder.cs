@@ -9,25 +9,30 @@
         private Point firstPoint;
         private Point secondPoint;
 
-        public LineBuilder()
-        {
-        }
-
+        /// <summary>
+        /// Sets first point of line before draging
+        /// </summary>
         public void Init(Point point)
         {
             this.firstPoint = point;
         }
 
-        public void Move(Point point)
+        /// <summary>
+        /// Sets second point while draging
+        /// </summary>
+        public void Drag(Point point)
         {
             this.secondPoint = point;
         }
 
-        public void Draw(PaintEventArgs e)
-        {
-            e.Graphics.DrawLine(new Pen(Color.Black), this.firstPoint, this.secondPoint);
-        }
+        /// <summary>
+        /// Draws line
+        /// </summary>
+        public void Draw(PaintEventArgs e) => e.Graphics.DrawLine(new Pen(Color.Black), this.firstPoint, this.secondPoint);
 
+        /// <summary>
+        /// Get created line
+        /// </summary>
         public Line GetProduct() => new Line(this.firstPoint, this.secondPoint, this);
     }
 }

@@ -9,6 +9,9 @@
         private Model model;
         private int pointer;
 
+        /// <summary>
+        /// Initializes the new instance of <see cref="Controller"> class
+        /// </summary>
         public Controller(Model model)
         {
             this.model = model;
@@ -16,6 +19,9 @@
             this.pointer = -1;
         }
 
+        /// <summary>
+        /// Handle command
+        /// </summary>
         public void Handle(Command command)
         {
             if (command.Significant(this.model))
@@ -27,6 +33,9 @@
             }
         }
 
+        /// <summary>
+        /// Cancel last action
+        /// </summary>
         public void Undo()
         {
             if (this.pointer > -1)
@@ -36,6 +45,9 @@
             }
         }
 
+        /// <summary>
+        /// Cancel cancelling of last action
+        /// </summary>
         public void Redo()
         {
             if (this.pointer < this.listUndoRedo.Count - 1)

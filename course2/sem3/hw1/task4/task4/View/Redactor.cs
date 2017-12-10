@@ -92,9 +92,9 @@
         {
             if (this.mouseDown)
             {
-                if (!cursorSelected || (cursorSelected && model.HasSelectedPoint))
+                if (!this.cursorSelected || (this.cursorSelected && this.model.HasSelectedPoint))
                 {
-                    this.builder.Move(new Point(e.X, e.Y));
+                    this.builder.Drag(new Point(e.X, e.Y));
                     this.mouseMove = true;
                 }
 

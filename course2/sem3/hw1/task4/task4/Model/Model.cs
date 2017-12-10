@@ -5,11 +5,17 @@
     using System.Windows.Forms;
     using Task4.View;
 
+    /// <summary>
+    /// Model class
+    /// </summary>
     public sealed class Model
     {
         private List<Line> lines = new List<Line>();
         private Line selectedLine = null;
 
+        /// <summary>
+        /// Line that selected
+        /// </summary>
         public Line SelectedLine
         {
             get
@@ -29,10 +35,19 @@
             }
         }
 
+        /// <summary>
+        /// Current element builder
+        /// </summary>
         public LineBuilder CurrentElementBuilder => this.selectedLine.Builder;
 
+        /// <summary>
+        /// Current initialization point
+        /// </summary>
         public Point CurrentElementInitPoint => this.selectedLine.InitPoint;
 
+        /// <summary>
+        /// Check if line has selected point
+        /// </summary>
         public bool HasSelectedPoint
         {
             get
@@ -46,6 +61,9 @@
             }
         }
 
+        /// <summary>
+        /// Unselect current line
+        /// </summary>
         public void UnselectCurrent()
         {
             if (this.selectedLine != null)
@@ -54,6 +72,9 @@
             }
         }
 
+        /// <summary>
+        /// Add line
+        /// </summary>
         public void AddLine(Line line)
         {
             this.lines.Add(line);
@@ -62,11 +83,17 @@
             this.selectedLine.Selected = true;
         }
 
+        /// <summary>
+        /// Remove line
+        /// </summary>
         public void RemoveLine(Line line)
         {
             this.lines.Remove(line);
         }
 
+        /// <summary>
+        /// Remove current line
+        /// </summary>
         public void RemoveCurrentLine()
         {
             if (this.selectedLine != null)
@@ -75,6 +102,10 @@
             }
         }
 
+        /// <summary>
+        /// Draw all lines
+        /// </summary>
+        /// <param name="e"></param>
         public void Draw(PaintEventArgs e)
         {
             foreach (var line in this.lines)
@@ -83,6 +114,11 @@
             }
         }
 
+        /// <summary>
+        /// Find any line that belongs to epsilon area of point
+        /// </summary>
+        /// <param name="point">Point of epsilon area</param>
+        /// <returns>Return the last added line</returns>
         public Line FindIntersection(Point point)
         {
             int i = this.lines.Count - 1;
