@@ -6,6 +6,9 @@
     using System.Windows.Forms;
     using Task4.View;
 
+    /// <summary>
+    /// Line class
+    /// </summary>
     public sealed class Line 
     {
         private Pen pen = new Pen(Color.Black);
@@ -13,6 +16,12 @@
         private Point firstPoint;
         private Point secondPoint;
 
+        /// <summary>
+        /// Initializes the new instance of <see cref="Line"/> class
+        /// </summary>
+        /// <param name="firstPoint">First coord</param>
+        /// <param name="secondPoint">Second coord</param>
+        /// <param name="builder">Builder for line</param>
         public Line(Point firstPoint, Point secondPoint, LineBuilder builder)
         {
             this.firstPoint = firstPoint;
@@ -22,16 +31,34 @@
             this.Visible = true;
         }
 
+        /// <summary>
+        /// Is line selrcted
+        /// </summary>
         public bool Selected { get; set; }
 
+        /// <summary>
+        /// Is line visible
+        /// </summary>
         public bool Visible { get; set; }
 
+        /// <summary>
+        /// Builder fr line
+        /// </summary>
         public LineBuilder Builder { get; set; }
 
+        /// <summary>
+        /// Initialization point
+        /// </summary>
         public Point InitPoint { get; set; }
 
+        /// <summary>
+        /// Selected point
+        /// </summary>
         public Point SelectedPoint { get; set; }
 
+        /// <summary>
+        /// Draws line on plot and selects it
+        /// </summary>
         public void Draw(PaintEventArgs e)
         {
             if (this.Visible)
@@ -44,6 +71,9 @@
             }
         }
 
+        /// <summary>
+        /// Checks if begining or end of line contains the point in epsilon area
+        /// </summary>
         public bool Contain(Point point)
         {
             if (this.Distance(point) <= 15)

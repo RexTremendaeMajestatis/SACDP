@@ -2,6 +2,9 @@
 {
     using Task4.Model;
 
+    /// <summary>
+    /// Move command class
+    /// </summary>
     public sealed class MoveCommand : Command
     {
         private Line newLine;
@@ -18,7 +21,7 @@
         public override void Execute(Model model)
         {
             this.oldLine = model.SelectedLine;
-            model.RemoveCurrentLine();
+            model.RemoveSelectedLine();
             model.AddLine(this.newLine);
         }
 

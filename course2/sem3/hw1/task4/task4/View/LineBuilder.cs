@@ -4,6 +4,9 @@
     using System.Windows.Forms;
     using Task4.Model;
 
+    /// <summary>
+    /// Builder for line
+    /// </summary>
     public sealed class LineBuilder : IShapeBuilder
     {
         private Point firstPoint;
@@ -31,7 +34,7 @@
         public void Draw(PaintEventArgs e) => e.Graphics.DrawLine(new Pen(Color.Black), this.firstPoint, this.secondPoint);
 
         /// <summary>
-        /// Get created line
+        /// Returns created line
         /// </summary>
         public Line GetProduct() => new Line(this.firstPoint, this.secondPoint, this);
     }

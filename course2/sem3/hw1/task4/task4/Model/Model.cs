@@ -46,7 +46,7 @@
         public Point CurrentElementInitPoint => this.selectedLine.InitPoint;
 
         /// <summary>
-        /// Check if line has selected point
+        /// Checks if line has selected point
         /// </summary>
         public bool HasSelectedPoint
         {
@@ -62,7 +62,7 @@
         }
 
         /// <summary>
-        /// Unselect current line
+        /// Unselects current line
         /// </summary>
         public void UnselectCurrent()
         {
@@ -73,10 +73,11 @@
         }
 
         /// <summary>
-        /// Add line
+        /// Adds line
         /// </summary>
         public void AddLine(Line line)
         {
+            UnselectCurrent();
             this.lines.Add(line);
             this.selectedLine = line;
             this.selectedLine.Visible = true;
@@ -84,7 +85,7 @@
         }
 
         /// <summary>
-        /// Remove line
+        /// Removes line
         /// </summary>
         public void RemoveLine(Line line)
         {
@@ -92,9 +93,9 @@
         }
 
         /// <summary>
-        /// Remove current line
+        /// Removes current line
         /// </summary>
-        public void RemoveCurrentLine()
+        public void RemoveSelectedLine()
         {
             if (this.selectedLine != null)
             {
@@ -103,7 +104,7 @@
         }
 
         /// <summary>
-        /// Draw all lines
+        /// Draws all lines
         /// </summary>
         /// <param name="e"></param>
         public void Draw(PaintEventArgs e)
@@ -115,7 +116,7 @@
         }
 
         /// <summary>
-        /// Find any line that belongs to epsilon area of point
+        /// Finds any line that belongs to epsilon area of point
         /// </summary>
         /// <param name="point">Point of epsilon area</param>
         /// <returns>Return the last added line</returns>

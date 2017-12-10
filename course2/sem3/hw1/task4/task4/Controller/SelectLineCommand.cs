@@ -3,6 +3,9 @@
     using System.Drawing;
     using Task4.Model;
 
+    /// <summary>
+    /// Selected line command class
+    /// </summary>
     public sealed class SelectLineCommand : Command
     {
         private Point point;

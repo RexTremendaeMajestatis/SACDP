@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using Model;
 
+    /// <summary>
+    /// Controller class
+    /// </summary>
     public sealed class Controller
     {
         private List<Command> listUndoRedo;
