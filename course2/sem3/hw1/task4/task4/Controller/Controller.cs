@@ -2,9 +2,10 @@
 {
     using System.Collections.Generic;
     using Model;
+
     public sealed class Controller
     {
-        List<Command> listUndoRedo;
+        private List<Command> listUndoRedo;
         private Model model;
         private int pointer;
 
@@ -28,7 +29,7 @@
 
         public void Undo()
         {
-            if (pointer > 1)
+            if (pointer > -1)
             {
                 this.listUndoRedo[pointer].Unexecute(this.model);
                 pointer--;

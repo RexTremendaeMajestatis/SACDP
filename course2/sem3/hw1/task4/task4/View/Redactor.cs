@@ -1,13 +1,7 @@
 ﻿namespace Task4
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
     using System.Drawing;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
     using Task4.View;
     using Task4.Model;
@@ -57,7 +51,7 @@
                 Command selectCommand = new SelectLineCommand(new Point(e.X, e.Y));
                 this.controller.Handle(selectCommand);
 
-                if (model.HasSelectedPoint())
+                if (model.HasSelectedPoint)
                 {
                     this.builder = model.GetCurrentElementBuilder();
                     this.builder.Init(model.GetCurrentElementInitPoint());
@@ -81,7 +75,7 @@
                         this.controller.Handle(addCommand);
                     }
                 }
-                else if (model.HasSelectedPoint())
+                else if (model.HasSelectedPoint)
                 {
                     Command moveCommand = new MoveCommand(newLine);
                     this.controller.Handle(moveCommand);
@@ -89,19 +83,22 @@
 
                 DrawArea.Invalidate();
             }
+
+            this.mouseDown = false;
+            this.mouseMove = false;
         }
 
         private void DrawArea_MouseMove(object sender, MouseEventArgs e)
         {
             if (this.mouseDown)
             {
-                if (!cursorSelected || (cursorSelected && model.HasSelectedPoint()))
+                if (!cursorSelected || (cursorSelected && model.HasSelectedPoint))
                 {
                     this.builder.Move(new Point(e.X, e.Y));
                     this.mouseMove = true;
                 }
 
-                if (cursorSelected && model.HasSelectedPoint())
+                if (cursorSelected && model.HasSelectedPoint)
                 {
                     this.model.SelectedLine.Visible = false;
                 }

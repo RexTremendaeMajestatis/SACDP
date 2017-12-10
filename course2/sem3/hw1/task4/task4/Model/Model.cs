@@ -10,10 +10,6 @@
         private List<Line> lines = new List<Line>();
         private Line selectedLine = null;
 
-        public Model()
-        {
-        }
-
         public Line SelectedLine
         {
             get
@@ -74,14 +70,17 @@
             }
         }
 
-        public bool HasSelectedPoint()
+        public bool HasSelectedPoint
         {
-            if (this.selectedLine != null)
+            get
             {
-                return this.selectedLine.SelectedPoint != default(Point);
-            }
+                if (this.selectedLine != null)
+                {
+                    return this.selectedLine.SelectedPoint != default(Point);
+                }
 
-            return false;
+                return false;
+            }
         }
 
         public Line FindIntersection(Point point)

@@ -1,6 +1,5 @@
 ﻿namespace Task4.Controller
 {
-    using System;
     using System.Drawing;
     using Task4.Model;
 

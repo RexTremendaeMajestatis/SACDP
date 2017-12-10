@@ -2,12 +2,14 @@
 {
     using System;
     using System.Drawing;
+    using System.Drawing.Drawing2D;
     using System.Windows.Forms;
     using Task4.View;
 
     public sealed class Line 
     {
         private Pen pen = new Pen(Color.Black);
+        private Pen selectionPen = new Pen(Color.Red, 3);
         private Point firstPoint;
         private Point secondPoint;
 
@@ -18,10 +20,6 @@
             this.Builder = builder;
             this.Selected = false;
             this.Visible = true;
-        }
-
-        public Line()
-        {
         }
 
         public bool Selected { get; set; }
@@ -97,8 +95,9 @@
 
         private void DrawSelection(PaintEventArgs e)
         {
-            e.Graphics.DrawEllipse(this.pen, new Rectangle(this.firstPoint.X - 5, this.secondPoint.Y - 5, 10, 10));
-            e.Graphics.DrawEllipse(this.pen, new Rectangle(this.firstPoint.X - 5, this.secondPoint.Y - 5, 10, 10));
+            e.Graphics.DrawEllipse(selectionPen, new Rectangle(this.firstPoint.X - 2, this.firstPoint.Y - 2, 4, 4));
+            e.Graphics.DrawEllipse(selectionPen, new Rectangle(this.secondPoint.X - 2, this.secondPoint.Y - 2, 4, 4));
+            e.Graphics.DrawLine(selectionPen, firstPoint, secondPoint);
         }
     }
 }
