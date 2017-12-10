@@ -53,7 +53,9 @@
     <Compile Include="Controller\SelectLineCommand.cs" />
     <Compile Include="Model\Line.cs" />
     <Compile Include="Model\Model.cs" />
-    <Compile Include="Model\Vector.cs" />
+    <Compile Include="Model\Vector.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="View\IShapeBuilder.cs" />
     <Compile Include="View\LineBuilder.cs" />
     <Compile Include="View\NullBuilder.cs" />

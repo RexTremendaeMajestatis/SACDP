@@ -22,18 +22,18 @@
         {
             this.model = new Model.Model();
             this.controller = new Controller.Controller(this.model);
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void UndoButton_Click(object sender, EventArgs e)
         {
-            controller.Undo();
+            this.controller.Undo();
             DrawArea.Invalidate();
         }
 
         private void RedoButton_Click(object sender, EventArgs e)
         {
-            controller.Redo();
+            this.controller.Redo();
             DrawArea.Invalidate();
         }
 
@@ -42,7 +42,7 @@
             this.mouseDown = true;
             this.model.UnselectCurrent();
 
-            if (!cursorSelected)
+            if (!this.cursorSelected)
             {
                 this.builder.Init(new Point(e.X, e.Y));
             }
@@ -51,10 +51,10 @@
                 Command selectCommand = new SelectLineCommand(new Point(e.X, e.Y));
                 this.controller.Handle(selectCommand);
 
-                if (model.HasSelectedPoint)
+                if (this.model.HasSelectedPoint)
                 {
-                    this.builder = model.GetCurrentElementBuilder();
-                    this.builder.Init(model.GetCurrentElementInitPoint());
+                    this.builder = this.model.CurrentElementBuilder;
+                    this.builder.Init(this.model.CurrentElementInitPoint);
                 }
 
                 DrawArea.Invalidate();
@@ -63,11 +63,11 @@
 
         private void DrawArea_MouseUp(object sender, MouseEventArgs e)
         {
-            if (mouseMove)
+            if (this.mouseMove)
             {
                 Line newLine = this.builder.GetProduct();
 
-                if (!cursorSelected)
+                if (!this.cursorSelected)
                 {
                     if (newLine != null)
                     {
@@ -75,7 +75,7 @@
                         this.controller.Handle(addCommand);
                     }
                 }
-                else if (model.HasSelectedPoint)
+                else if (this.model.HasSelectedPoint)
                 {
                     Command moveCommand = new MoveCommand(newLine);
                     this.controller.Handle(moveCommand);
@@ -98,7 +98,7 @@
                     this.mouseMove = true;
                 }
 
-                if (cursorSelected && model.HasSelectedPoint)
+                if (this.cursorSelected && this.model.HasSelectedPoint)
                 {
                     this.model.SelectedLine.Visible = false;
                 }
@@ -128,7 +128,7 @@
         {
             this.builder = new LineBuilder();
             DrawLinesButton.BackColor = Color.Gray;
-            cursorSelected = false;
+            this.cursorSelected = false;
             SelectLinesButton.BackColor = Color.Empty;
         }
 

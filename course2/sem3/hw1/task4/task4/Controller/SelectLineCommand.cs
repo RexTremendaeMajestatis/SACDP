@@ -18,9 +18,9 @@
         public override bool Significant(Model model)
         {
             this.oldSelectedLine = model.SelectedLine;
-            this.newSelectedLine = model.FindIntersection(point);
+            this.newSelectedLine = model.FindIntersection(this.point);
 
-            return (this.oldSelectedLine != this.newSelectedLine);
+            return this.oldSelectedLine != this.newSelectedLine;
         }
     }
 }

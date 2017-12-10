@@ -6,10 +6,6 @@
     {
         private Line line;
 
-        public RemoveCommand()
-        {
-        }
-
         public override void Execute(Model model)
         {
             this.line = model.SelectedLine;

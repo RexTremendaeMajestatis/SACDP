@@ -95,9 +95,9 @@
 
         private void DrawSelection(PaintEventArgs e)
         {
-            e.Graphics.DrawEllipse(selectionPen, new Rectangle(this.firstPoint.X - 2, this.firstPoint.Y - 2, 4, 4));
-            e.Graphics.DrawEllipse(selectionPen, new Rectangle(this.secondPoint.X - 2, this.secondPoint.Y - 2, 4, 4));
-            e.Graphics.DrawLine(selectionPen, firstPoint, secondPoint);
+            e.Graphics.DrawEllipse(this.selectionPen, new Rectangle(this.firstPoint.X - 2, this.firstPoint.Y - 2, 4, 4));
+            e.Graphics.DrawEllipse(this.selectionPen, new Rectangle(this.secondPoint.X - 2, this.secondPoint.Y - 2, 4, 4));
+            e.Graphics.DrawLine(this.selectionPen, this.firstPoint, this.secondPoint);
         }
     }
 }

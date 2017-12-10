@@ -12,8 +12,8 @@
         public Controller(Model model)
         {
             this.model = model;
-            listUndoRedo = new List<Command>();
-            pointer = -1;
+            this.listUndoRedo = new List<Command>();
+            this.pointer = -1;
         }
 
         public void Handle(Command command)
@@ -21,35 +21,35 @@
             if (command.Significant(this.model))
             {
                 this.pointer++;
-                this.listUndoRedo.Insert(pointer, command);
+                this.listUndoRedo.Insert(this.pointer, command);
                 command.Execute(this.model);
-                CleanListTail();
+                this.CleanListTail();
             }
         }
 
         public void Undo()
         {
-            if (pointer > -1)
+            if (this.pointer > -1)
             {
-                this.listUndoRedo[pointer].Unexecute(this.model);
-                pointer--;
+                this.listUndoRedo[this.pointer].Unexecute(this.model);
+                this.pointer--;
             }
         }
 
         public void Redo()
         {
-            if (pointer < this.listUndoRedo.Count - 1)
+            if (this.pointer < this.listUndoRedo.Count - 1)
             {
-                pointer++;
-                this.listUndoRedo[pointer].Execute(this.model);
+                this.pointer++;
+                this.listUndoRedo[this.pointer].Execute(this.model);
             }
         }
 
         private void CleanListTail()
         {
-            for (int i = pointer + 1; i < listUndoRedo.Count; i++)
+            for (int i = this.pointer + 1; i < this.listUndoRedo.Count; i++)
             {
-                listUndoRedo.RemoveAt(i);
+                this.listUndoRedo.RemoveAt(i);
             }
         }
     }

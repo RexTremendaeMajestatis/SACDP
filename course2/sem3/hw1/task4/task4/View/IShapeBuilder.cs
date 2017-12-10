@@ -4,7 +4,7 @@
     using System.Windows.Forms;
     using Task4.Model;
 
-    interface IShapeBuilder
+    public interface IShapeBuilder
     {
         void Init(Point point);
 

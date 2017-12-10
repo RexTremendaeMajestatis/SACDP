@@ -29,9 +29,22 @@
             }
         }
 
-        public LineBuilder GetCurrentElementBuilder() => this.selectedLine.Builder;
+        public LineBuilder CurrentElementBuilder => this.selectedLine.Builder;
 
-        public Point GetCurrentElementInitPoint() => this.selectedLine.InitPoint;
+        public Point CurrentElementInitPoint => this.selectedLine.InitPoint;
+
+        public bool HasSelectedPoint
+        {
+            get
+            {
+                if (this.selectedLine != null)
+                {
+                    return this.selectedLine.SelectedPoint != default(Point);
+                }
+
+                return false;
+            }
+        }
 
         public void UnselectCurrent()
         {
@@ -67,19 +80,6 @@
             foreach (var line in this.lines)
             {
                 line.Draw(e);
-            }
-        }
-
-        public bool HasSelectedPoint
-        {
-            get
-            {
-                if (this.selectedLine != null)
-                {
-                    return this.selectedLine.SelectedPoint != default(Point);
-                }
-
-                return false;
             }
         }
 
