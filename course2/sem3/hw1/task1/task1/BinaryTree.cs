@@ -34,13 +34,7 @@
         /// <summary>
         /// Amount of tree elements
         /// </summary>
-        public int Size
-        {
-            get
-            {
-                return this.size;
-            }
-        }
+        public int Size => this.size;
 
         /// <summary>
         /// Method that shows all the tree nodes

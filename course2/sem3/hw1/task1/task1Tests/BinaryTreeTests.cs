@@ -8,7 +8,6 @@
     [TestClass]
     public class BinaryTreeTests
     {
-        private Random rand = new Random();
         private int[] addArray = new int[10] { 3, 31, 1, 6, 4, 75, 12, 9, 23, 8 };
         private int someValue = 31415;
 
