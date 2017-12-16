@@ -12,8 +12,11 @@
         private Logic logic = Logic.Instance;
         
         public GraphicsEditor()
-        {
+        {   
             this.InitializeComponent();
+            UndoButton.Enabled = false;
+            RedoButton.Enabled = false;
+            DeleteLineButton.Enabled = false;
         }
 
         private void UndoButton_Click(object sender, EventArgs e)
@@ -60,6 +63,9 @@
         private void DrawLinesButton_Click(object sender, EventArgs e)
         {
             logic.DrawLines();
+            UndoButton.Enabled = true;
+            RedoButton.Enabled = true;
+            DeleteLineButton.Enabled = true;
             DrawLinesButton.BackColor = Color.Gray;
             SelectLinesButton.BackColor = Color.Empty;
         }
@@ -67,6 +73,8 @@
         private void SelectLinesButton_Click(object sender, EventArgs e)
         {
             logic.SelectLines();
+            UndoButton.Enabled = false;
+            RedoButton.Enabled = false;
             DrawLinesButton.BackColor = Color.Empty;
             SelectLinesButton.BackColor = Color.Gray;
         }
