@@ -114,7 +114,7 @@
                     this.SelectedPoint = default(Point);
                     this.InitPoint = default(Point);
 
-                    double cosAlpha = Vector.ScalarMultiply(vectorC, vectorD) / vectorC.Length * vectorD.Length;
+                    double cosAlpha = Vector.ScalarMultiply(vectorC, vectorD) / (vectorC.Length * vectorD.Length);
                     double sinAlpha = Math.Sqrt(1 - (cosAlpha * cosAlpha));
 
                     return sinAlpha * vectorC.Length;
