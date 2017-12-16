@@ -8,9 +8,18 @@
     /// </summary>
     class NullBuilder : IShapeBuilder
     {
-        public void Init(Point point) { }
-        public void Drag(Point point) { }
-        public void Draw(PaintEventArgs e) { }
+        public void Init(Point point)
+        {
+        }
+
+        public void Drag(Point point)
+        {
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
+        }
+
         public Line GetProduct() => null;
     }
 }

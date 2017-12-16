@@ -14,69 +14,69 @@
         public GraphicsEditor()
         {   
             this.InitializeComponent();
-            UndoButton.Enabled = false;
-            RedoButton.Enabled = false;
-            DeleteLineButton.Enabled = false;
+            this.UndoButton.Enabled = false;
+            this.RedoButton.Enabled = false;
+            this.DeleteLineButton.Enabled = false;
         }
 
         private void UndoButton_Click(object sender, EventArgs e)
         {
-            logic.Undo();
-            DrawArea.Invalidate();
+            this.logic.Undo();
+            this.DrawArea.Invalidate();
         }
 
         private void RedoButton_Click(object sender, EventArgs e)
         {
-            logic.Redo();
-            DrawArea.Invalidate();
+            this.logic.Redo();
+            this.DrawArea.Invalidate();
         }
 
         private void DrawArea_MouseDown(object sender, MouseEventArgs e)
         {
-            logic.MouseDown(e);
-            DrawArea.Invalidate();
+            this.logic.MouseDown(e);
+            this.DrawArea.Invalidate();
         }
 
         private void DrawArea_MouseUp(object sender, MouseEventArgs e)
         {
-            logic.MouseUp(e);
-            DrawArea.Invalidate();
+            this.logic.MouseUp(e);
+            this.DrawArea.Invalidate();
         }
 
         private void DrawArea_MouseMove(object sender, MouseEventArgs e)
         {
-            logic.MouseMove(e);
-            DrawArea.Invalidate();
+            this.logic.MouseMove(e);
+            this.DrawArea.Invalidate();
         }
 
         private void DrawArea_Paint(object sender, PaintEventArgs e)
         {
-            logic.Paint(e);
+            this.logic.Paint(e);
         }
 
         private void DeleteLineButton_Click(object sender, EventArgs e)
         {
-            logic.DeleteLine();
-            DrawArea.Invalidate();
+            this.logic.DeleteLine();
+            this.DrawArea.Invalidate();
         }
 
         private void DrawLinesButton_Click(object sender, EventArgs e)
         {
-            logic.DrawLines();
-            UndoButton.Enabled = true;
-            RedoButton.Enabled = true;
-            DeleteLineButton.Enabled = true;
-            DrawLinesButton.BackColor = Color.Gray;
-            SelectLinesButton.BackColor = Color.Empty;
+            this.logic.DrawLines();
+            this.UndoButton.Enabled = true;
+            this.RedoButton.Enabled = true;
+            this.DeleteLineButton.Enabled = true;
+            this.DrawLinesButton.BackColor = Color.Gray;
+            this.SelectLinesButton.BackColor = Color.Empty;
         }
 
         private void SelectLinesButton_Click(object sender, EventArgs e)
         {
-            logic.SelectLines();
-            UndoButton.Enabled = false;
-            RedoButton.Enabled = false;
-            DrawLinesButton.BackColor = Color.Empty;
-            SelectLinesButton.BackColor = Color.Gray;
+            this.logic.SelectLines();
+            this.UndoButton.Enabled = false;
+            this.RedoButton.Enabled = false;
+            this.DrawLinesButton.BackColor = Color.Empty;
+            this.SelectLinesButton.BackColor = Color.Gray;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿namespace Task4
 {
-
     /// <summary>
     /// Move command class
     /// </summary>

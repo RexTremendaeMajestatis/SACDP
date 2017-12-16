@@ -2,7 +2,6 @@
 {
     using System;
     using System.Drawing;
-    using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
     /// <summary>
@@ -18,8 +17,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Line"/> class
         /// </summary>
-        /// <param name="firstPoint">First coord</param>
-        /// <param name="secondPoint">Second coord</param>
+        /// <param name="firstPoint">First coordinate</param>
+        /// <param name="secondPoint">Second coordinate</param>
         /// <param name="builder">Builder for line</param>
         public Line(Point firstPoint, Point secondPoint, LineBuilder builder)
         {
@@ -31,7 +30,7 @@
         }
 
         /// <summary>
-        /// Is line selrcted
+        /// Is line selected
         /// </summary>
         public bool Selected { get; set; }
 

@@ -76,7 +76,7 @@
         /// </summary>
         public void AddLine(Line line)
         {
-            UnselectCurrent();
+            this.UnselectCurrent();
             this.lines.Add(line);
             this.selectedLine = line;
             this.selectedLine.Visible = true;
@@ -105,7 +105,6 @@
         /// <summary>
         /// Draws all lines
         /// </summary>
-        /// <param name="e"></param>
         public void Draw(PaintEventArgs e)
         {
             foreach (var line in this.lines)

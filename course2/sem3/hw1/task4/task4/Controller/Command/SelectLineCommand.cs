@@ -12,7 +12,7 @@
         private Line oldSelectedLine;
 
         /// <summary>
-        /// Returns command of selecting line
+        /// Initializes a new instance of the <see cref="SelectLineCommand"/> class
         /// </summary>
         public SelectLineCommand(Point point) => this.point = point;
 

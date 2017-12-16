@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// Get a singletone instance of the <see cref"Logic"/> class
+        /// Get a singletone instance of the <see cref="Logic"/> class
         /// </summary>
         public static Logic Instance
         {

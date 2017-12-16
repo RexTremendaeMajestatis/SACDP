@@ -1,6 +1,5 @@
 ﻿namespace Task4
 {
-
     /// <summary>
     /// Parent class for commands
     /// </summary>
