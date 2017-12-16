@@ -7,6 +7,9 @@
     using Task4.Model;
     using Task4.Controller;
 
+    /// <summary>
+    /// Class of graphics editor form
+    /// </summary>
     public partial class GraphicsEditor : Form
     {
         private IShapeBuilder builder = new NullBuilder();
