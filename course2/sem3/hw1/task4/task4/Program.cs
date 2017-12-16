@@ -1,9 +1,6 @@
 ﻿namespace Task4
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     public static class Program
