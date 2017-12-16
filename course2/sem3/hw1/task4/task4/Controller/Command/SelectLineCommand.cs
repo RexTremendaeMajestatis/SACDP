@@ -1,7 +1,6 @@
-﻿namespace Task4.Controller
+﻿namespace Task4
 {
     using System.Drawing;
-    using Task4.Model;
 
     /// <summary>
     /// Selected line command class

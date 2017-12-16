@@ -1,8 +1,7 @@
-﻿namespace Task4.View
+﻿namespace Task4
 {
     using System.Drawing;
     using System.Windows.Forms;
-    using Task4.Model;
 
     /// <summary>
     /// Interface for builder

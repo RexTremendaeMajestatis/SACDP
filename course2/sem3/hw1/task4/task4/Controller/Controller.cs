@@ -1,7 +1,6 @@
-﻿namespace Task4.Controller
+﻿namespace Task4
 {
     using System.Collections.Generic;
-    using Model;
 
     /// <summary>
     /// Controller class

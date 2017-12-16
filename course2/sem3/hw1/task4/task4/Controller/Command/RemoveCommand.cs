@@ -1,6 +1,5 @@
-﻿namespace Task4.Controller
+﻿namespace Task4
 {
-    using Task4.Model;
 
     /// <summary>
     /// Remove command class

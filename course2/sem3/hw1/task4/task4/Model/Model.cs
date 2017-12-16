@@ -1,9 +1,8 @@
-﻿namespace Task4.Model
+﻿namespace Task4
 {
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using Task4.View;
 
     /// <summary>
     /// Model class

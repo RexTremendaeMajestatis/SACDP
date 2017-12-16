@@ -1,10 +1,9 @@
-﻿namespace Task4.Model
+﻿namespace Task4
 {
     using System;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
-    using Task4.View;
 
     /// <summary>
     /// Line class
