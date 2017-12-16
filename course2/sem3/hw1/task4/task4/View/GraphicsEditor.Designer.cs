@@ -1,6 +1,6 @@
 ﻿namespace Task4
 {
-    partial class Redactor
+    partial class GraphicsEditor
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -98,7 +98,7 @@
             this.DeleteLineButton.UseVisualStyleBackColor = true;
             this.DeleteLineButton.Click += new System.EventHandler(this.DeleteLineButton_Click);
             // 
-            // Redactor
+            // GraphicsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -109,8 +109,8 @@
             this.Controls.Add(this.RedoButton);
             this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.DrawArea);
-            this.Name = "Redactor";
-            this.Text = "Redactor";
+            this.Name = "GraphicsEditor";
+            this.Text = "Editor";
             this.ResumeLayout(false);
 
         }

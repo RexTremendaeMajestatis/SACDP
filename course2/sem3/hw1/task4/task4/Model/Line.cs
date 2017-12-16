@@ -17,7 +17,7 @@
         private Point secondPoint;
 
         /// <summary>
-        /// Initializes the new instance of <see cref="Line"/> class
+        /// Initializes a new instance of the <see cref="Line"/> class
         /// </summary>
         /// <param name="firstPoint">First coord</param>
         /// <param name="secondPoint">Second coord</param>

@@ -8,18 +8,18 @@
     /// </summary>
     public sealed class Controller
     {
-        private List<Command> listUndoRedo;
         private Model model;
-        private int pointer;
+        private Stack<Command> undoStack;
+        private Stack<Command> redoStack;
 
         /// <summary>
-        /// Initializes the new instance of <see cref="Controller"> class
+        /// Initializes a new instance of the <see cref="Controller"/> class
         /// </summary>
         public Controller(Model model)
         {
             this.model = model;
-            this.listUndoRedo = new List<Command>();
-            this.pointer = -1;
+            this.undoStack = new Stack<Command>();
+            this.redoStack = new Stack<Command>();
         }
 
         /// <summary>
@@ -29,10 +29,9 @@
         {
             if (command.Significant(this.model))
             {
-                this.pointer++;
-                this.listUndoRedo.Insert(this.pointer, command);
+                this.undoStack.Push(command);
+                this.redoStack.Clear();
                 command.Execute(this.model);
-                this.CleanListTail();
             }
         }
 
@@ -41,10 +40,11 @@
         /// </summary>
         public void Undo()
         {
-            if (this.pointer > -1)
+            if (this.undoStack.Count != 0)
             {
-                this.listUndoRedo[this.pointer].Unexecute(this.model);
-                this.pointer--;
+                this.undoStack.Peek().Unexecute(this.model);
+                this.redoStack.Push(this.undoStack.Peek());
+                this.undoStack.Pop();
             }
         }
 
@@ -53,18 +53,11 @@
         /// </summary>
         public void Redo()
         {
-            if (this.pointer < this.listUndoRedo.Count - 1)
+            if (this.redoStack.Count != 0)
             {
-                this.pointer++;
-                this.listUndoRedo[this.pointer].Execute(this.model);
-            }
-        }
-
-        private void CleanListTail()
-        {
-            for (int i = this.pointer + 1; i < this.listUndoRedo.Count; i++)
-            {
-                this.listUndoRedo.RemoveAt(i);
+                this.redoStack.Peek().Execute(this.model);
+                this.undoStack.Push(this.redoStack.Peek());
+                this.redoStack.Pop();
             }
         }
     }

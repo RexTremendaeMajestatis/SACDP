@@ -7,7 +7,7 @@
     using Task4.Model;
     using Task4.Controller;
 
-    public partial class Redactor : Form
+    public partial class GraphicsEditor : Form
     {
         private IShapeBuilder builder = new NullBuilder();
 
@@ -18,7 +18,7 @@
         private bool mouseMove = false;
         private bool cursorSelected = false;
 
-        public Redactor()
+        public GraphicsEditor()
         {
             this.model = new Model.Model();
             this.controller = new Controller.Controller(this.model);

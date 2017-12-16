@@ -11,7 +11,7 @@
         private Line oldLine;
 
         /// <summary>
-        /// Initializes the new instance <see cref="MoveCommand"/> class
+        /// Initializes a new instance of the <see cref="MoveCommand"/> class
         /// </summary>
         public MoveCommand(Line newLine) => this.newLine = newLine;
 

@@ -10,7 +10,7 @@
         private Line line;
 
         /// <summary>
-        /// Initializes the new instance of <see cref ="AddCommand"/> class
+        /// Initializes a new instance of the <see cref="AddCommand"/> class
         /// </summary>
         public AddCommand(Line line) => this.line = line;
 

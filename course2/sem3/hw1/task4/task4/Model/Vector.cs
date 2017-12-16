@@ -11,7 +11,7 @@
         private Point end;
 
         /// <summary>
-        /// Initializes the new instance of <see cref="Vector"/> class
+        /// Initializes a new instance of the <see cref="Vector"/> class
         /// </summary>
         public Vector(Point point)
         {
@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Initializes the new instance of <see cref="Vector"/> class
+        /// Initializes a new instance of the <see cref="Vector"/> class
         /// </summary>
         public Vector(Point beginPoint, Point endPoint)
         {
