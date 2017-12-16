@@ -45,20 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\AddCommand.cs" />
-    <Compile Include="Controller\Command.cs" />
+    <Compile Include="Controller\Command\AddCommand.cs" />
+    <Compile Include="Controller\Command\Command.cs" />
     <Compile Include="Controller\Controller.cs" />
-    <Compile Include="Controller\MoveCommand.cs" />
-    <Compile Include="Controller\RemoveCommand.cs" />
-    <Compile Include="Controller\SelectLineCommand.cs" />
-    <Compile Include="Model\Line.cs" />
+    <Compile Include="Controller\Command\MoveCommand.cs" />
+    <Compile Include="Controller\Command\RemoveCommand.cs" />
+    <Compile Include="Controller\Command\SelectLineCommand.cs" />
+    <Compile Include="Model\Shapes\Line.cs" />
     <Compile Include="Model\Model.cs" />
-    <Compile Include="Model\Vector.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="View\IShapeBuilder.cs" />
-    <Compile Include="View\LineBuilder.cs" />
-    <Compile Include="View\NullBuilder.cs" />
+    <Compile Include="View\Builders\IShapeBuilder.cs" />
+    <Compile Include="View\Builders\LineBuilder.cs" />
+    <Compile Include="View\Builders\NullBuilder.cs" />
     <Compile Include="View\GraphicsEditor.cs">
       <SubType>Form</SubType>
     </Compile>
