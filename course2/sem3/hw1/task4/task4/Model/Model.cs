@@ -9,6 +9,14 @@
     /// </summary>
     public sealed class Model
     {
+        /// <summary>
+        /// Get list of lines (for testing)
+        /// </summary>
+        public List<Line> Lines
+        {
+            get { return lines; }
+        }
+
         private List<Line> lines = new List<Line>();
         private Line selectedLine = null;
 

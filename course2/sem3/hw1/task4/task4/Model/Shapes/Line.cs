@@ -29,6 +29,12 @@
             this.Visible = true;
         }
 
+        public Line(Point firstPoint, Point secondPoint)
+        {
+            this.firstPoint = firstPoint;
+            this.secondPoint = secondPoint;
+        }
+
         /// <summary>
         /// Is line selected
         /// </summary>
