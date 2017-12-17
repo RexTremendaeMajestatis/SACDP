@@ -1,29 +1,95 @@
 ﻿namespace GraphicsEditorTests
 {
-    using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Task4;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
-    using System.Text;
 
     [TestClass]
     public class LogicTests
     {
         private static Model model = new Model();
         private static Controller controller = new Controller(model);
-        private IShapeBuilder builder = new LineBuilder();
 
         private List<Point> points = new List<Point>();
         private List<Line> lines = new List<Line>();
 
+        private Point thirdLinePoint = new Point(391, 181);
+
         private string path = "points.txt";
 
+        /// <summary>
+        /// Select line test
+        /// </summary>
+        [TestMethod]
+        public void SelectLineTest()
+        {
+            LoadLines(path);
+
+            foreach (var line in lines)
+            {
+                var add = new AddCommand(line);
+                controller.Handle(add);
+            }
+
+            var select = new SelectLineCommand(thirdLinePoint);
+            controller.Handle(select);
+            Assert.IsTrue(model.SelectedLine.Selected);
+            Assert.IsTrue(model.SelectedLine == lines[2]);
+        }
+
+        /// <summary>
+        /// Undo selection test (expected that previous line is selected)
+        /// </summary>
+        [TestMethod]
+        public void SelectUndoTest()
+        {
+            LoadLines(path);
+
+            foreach (var line in lines)
+            {
+                var add = new AddCommand(line);
+                controller.Handle(add);
+            }
+
+            var select = new SelectLineCommand(thirdLinePoint);
+            controller.Handle(select);
+            controller.Undo();
+            Assert.IsTrue(model.SelectedLine.Selected);
+            Assert.IsTrue(model.SelectedLine == lines[3]);
+            Assert.IsFalse(model.Lines[2].Selected);
+        }
+
+        /// <summary>
+        /// Redo selection test (expected that third line is selected)
+        /// </summary>
+        [TestMethod]
+        public void SelectRedoTest()
+        {
+            LoadLines(path);
+
+            foreach (var line in lines)
+            {
+                var add = new AddCommand(line);
+                controller.Handle(add);
+            }
+
+            var select = new SelectLineCommand(thirdLinePoint);
+            controller.Handle(select);
+            controller.Undo();
+            controller.Redo();
+            Assert.IsTrue(model.SelectedLine.Selected);
+            Assert.IsTrue(model.SelectedLine == lines[2]);
+        }
+
+        /// <summary>
+        /// Adds lines from list and checks if model contains them
+        /// </summary>
         [TestMethod]
         public void AddLineTest()
         {
-            LoadLines();
+            LoadLines(path);
             
             foreach (var line in lines)
             {
@@ -37,10 +103,13 @@
             }
         }
 
+        /// <summary>
+        /// Adds line and checks if model does not contain it after undo
+        /// </summary>
         [TestMethod]
         public void AddUndoTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
@@ -48,10 +117,13 @@
             Assert.IsFalse(model.Lines.Contains(lines[0]));
         }
 
+        /// <summary>
+        /// Adds line and checks if model contains it after redo
+        /// </summary>
         [TestMethod]
         public void AddRedoTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
@@ -60,10 +132,13 @@
             Assert.IsTrue(model.Lines.Contains(lines[0]));
         }
 
+        /// <summary>
+        /// Removes line from model
+        /// </summary>
         [TestMethod]
         public void RemoveLineTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             foreach (var line in lines)
             {
@@ -76,10 +151,13 @@
             Assert.IsFalse(model.Lines.Contains(lines[3]));
         }
 
+        /// <summary>
+        /// Removes line and then abort operation
+        /// </summary>
         [TestMethod]
         public void RemoveUndoTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             foreach (var line in lines)
             {
@@ -93,10 +171,13 @@
             Assert.IsTrue(model.Lines.Contains(lines[3]));
         }
 
+        /// <summary>
+        /// Removes line and then aborts aborting operation
+        /// </summary>
         [TestMethod]
         public void RemoveRedoTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             foreach (var line in lines)
             {
@@ -111,10 +192,13 @@
             Assert.IsFalse(model.Lines.Contains(lines[3]));
         }
 
+        /// <summary>
+        /// Moves line
+        /// </summary>
         [TestMethod]
         public void MoveLineTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
@@ -124,10 +208,13 @@
             Assert.IsTrue(model.Lines.Contains(lines[1]));
         }
 
+        /// <summary>
+        /// Moves line and then aborts operation
+        /// </summary>
         [TestMethod]
         public void MoveUndoTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
@@ -138,10 +225,13 @@
             Assert.IsFalse(model.Lines.Contains(lines[1]));
         }
 
+        /// <summary>
+        /// Moves line and then aborts aborting operation
+        /// </summary>
         [TestMethod]
         public void MoveRedoTest()
         {
-            LoadLines();
+            LoadLines(path);
 
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
@@ -153,18 +243,44 @@
             Assert.IsTrue(model.Lines.Contains(lines[1]));
         }
 
+        /// <summary>
+        /// Simulates user's behaviour
+        /// </summary>
         [TestMethod]
-        public void SelectLineTest()
+        public void AdvancedTest()
         {
-            LoadLines();
+            LoadLines(path);
 
-            foreach (var line in lines)
-            {
-                var add = new AddCommand(line);
-                controller.Handle(add);
-            }
+            var addFirstLine = new AddCommand(lines[0]);
+            controller.Handle(addFirstLine);
+            Assert.IsTrue(model.Lines.Contains(lines[0]));
+            controller.Undo();
+            Assert.IsFalse(model.Lines.Contains(lines[0]));
+            controller.Redo();
+            Assert.IsTrue(model.Lines.Contains(lines[0]));
+            var remove = new RemoveCommand();
+            controller.Handle(remove);
+            Assert.IsFalse(model.Lines.Contains(lines[0]));
+            controller.Undo();
+            Assert.IsTrue(model.Lines.Contains(lines[0]));
+            var addSecondLine = new AddCommand(lines[1]);
+            controller.Handle(addSecondLine);
+            Assert.IsTrue(model.Lines.Contains(lines[1]));
+            var selectFirstLine = new SelectLineCommand(new Point(31, 81));
+            controller.Handle(selectFirstLine);
+            Assert.IsTrue(model.SelectedLine == lines[0]);
+            var moveFirstLine = new MoveCommand(lines[2]);
+            controller.Handle(moveFirstLine);
+            Assert.IsFalse(model.Lines.Contains(lines[0]));
+            controller.Undo();
+            controller.Undo();
+            Assert.IsFalse(model.SelectedLine == lines[0]);
+            Assert.IsFalse(model.Lines.Contains(lines[2]));
         }
 
+        /// <summary>
+        /// Loads points from file
+        /// </summary>
         private void LoadPoints(string path)
         {
             this.points = new List<Point>();
@@ -188,6 +304,9 @@
             }
         }
 
+        /// <summary>
+        /// Generates points in file
+        /// </summary>
         private void CreatePoints(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
@@ -203,7 +322,10 @@
             }
         }
 
-        private void LoadLines()
+        /// <summary>
+        /// Loads lines from file
+        /// </summary>
+        private void LoadLines(string path)
         {
             CreatePoints(path);
             LoadPoints(path);

@@ -11,8 +11,8 @@
     {
         private Pen pen = new Pen(Color.Black);
         private Pen selectionPen = new Pen(Color.Red, 3);
-        private Point firstPoint;
-        private Point secondPoint;
+        private Point fPoint;
+        private Point sPoint;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Line"/> class
@@ -22,8 +22,8 @@
         /// <param name="builder">Builder for line</param>
         public Line(Point firstPoint, Point secondPoint, LineBuilder builder)
         {
-            this.firstPoint = firstPoint;
-            this.secondPoint = secondPoint;
+            this.fPoint = firstPoint;
+            this.sPoint = secondPoint;
             this.Builder = builder;
             this.Selected = false;
             this.Visible = true;
@@ -31,8 +31,8 @@
 
         public Line(Point firstPoint, Point secondPoint)
         {
-            this.firstPoint = firstPoint;
-            this.secondPoint = secondPoint;
+            this.fPoint = firstPoint;
+            this.sPoint = secondPoint;
         }
 
         /// <summary>
@@ -67,7 +67,7 @@
         {
             if (this.Visible)
             {
-                e.Graphics.DrawLine(this.pen, this.firstPoint, this.secondPoint);
+                e.Graphics.DrawLine(this.pen, this.fPoint, this.sPoint);
                 if (this.Selected)
                 {
                     this.DrawSelection(e);
@@ -89,28 +89,28 @@
 
             return false;
         }
-
+        
         private double Distance(Point point)
         {
-            var vectorA = new Vector(this.firstPoint, point);
-            var vectorB = new Vector(this.firstPoint, this.secondPoint);
+            var vectorA = new Vector(this.fPoint, point);
+            var vectorB = new Vector(this.fPoint, this.sPoint);
 
             if (Vector.ScalarMultiply(vectorA, vectorB) < 0.0)
             {
-                this.SelectedPoint = this.firstPoint;
-                this.InitPoint = this.secondPoint;
+                this.SelectedPoint = this.fPoint;
+                this.InitPoint = this.sPoint;
 
                 return vectorA.Length;
             }
             else
             {
-                var vectorC = new Vector(this.secondPoint, point);
+                var vectorC = new Vector(this.sPoint, point);
                 var vectorD = (-1) * vectorB;
 
                 if (Vector.ScalarMultiply(vectorC, vectorD) < 0.0)
                 {
-                    this.SelectedPoint = this.secondPoint;
-                    this.InitPoint = this.firstPoint;
+                    this.SelectedPoint = this.sPoint;
+                    this.InitPoint = this.fPoint;
 
                     return vectorC.Length;
                 }
@@ -129,9 +129,9 @@
 
         private void DrawSelection(PaintEventArgs e)
         {
-            e.Graphics.DrawEllipse(this.selectionPen, new Rectangle(this.firstPoint.X - 2, this.firstPoint.Y - 2, 4, 4));
-            e.Graphics.DrawEllipse(this.selectionPen, new Rectangle(this.secondPoint.X - 2, this.secondPoint.Y - 2, 4, 4));
-            e.Graphics.DrawLine(this.selectionPen, this.firstPoint, this.secondPoint);
+            e.Graphics.DrawEllipse(this.selectionPen, new Rectangle(this.fPoint.X - 2, this.fPoint.Y - 2, 4, 4));
+            e.Graphics.DrawEllipse(this.selectionPen, new Rectangle(this.sPoint.X - 2, this.sPoint.Y - 2, 4, 4));
+            e.Graphics.DrawLine(this.selectionPen, this.fPoint, this.sPoint);
         }
     }
 
@@ -164,7 +164,7 @@
         public double Length => Math.Sqrt(ScalarMultiply(this, this));
 
         /// <summary>
-        /// Vector stretching
+        /// <see cref="Vector"/> stretching
         /// </summary>
         public static Vector operator *(int alpha, Vector vector)
         {
@@ -172,7 +172,7 @@
         }
 
         /// <summary>
-        /// Vector stretching
+        /// <see cref="Vector"/> stretching
         /// </summary>
         public static Vector operator *(Vector vector, int alpha)
         {
