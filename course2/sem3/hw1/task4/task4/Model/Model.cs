@@ -12,10 +12,7 @@
         /// <summary>
         /// Get list of lines (for testing)
         /// </summary>
-        public List<Line> Lines
-        {
-            get { return lines; }
-        }
+        public List<Line> Lines => lines;
 
         private List<Line> lines = new List<Line>();
         private Line selectedLine = null;
@@ -25,10 +22,7 @@
         /// </summary>
         public Line SelectedLine
         {
-            get
-            {
-                return this.selectedLine;
-            }
+            get => this.selectedLine;
 
             set
             {
@@ -94,10 +88,7 @@
         /// <summary>
         /// Removes line
         /// </summary>
-        public void RemoveLine(Line line)
-        {
-            this.lines.Remove(line);
-        }
+        public void RemoveLine(Line line) => this.lines.Remove(line);
 
         /// <summary>
         /// Removes current line

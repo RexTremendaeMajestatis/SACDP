@@ -7,17 +7,17 @@
     using System.IO;
 
     [TestClass]
-    public class LogicTests
+    public class ControllerTests
     {
-        private static Model model = new Model();
-        private static Controller controller = new Controller(model);
+        private static readonly Model model = new Model();
+        private static readonly Controller controller = new Controller(model);
 
         private List<Point> points = new List<Point>();
         private List<Line> lines = new List<Line>();
 
-        private Point thirdLinePoint = new Point(391, 181);
+        private readonly Point thirdLinePoint = new Point(391, 181);
 
-        private string path = "points.txt";
+        private const string path = "points.txt";
 
         /// <summary>
         /// Select line test
@@ -25,8 +25,6 @@
         [TestMethod]
         public void SelectLineTest()
         {
-            LoadLines(path);
-
             foreach (var line in lines)
             {
                 var add = new AddCommand(line);
@@ -44,9 +42,7 @@
         /// </summary>
         [TestMethod]
         public void SelectUndoTest()
-        {
-            LoadLines(path);
-
+        { 
             foreach (var line in lines)
             {
                 var add = new AddCommand(line);
@@ -67,8 +63,6 @@
         [TestMethod]
         public void SelectRedoTest()
         {
-            LoadLines(path);
-
             foreach (var line in lines)
             {
                 var add = new AddCommand(line);
@@ -89,8 +83,6 @@
         [TestMethod]
         public void AddLineTest()
         {
-            LoadLines(path);
-            
             foreach (var line in lines)
             {
                 var add = new AddCommand(line);
@@ -109,8 +101,6 @@
         [TestMethod]
         public void AddUndoTest()
         {
-            LoadLines(path);
-
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
             controller.Undo();
@@ -123,8 +113,6 @@
         [TestMethod]
         public void AddRedoTest()
         {
-            LoadLines(path);
-
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
             controller.Undo();
@@ -137,9 +125,7 @@
         /// </summary>
         [TestMethod]
         public void RemoveLineTest()
-        {
-            LoadLines(path);
-
+        { 
             foreach (var line in lines)
             {
                 var add = new AddCommand(line);
@@ -157,8 +143,6 @@
         [TestMethod]
         public void RemoveUndoTest()
         {
-            LoadLines(path);
-
             foreach (var line in lines)
             {
                 var add = new AddCommand(line);
@@ -177,8 +161,6 @@
         [TestMethod]
         public void RemoveRedoTest()
         {
-            LoadLines(path);
-
             foreach (var line in lines)
             {
                 var add = new AddCommand(line);
@@ -198,8 +180,6 @@
         [TestMethod]
         public void MoveLineTest()
         {
-            LoadLines(path);
-
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
             var move = new MoveCommand(lines[1]);
@@ -214,8 +194,6 @@
         [TestMethod]
         public void MoveUndoTest()
         {
-            LoadLines(path);
-
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
             var move = new MoveCommand(lines[1]);
@@ -231,8 +209,6 @@
         [TestMethod]
         public void MoveRedoTest()
         {
-            LoadLines(path);
-
             var add = new AddCommand(lines[0]);
             controller.Handle(add);
             var move = new MoveCommand(lines[1]);
@@ -249,8 +225,6 @@
         [TestMethod]
         public void AdvancedTest()
         {
-            LoadLines(path);
-
             var addFirstLine = new AddCommand(lines[0]);
             controller.Handle(addFirstLine);
             Assert.IsTrue(model.Lines.Contains(lines[0]));
@@ -283,7 +257,7 @@
         /// </summary>
         private void LoadPoints(string path)
         {
-            this.points = new List<Point>();
+            this.points.Clear();
 
             using (StreamReader file = new StreamReader(path))
             {
@@ -297,9 +271,9 @@
                         points.Add(temp);
                     }
                 }
-                catch
+                catch (FileNotFoundException ex)
                 {
-
+                    System.Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -325,14 +299,16 @@
         /// <summary>
         /// Loads lines from file
         /// </summary>
-        private void LoadLines(string path)
+        [TestInitialize]
+        public void LoadLines()
         {
-            CreatePoints(path);
-            LoadPoints(path);
+            this.CreatePoints(path);
+            this.LoadPoints(path);
+            this.lines.Clear();
 
-            for (int i = 0; i < points.Count - 1; i+=2)
+            for (int i = 0; i < this.points.Count - 1; i += 2)
             {
-                lines.Add(new Line(points[i], points[i + 1]));
+                lines.Add(new Line(this.points[i], this.points[i + 1]));
             }
         }
     }

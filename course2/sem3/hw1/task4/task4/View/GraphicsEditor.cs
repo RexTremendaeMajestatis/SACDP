@@ -9,7 +9,7 @@
     /// </summary>
     public partial class GraphicsEditor : Form
     {
-        private Logic logic = Logic.Instance;
+        private Logic logic = new Logic();
         
         public GraphicsEditor()
         {   
@@ -73,8 +73,6 @@
         private void SelectLinesButton_Click(object sender, EventArgs e)
         {
             this.logic.SelectLines();
-            this.UndoButton.Enabled = false;
-            this.RedoButton.Enabled = false;
             this.DrawLinesButton.BackColor = Color.Empty;
             this.SelectLinesButton.BackColor = Color.Gray;
         }

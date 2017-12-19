@@ -8,7 +8,6 @@
     /// </summary>
     class Logic
     {
-        private static Logic instance;
         private IShapeBuilder builder;
         private Model model;
         private Controller controller;
@@ -16,7 +15,7 @@
         private bool isMouseMove;
         private bool isCursorSelected;
 
-        private Logic()
+        public Logic()
         {
             this.builder = new NullBuilder();
             this.model = new Model();
@@ -24,22 +23,6 @@
             this.isMouseDown = false;
             this.isMouseMove = false;
             this.isCursorSelected = false;
-        }
-
-        /// <summary>
-        /// Get a singletone instance of the <see cref="Logic"/> class
-        /// </summary>
-        public static Logic Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Logic();
-                }
-
-                return instance;
-            }
         }
 
         /// <summary>
