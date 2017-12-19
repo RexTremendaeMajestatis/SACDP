@@ -1,23 +1,25 @@
 ﻿namespace GraphicsEditorTests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Task4;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
-
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Task4;
+    
+    /// <summary>
+    /// Contriler & logic test class
+    /// </summary>
     [TestClass]
     public class ControllerTests
     {
-        private static readonly Model model = new Model();
-        private static readonly Controller controller = new Controller(model);
+        private const string Path = "points.txt";
 
-        private List<Point> points = new List<Point>();
-        private List<Line> lines = new List<Line>();
+        private static readonly Model Model = new Model();
+        private static readonly Controller Controller = new Controller(Model);
 
+        private readonly List<Point> points = new List<Point>();
+        private readonly List<Line> lines = new List<Line>();
         private readonly Point thirdLinePoint = new Point(391, 181);
-
-        private const string path = "points.txt";
 
         /// <summary>
         /// Select line test
@@ -25,16 +27,16 @@
         [TestMethod]
         public void SelectLineTest()
         {
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
                 var add = new AddCommand(line);
-                controller.Handle(add);
+                Controller.Handle(add);
             }
 
-            var select = new SelectLineCommand(thirdLinePoint);
-            controller.Handle(select);
-            Assert.IsTrue(model.SelectedLine.Selected);
-            Assert.IsTrue(model.SelectedLine == lines[2]);
+            var select = new SelectLineCommand(this.thirdLinePoint);
+            Controller.Handle(select);
+            Assert.IsTrue(Model.SelectedLine.Selected);
+            Assert.IsTrue(Model.SelectedLine == this.lines[2]);
         }
 
         /// <summary>
@@ -43,18 +45,18 @@
         [TestMethod]
         public void SelectUndoTest()
         { 
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
                 var add = new AddCommand(line);
-                controller.Handle(add);
+                Controller.Handle(add);
             }
 
-            var select = new SelectLineCommand(thirdLinePoint);
-            controller.Handle(select);
-            controller.Undo();
-            Assert.IsTrue(model.SelectedLine.Selected);
-            Assert.IsTrue(model.SelectedLine == lines[3]);
-            Assert.IsFalse(model.Lines[2].Selected);
+            var select = new SelectLineCommand(this.thirdLinePoint);
+            Controller.Handle(select);
+            Controller.Undo();
+            Assert.IsTrue(Model.SelectedLine.Selected);
+            Assert.IsTrue(Model.SelectedLine == this.lines[3]);
+            Assert.IsFalse(Model.Lines[2].Selected);
         }
 
         /// <summary>
@@ -63,18 +65,18 @@
         [TestMethod]
         public void SelectRedoTest()
         {
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
                 var add = new AddCommand(line);
-                controller.Handle(add);
+                Controller.Handle(add);
             }
 
-            var select = new SelectLineCommand(thirdLinePoint);
-            controller.Handle(select);
-            controller.Undo();
-            controller.Redo();
-            Assert.IsTrue(model.SelectedLine.Selected);
-            Assert.IsTrue(model.SelectedLine == lines[2]);
+            var select = new SelectLineCommand(this.thirdLinePoint);
+            Controller.Handle(select);
+            Controller.Undo();
+            Controller.Redo();
+            Assert.IsTrue(Model.SelectedLine.Selected);
+            Assert.IsTrue(Model.SelectedLine == this.lines[2]);
         }
 
         /// <summary>
@@ -83,15 +85,15 @@
         [TestMethod]
         public void AddLineTest()
         {
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
                 var add = new AddCommand(line);
-                controller.Handle(add);
+                Controller.Handle(add);
             }
 
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
-                Assert.IsTrue(model.Lines.Contains(line));
+                Assert.IsTrue(Model.Lines.Contains(line));
             }
         }
 
@@ -101,10 +103,10 @@
         [TestMethod]
         public void AddUndoTest()
         {
-            var add = new AddCommand(lines[0]);
-            controller.Handle(add);
-            controller.Undo();
-            Assert.IsFalse(model.Lines.Contains(lines[0]));
+            var add = new AddCommand(this.lines[0]);
+            Controller.Handle(add);
+            Controller.Undo();
+            Assert.IsFalse(Model.Lines.Contains(this.lines[0]));
         }
 
         /// <summary>
@@ -113,11 +115,11 @@
         [TestMethod]
         public void AddRedoTest()
         {
-            var add = new AddCommand(lines[0]);
-            controller.Handle(add);
-            controller.Undo();
-            controller.Redo();
-            Assert.IsTrue(model.Lines.Contains(lines[0]));
+            var add = new AddCommand(this.lines[0]);
+            Controller.Handle(add);
+            Controller.Undo();
+            Controller.Redo();
+            Assert.IsTrue(Model.Lines.Contains(this.lines[0]));
         }
 
         /// <summary>
@@ -126,15 +128,15 @@
         [TestMethod]
         public void RemoveLineTest()
         { 
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
                 var add = new AddCommand(line);
-                controller.Handle(add);
+                Controller.Handle(add);
             }
 
             var remove = new RemoveCommand();
-            controller.Handle(remove);
-            Assert.IsFalse(model.Lines.Contains(lines[3]));
+            Controller.Handle(remove);
+            Assert.IsFalse(Model.Lines.Contains(this.lines[3]));
         }
 
         /// <summary>
@@ -143,16 +145,16 @@
         [TestMethod]
         public void RemoveUndoTest()
         {
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
                 var add = new AddCommand(line);
-                controller.Handle(add);
+                Controller.Handle(add);
             }
 
             var remove = new RemoveCommand();
-            controller.Handle(remove);
-            controller.Undo();
-            Assert.IsTrue(model.Lines.Contains(lines[3]));
+            Controller.Handle(remove);
+            Controller.Undo();
+            Assert.IsTrue(Model.Lines.Contains(this.lines[3]));
         }
 
         /// <summary>
@@ -161,17 +163,17 @@
         [TestMethod]
         public void RemoveRedoTest()
         {
-            foreach (var line in lines)
+            foreach (var line in this.lines)
             {
                 var add = new AddCommand(line);
-                controller.Handle(add);
+                Controller.Handle(add);
             }
 
             var remove = new RemoveCommand();
-            controller.Handle(remove);
-            controller.Undo();
-            controller.Redo();
-            Assert.IsFalse(model.Lines.Contains(lines[3]));
+            Controller.Handle(remove);
+            Controller.Undo();
+            Controller.Redo();
+            Assert.IsFalse(Model.Lines.Contains(this.lines[3]));
         }
 
         /// <summary>
@@ -180,12 +182,12 @@
         [TestMethod]
         public void MoveLineTest()
         {
-            var add = new AddCommand(lines[0]);
-            controller.Handle(add);
-            var move = new MoveCommand(lines[1]);
-            controller.Handle(move);
-            Assert.IsFalse(model.Lines.Contains(lines[0]));
-            Assert.IsTrue(model.Lines.Contains(lines[1]));
+            var add = new AddCommand(this.lines[0]);
+            Controller.Handle(add);
+            var move = new MoveCommand(this.lines[1]);
+            Controller.Handle(move);
+            Assert.IsFalse(Model.Lines.Contains(this.lines[0]));
+            Assert.IsTrue(Model.Lines.Contains(this.lines[1]));
         }
 
         /// <summary>
@@ -194,13 +196,13 @@
         [TestMethod]
         public void MoveUndoTest()
         {
-            var add = new AddCommand(lines[0]);
-            controller.Handle(add);
-            var move = new MoveCommand(lines[1]);
-            controller.Handle(move);
-            controller.Undo();
-            Assert.IsTrue(model.Lines.Contains(lines[0]));
-            Assert.IsFalse(model.Lines.Contains(lines[1]));
+            var add = new AddCommand(this.lines[0]);
+            Controller.Handle(add);
+            var move = new MoveCommand(this.lines[1]);
+            Controller.Handle(move);
+            Controller.Undo();
+            Assert.IsTrue(Model.Lines.Contains(this.lines[0]));
+            Assert.IsFalse(Model.Lines.Contains(this.lines[1]));
         }
 
         /// <summary>
@@ -209,14 +211,14 @@
         [TestMethod]
         public void MoveRedoTest()
         {
-            var add = new AddCommand(lines[0]);
-            controller.Handle(add);
-            var move = new MoveCommand(lines[1]);
-            controller.Handle(move);
-            controller.Undo();
-            controller.Redo();
-            Assert.IsFalse(model.Lines.Contains(lines[0]));
-            Assert.IsTrue(model.Lines.Contains(lines[1]));
+            var add = new AddCommand(this.lines[0]);
+            Controller.Handle(add);
+            var move = new MoveCommand(this.lines[1]);
+            Controller.Handle(move);
+            Controller.Undo();
+            Controller.Redo();
+            Assert.IsFalse(Model.Lines.Contains(this.lines[0]));
+            Assert.IsTrue(Model.Lines.Contains(this.lines[1]));
         }
 
         /// <summary>
@@ -225,31 +227,47 @@
         [TestMethod]
         public void AdvancedTest()
         {
-            var addFirstLine = new AddCommand(lines[0]);
-            controller.Handle(addFirstLine);
-            Assert.IsTrue(model.Lines.Contains(lines[0]));
-            controller.Undo();
-            Assert.IsFalse(model.Lines.Contains(lines[0]));
-            controller.Redo();
-            Assert.IsTrue(model.Lines.Contains(lines[0]));
+            var addFirstLine = new AddCommand(this.lines[0]);
+            Controller.Handle(addFirstLine);
+            Assert.IsTrue(Model.Lines.Contains(this.lines[0]));
+            Controller.Undo();
+            Assert.IsFalse(Model.Lines.Contains(this.lines[0]));
+            Controller.Redo();
+            Assert.IsTrue(Model.Lines.Contains(this.lines[0]));
             var remove = new RemoveCommand();
-            controller.Handle(remove);
-            Assert.IsFalse(model.Lines.Contains(lines[0]));
-            controller.Undo();
-            Assert.IsTrue(model.Lines.Contains(lines[0]));
-            var addSecondLine = new AddCommand(lines[1]);
-            controller.Handle(addSecondLine);
-            Assert.IsTrue(model.Lines.Contains(lines[1]));
+            Controller.Handle(remove);
+            Assert.IsFalse(Model.Lines.Contains(this.lines[0]));
+            Controller.Undo();
+            Assert.IsTrue(Model.Lines.Contains(this.lines[0]));
+            var addSecondLine = new AddCommand(this.lines[1]);
+            Controller.Handle(addSecondLine);
+            Assert.IsTrue(Model.Lines.Contains(this.lines[1]));
             var selectFirstLine = new SelectLineCommand(new Point(31, 81));
-            controller.Handle(selectFirstLine);
-            Assert.IsTrue(model.SelectedLine == lines[0]);
-            var moveFirstLine = new MoveCommand(lines[2]);
-            controller.Handle(moveFirstLine);
-            Assert.IsFalse(model.Lines.Contains(lines[0]));
-            controller.Undo();
-            controller.Undo();
-            Assert.IsFalse(model.SelectedLine == lines[0]);
-            Assert.IsFalse(model.Lines.Contains(lines[2]));
+            Controller.Handle(selectFirstLine);
+            Assert.IsTrue(Model.SelectedLine == this.lines[0]);
+            var moveFirstLine = new MoveCommand(this.lines[2]);
+            Controller.Handle(moveFirstLine);
+            Assert.IsFalse(Model.Lines.Contains(this.lines[0]));
+            Controller.Undo();
+            Controller.Undo();
+            Assert.IsFalse(Model.SelectedLine == this.lines[0]);
+            Assert.IsFalse(Model.Lines.Contains(this.lines[2]));
+        }
+
+        /// <summary>
+        /// Loads lines from file
+        /// </summary>
+        [TestInitialize]
+        public void LoadLines()
+        {
+            this.CreatePoints(Path);
+            this.LoadPoints(Path);
+            this.lines.Clear();
+
+            for (int i = 0; i < this.points.Count - 1; i += 2)
+            {
+                this.lines.Add(new Line(this.points[i], this.points[i + 1]));
+            }
         }
 
         /// <summary>
@@ -268,7 +286,7 @@
                         string point = file.ReadLine();
                         string[] coords = point.Split(' ');
                         var temp = new Point(int.Parse(coords[0]), int.Parse(coords[1]));
-                        points.Add(temp);
+                        this.points.Add(temp);
                     }
                 }
                 catch (FileNotFoundException ex)
@@ -293,22 +311,6 @@
                 sw.WriteLine("390 180");
                 sw.WriteLine("10 500");
                 sw.WriteLine("170 980");
-            }
-        }
-
-        /// <summary>
-        /// Loads lines from file
-        /// </summary>
-        [TestInitialize]
-        public void LoadLines()
-        {
-            this.CreatePoints(path);
-            this.LoadPoints(path);
-            this.lines.Clear();
-
-            for (int i = 0; i < this.points.Count - 1; i += 2)
-            {
-                lines.Add(new Line(this.points[i], this.points[i + 1]));
             }
         }
     }

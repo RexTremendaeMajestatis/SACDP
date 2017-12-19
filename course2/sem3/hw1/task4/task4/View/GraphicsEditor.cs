@@ -22,12 +22,16 @@
         private void UndoButton_Click(object sender, EventArgs e)
         {
             this.logic.Undo();
+            this.UndoButton.Enabled = this.logic.AllowUndo;
+            this.RedoButton.Enabled = this.logic.AllowRedo;
             this.DrawArea.Invalidate();
         }
 
         private void RedoButton_Click(object sender, EventArgs e)
         {
             this.logic.Redo();
+            this.UndoButton.Enabled = this.logic.AllowUndo;
+            this.RedoButton.Enabled = this.logic.AllowRedo;
             this.DrawArea.Invalidate();
         }
 
@@ -40,6 +44,8 @@
         private void DrawArea_MouseUp(object sender, MouseEventArgs e)
         {
             this.logic.MouseUp(e);
+            this.DeleteLineButton.Enabled = this.logic.AllowDeletion;
+            this.UndoButton.Enabled = this.logic.AllowUndo;
             this.DrawArea.Invalidate();
         }
 
@@ -57,15 +63,13 @@
         private void DeleteLineButton_Click(object sender, EventArgs e)
         {
             this.logic.DeleteLine();
+            this.DeleteLineButton.Enabled = this.logic.AllowDeletion;
             this.DrawArea.Invalidate();
         }
 
         private void DrawLinesButton_Click(object sender, EventArgs e)
         {
             this.logic.DrawLines();
-            this.UndoButton.Enabled = true;
-            this.RedoButton.Enabled = true;
-            this.DeleteLineButton.Enabled = true;
             this.DrawLinesButton.BackColor = Color.Gray;
             this.SelectLinesButton.BackColor = Color.Empty;
         }

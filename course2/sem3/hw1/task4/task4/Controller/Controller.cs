@@ -22,6 +22,16 @@
         }
 
         /// <summary>
+        /// Checks if there are any commands to undo
+        /// </summary>
+        public bool HasUndo => undoStack.Count != 0;
+
+        /// <summary>
+        /// Checks if there ane any commands to redo
+        /// </summary>
+        public bool HasRedo => redoStack.Count != 0;
+
+        /// <summary>
         /// Handle command
         /// </summary>
         public void Handle(Command command)

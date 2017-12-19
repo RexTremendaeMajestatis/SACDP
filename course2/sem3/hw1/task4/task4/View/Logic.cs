@@ -15,6 +15,9 @@
         private bool isMouseMove;
         private bool isCursorSelected;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Logic"/> class
+        /// </summary>
         public Logic()
         {
             this.builder = new NullBuilder();
@@ -24,6 +27,21 @@
             this.isMouseMove = false;
             this.isCursorSelected = false;
         }
+
+        /// <summary>
+        /// Checks if user created any lines
+        /// </summary>
+        public bool AllowDeletion => model.HasLines;
+
+        /// <summary>
+        /// Checks if user can undo
+        /// </summary>
+        public bool AllowUndo => controller.HasUndo;
+
+        /// <summary>
+        /// Checks if user can redo
+        /// </summary>
+        public bool AllowRedo => controller.HasRedo;
 
         /// <summary>
         /// Unexecute action

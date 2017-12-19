@@ -37,6 +37,11 @@
         }
 
         /// <summary>
+        /// Checks if model contains any lines
+        /// </summary>
+        public bool HasLines => lines.Count != 0;
+
+        /// <summary>
         /// Current element builder
         /// </summary>
         public LineBuilder CurrentElementBuilder => this.selectedLine.Builder;
