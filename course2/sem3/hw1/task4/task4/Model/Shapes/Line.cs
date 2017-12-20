@@ -29,6 +29,11 @@
             this.Visible = true;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Line"> class
+        /// </summary>
+        /// <param name="firstPoint">First coordinate</param>
+        /// <param name="secondPoint">Second coordinate</param>
         public Line(Point firstPoint, Point secondPoint)
         {
             this.fPoint = firstPoint;

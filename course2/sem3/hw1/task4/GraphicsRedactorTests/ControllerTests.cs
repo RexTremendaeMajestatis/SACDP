@@ -291,7 +291,7 @@
                 }
                 catch (FileNotFoundException ex)
                 {
-                    System.Console.WriteLine(ex.Message);
+                    throw ex;
                 }
             }
         }
