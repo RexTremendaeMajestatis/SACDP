@@ -15,5 +15,3 @@ let indexOf element list =
         | head :: tail -> if head = element then index
                           else recIndexOf (index + 1) tail
     recIndexOf 0 list
-
-let list = [1..100]
