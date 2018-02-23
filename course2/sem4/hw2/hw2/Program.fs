@@ -15,3 +15,10 @@ let indexOf element list =
         | head :: tail -> if head = element then index
                           else recIndexOf (index + 1) tail
     recIndexOf 0 list
+
+(*2.3*)
+
+let palindrom (x:string) = 
+    match x with
+    | "" -> true
+    | _ -> Seq.forall(fun i -> x.[i] = x.[x.Length - i - 1]) {0..x.Length/2}
