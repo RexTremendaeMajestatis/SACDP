@@ -34,25 +34,25 @@ let rec mergeSort list =
         let rec recSplit list (left, right) = 
             match list with 
             | []  -> (left, right)
-            | [x] -> (x :: left, right)
+            | [x] -> (left, x :: right)
             | x :: y :: tail -> recSplit tail (x :: left, y :: right)
 
         recSplit list ([], [])
 
-    let merge left right = 
-        let rec recMerge left right result = 
-            match left, right with
-            | [], []                                      -> result
-            | head :: tail, [] | [], head :: tail         -> recMerge [] tail (head :: result)
-            | leftHead :: leftTail, rightHead :: righTail -> 
-                if leftHead > rightHead then recMerge righTail left (rightHead :: result)
-                else recMerge right leftTail (leftHead :: result)
+    let merge (left, right) = 
+        let rec recMerge (left, right) result = 
+            match (left, right) with
+            | ([], [])                                      -> result
+            | (head :: tail, []) | ([], head :: tail)       -> recMerge ([], tail) (head :: result)
+            | (leftHead :: leftTail, rightHead :: righTail) -> 
+                if leftHead > rightHead then recMerge (righTail, left) (rightHead :: result)
+                else recMerge (right, leftTail) (leftHead :: result)
 
-        List.rev(recMerge left right [])
-
-    match list with
-    | []  -> []
-    | [x] -> list
+        recMerge (left, right) []
+    
+    match (List.length list) with
+    | 0  -> []
+    | 1  -> list
     | _   -> 
         let left, right = split list
-        merge (mergeSort left) (mergeSort right)
+        merge ((mergeSort left), (mergeSort right))
