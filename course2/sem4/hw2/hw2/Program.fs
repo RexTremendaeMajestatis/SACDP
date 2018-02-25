@@ -39,6 +39,7 @@ let rec mergeSort list =
 
         recSplit list ([], [])
 
+    (* blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy 
     let merge (left, right) = 
         let rec recMerge (left, right) result = 
             match (left, right) with
@@ -49,10 +50,21 @@ let rec mergeSort list =
                 else recMerge (right, leftTail) (leftHead :: result)
 
         recMerge (left, right) []
+        blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy 
+        *)
+
+    let rec merge2 (left, right) = 
+        match left, right with
+        | ([], list ) | ( list, [])                      -> list
+        | (leftHead :: leftTail, rightHead :: rightTail) -> 
+            if leftHead > rightHead then rightHead :: merge2 (rightTail, left)
+            else leftHead :: merge2 (leftTail, right)
     
-    match (List.length list) with
-    | 0  -> []
-    | 1  -> list
-    | _   -> 
+    match list with
+    | []   -> []
+    | [x]  -> list
+    | _    -> 
         let left, right = split list
-        merge ((mergeSort left), (mergeSort right))
+        merge2 ((mergeSort left), (mergeSort right))
+
+printf "%A" <| mergeSort [1;4;2]
