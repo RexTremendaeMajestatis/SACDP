@@ -12,7 +12,7 @@ let count n =
 let indexOf element list = 
     let rec recIndexOf index list = 
         match list with
-        | []           -> None
+        | [] -> None
         | head :: tail -> 
             if head = element then Some(index)
             else recIndexOf (index + 1) tail
@@ -33,38 +33,24 @@ let rec mergeSort list =
     let split list = 
         let rec recSplit list (left, right) = 
             match list with 
-            | []  -> (left, right)
+            | [] -> (left, right)
             | [x] -> (left, x :: right)
             | x :: y :: tail -> recSplit tail (x :: left, y :: right)
 
         recSplit list ([], [])
 
-    (* blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy 
-    let merge (left, right) = 
-        let rec recMerge (left, right) result = 
-            match (left, right) with
-            | ([], [])                                      -> result
-            | (head :: tail, []) | ([], head :: tail)       -> recMerge ([], tail) (head :: result)
-            | (leftHead :: leftTail, rightHead :: righTail) -> 
-                if leftHead > rightHead then recMerge (righTail, left) (rightHead :: result)
-                else recMerge (right, leftTail) (leftHead :: result)
-
-        recMerge (left, right) []
-        blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy blasphemy 
-        *)
-
     let rec merge2 (left, right) = 
         match left, right with
-        | ([], list ) | ( list, [])                      -> list
+        | ([], list ) | ( list, []) -> list
         | (leftHead :: leftTail, rightHead :: rightTail) -> 
             if leftHead > rightHead then rightHead :: merge2 (rightTail, left)
             else leftHead :: merge2 (leftTail, right)
     
     match list with
-    | []   -> []
-    | [x]  -> list
-    | _    -> 
+    | [] -> []
+    | [x] -> list
+    | _ -> 
         let left, right = split list
         merge2 ((mergeSort left), (mergeSort right))
 
-printf "%A" <| mergeSort [1;4;2]
+printf "%A" <| mergeSort [1; 4; 2]
