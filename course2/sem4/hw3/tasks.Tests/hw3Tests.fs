@@ -4,7 +4,9 @@ open NUnit.Framework
 open tasks.task1
 open tasks.task2
 open tasks.task3
+open tasks.task4
 open System.Security.Cryptography.X509Certificates
+open tasks
 
 (*3.1 Tests*)
 [<Test>]
@@ -121,4 +123,18 @@ let ``Div test`` () =
 let ``Random proposition test`` () = 
     let expected = -7.875
     let actual = eval (Sub(Val(6.0), Div(Mul(Val(9.0), Val(37.0)), Val(24.0)))) // (6 - ((9 * 37) / 24))
+    Assert.That(actual, Is.EqualTo(expected))
+
+[<Test>]
+let ``First prime number test`` () = 
+    let expected = 0
+    let actual = primeSequence
+                 |> Seq.findIndex (fun x -> x = 2)
+    Assert.That(actual, Is.EqualTo(expected))
+
+[<Test>]
+let ``10th prime number test`` () = 
+    let expected = 29
+    let actual = primeSequence
+                 |> Seq.item 9
     Assert.That(actual, Is.EqualTo(expected))

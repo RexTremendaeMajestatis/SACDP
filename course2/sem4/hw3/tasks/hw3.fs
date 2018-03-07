@@ -44,3 +44,11 @@ module task3 =
         | Mul(m, n) -> eval(m) * eval(n)
         | Div(m, n) -> if (eval n) <> 0.0 then eval(m) / eval(n) else failwith "Deniminator is zero"                      
         | Empty -> failwith "Invalid argument"
+
+module task4 = 
+    
+    let primeSequence =
+        let isPrime (n: int) = 
+            not (Seq.exists(fun x -> n % x = 0) {2..(n - 1)})
+        Seq.initInfinite(fun x -> x + 2)
+        |> Seq.filter isPrime
