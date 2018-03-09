@@ -5,8 +5,6 @@ open tasks.task1
 open tasks.task2
 open tasks.task3
 open tasks.task4
-open System.Security.Cryptography.X509Certificates
-open tasks
 
 (*3.1 Tests*)
 [<Test>]
