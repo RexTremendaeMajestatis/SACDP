@@ -34,7 +34,6 @@ module task3 =
         | Sub of Proposition * Proposition
         | Mul of Proposition * Proposition
         | Div of Proposition * Proposition
-        | Empty
 
     let rec eval (p: Proposition) = 
         match p with
@@ -42,8 +41,7 @@ module task3 =
         | Add(m, n) -> eval(m) + eval(n)
         | Sub(m, n) -> eval(m) - eval(n)
         | Mul(m, n) -> eval(m) * eval(n)
-        | Div(m, n) -> if (eval n) <> 0.0 then eval(m) / eval(n) else failwith "Deniminator is zero"                      
-        | Empty -> failwith "Invalid argument"
+        | Div(m, n) -> if abs(eval n) > 0.0 then eval(m) / eval(n) else failwith "Deniminator is zero"                      
 
 module task4 = 
     
