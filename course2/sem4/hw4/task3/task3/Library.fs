@@ -20,12 +20,17 @@ module task3 =
         recGetFV t []
     
     // S[x := T]
+    let alphabet = ['a'..'z']
     let rec substitude S x T =
         match S with
         | Var(y) -> if y = x then T
                     else S
         | App(S1, S2) -> App(substitude S1 x T, substitude S2 x T)
-        | Abs(y, S) -> match T with
+        | Abs(y, S) -> let FVS = getFV S
+                       let FVT = getFV T
+                       match T with
                        | Var(_) when y = x -> S
-                       | _ when (not (getFV T |> List.contains y)) || (not (getFV S |> List.contains x)) -> Abs(y, substitude S x T)
-                       | _ -> (*OOSTAL POMIRAU*)
+                       | _ when (not (FVT |> List.contains y)) || (not (FVS |> List.contains x)) -> Abs(y, substitude S x T)
+                       | _ -> let FVST = List.append FVS FVT
+                              let z = alphabet |> List.filter (fun elem -> not (FVST |> List.contains elem)) |> List.head
+                              Abs(z, substitude (substitude S y (Var(z))) x T)
