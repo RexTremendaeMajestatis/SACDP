@@ -13,7 +13,7 @@ module task1 =
     let countOddByMap list = 
         list
         |> List.map (fun x -> (x + 1) % 2)
-        |> List.fold (fun acc x -> x + acc) 0
+        |> List.sum
 
 module task2 = 
 
