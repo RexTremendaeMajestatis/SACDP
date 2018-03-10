@@ -41,7 +41,7 @@ module task3 =
         | Add(m, n) -> eval(m) + eval(n)
         | Sub(m, n) -> eval(m) - eval(n)
         | Mul(m, n) -> eval(m) * eval(n)
-        | Div(m, n) -> if abs(eval n) > 0.0 then eval(m) / eval(n) else failwith "Deniminator is zero"                      
+        | Div(m, n) -> if abs(eval n) > 0.000000001 then eval(m) / eval(n) else failwith "Deniminator is zero"                      
 
 module task4 = 
     
