@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task1", "task1\task1.csproj", "{4CFC04E1-B4E4-4F4D-ADBB-7235C729F60B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryTree", "task1\BinaryTree.csproj", "{4CFC04E1-B4E4-4F4D-ADBB-7235C729F60B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task1Tests", "task1Tests\task1Tests.csproj", "{35A3C59C-41DA-4B5D-87AB-774AB1A666EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryTreeTests", "task1Tests\BinaryTreeTests.csproj", "{35A3C59C-41DA-4B5D-87AB-774AB1A666EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
