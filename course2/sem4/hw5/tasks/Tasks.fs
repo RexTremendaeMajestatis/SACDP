@@ -1,8 +1,8 @@
 namespace tasks
 
 module task1 = 
-    (*пустая строка - правильная скобочная последовательность*)
-    (*последовательность без скобок - правильная скобочная последовательность*)
+    (*empty string - correct brackets sequence*)
+    (*sequence without brackets - correct brackets sequence*)
     let check (s: string) =
         let list = (s.ToCharArray()) |> List.ofArray
 
