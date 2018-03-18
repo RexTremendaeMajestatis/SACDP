@@ -16,6 +16,12 @@ module task3 =
                           else findByNumber number tail
         | [] -> printfn "Database is empty"
 
+    let rec showAllData (list: list<record>) = 
+        match list with
+        | head :: tail -> printfn "%s" (head.name + " | " + head.phoneNumber)
+                          showAllData tail
+        | [] -> printfn "End of database"
+
     let rec dic (list: list<record>) = 
         printfn "Enter command"
         let command = System.Console.ReadLine()
@@ -36,4 +42,6 @@ module task3 =
                  let tempNumber = System.Console.ReadLine()
                  findByNumber tempNumber list
                  dic list 
+        | "5" -> showAllData list
+                 dic list
         | _ -> printfn "fff"
