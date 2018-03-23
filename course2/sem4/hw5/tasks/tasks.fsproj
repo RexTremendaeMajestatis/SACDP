@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="task2.fs" />
     <Compile Include="task3.fs" />
     <Compile Include="task1.fs" />
   </ItemGroup>
