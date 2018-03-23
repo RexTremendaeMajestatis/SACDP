@@ -6,27 +6,31 @@ module task3 =
         member this.name = name
         member this.phoneNumber = phoneNumber
         override this.ToString() = 
-            this.name + " " + this.phoneNumber
+            this.name + " | " + this.phoneNumber
+    
+    let addRecord (name: string) (phoneNumber: string) (records: list<record>) = 
+        let newRecord = record(name, phoneNumber)
+        newRecord :: records
 
-    let rec findByName (name: string) (list: list<record>) = 
-        match list with
-        | head :: tail -> if head.name = name then printfn "%s" head.phoneNumber
+    let rec findByName (name: string) (records: list<record>) = 
+        match records with
+        | head :: tail -> if head.name = name then head.phoneNumber
                           else findByName name tail
-        | [] -> printfn "Database is empty"
+        | [] -> "No matches found"
 
-    let rec findByNumber (number: string) (list: list<record>) = 
-        match list with
-        | head :: tail -> if head.phoneNumber = number then printfn "%s" head.name
+    let rec findByNumber (number: string) (records: list<record>) = 
+        match records with
+        | head :: tail -> if head.phoneNumber = number then head.name
                           else findByNumber number tail
-        | [] -> printfn "Database is empty"
+        | [] -> "No matches found"
 
-    let rec showAllData (list: list<record>) = 
-        match list with
-        | head :: tail -> printfn "%s" (head.name + " | " + head.phoneNumber)
+    let rec showAllData (records: list<record>) = 
+        match records with
+        | head :: tail -> printfn "%s" (head.ToString())
                           showAllData tail
-        | [] -> printfn "End of database"
+        | [] -> ()
 
-    let save (records: list<record>) (path: string) = 
+    let save (path: string) (records: list<record>) = 
         let recordsToString (records: list<record>) = 
             let rec recordsToStringRec (records: list<record>) strList =
                 match records with
@@ -48,7 +52,7 @@ module task3 =
                 recordsFromStringRec [] strList
             recordsFromString records
         else []
-
+    
     let rec phoneBook (records: list<record>) = 
         printfn "Enter command"
         let command = System.Console.ReadLine()
@@ -58,21 +62,20 @@ module task3 =
                  let name = System.Console.ReadLine()
                  printfn "Enter phone number: "
                  let phoneNumber = System.Console.ReadLine()
-                 let tempRecord = record(name, phoneNumber)
-                 phoneBook (tempRecord :: records)
+                 phoneBook (addRecord name phoneNumber records)
         | "3" -> printfn "Find phone number by name...\nEnter name: "
                  let tempName = System.Console.ReadLine()
-                 findByName tempName records
+                 printfn "%s" <| findByName tempName records
                  phoneBook records
         | "4" -> printfn "Find name by phone number...\nEnter phone number: "
                  let tempNumber = System.Console.ReadLine()
-                 findByNumber tempNumber records
+                 printfn "%s" <| findByNumber tempNumber records
                  phoneBook records 
         | "5" -> showAllData records
                  phoneBook records
         | "6" -> printfn "Saving the database to file...\nEnter the target path: "
                  let path = System.Console.ReadLine()
-                 save records path
+                 save path records
                  printfn "Saving complete"
                  phoneBook records
         | "7" -> printfn "Loading database from file...\nEnter the target path: "
@@ -82,3 +85,14 @@ module task3 =
                  phoneBook loadedRecords
         | _ -> printfn "Unknown command"
                phoneBook records
+
+    let user = 
+        printfn "Commands:"
+        printfn "1 - exit"
+        printfn "2 - add new record"
+        printfn "3 - find phone number by name"
+        printfn "4 - find name by phone number"
+        printfn "5 - show all records"
+        printfn "6 - save records to file"
+        printfn "7 - load records from file"
+        phoneBook []
