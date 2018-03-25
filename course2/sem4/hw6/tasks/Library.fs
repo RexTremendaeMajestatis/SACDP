@@ -105,25 +105,3 @@ module task1 =
                                                                | _ -> Empty
                                           | Tip(y) -> Node(y, l, Empty)
             root <- recRemove data root
-
-        member t.Remove2 value =
-            let rec findLeft tree =
-                match tree with
-                | Tip(element) -> element
-                | Node(element, l, r) -> findLeft l
-
-            let rec recRemove value tree =
-                match tree with
-                | Empty -> Empty
-                | Tip element -> 
-                    if (element = value) then Empty else tree
-                | Node (current, left, right) ->
-                    if value > current then Node(current, left, recRemove value right)
-                    elif value < current then Node(current, recRemove value left, right)
-                    else match right with
-                         | Empty -> left
-                         | Node(element, Empty, r) -> Node(element, left, r)
-                         | Node(element, l, r) -> let minLeft = findLeft l
-                                                  Node(minLeft, recRemove minLeft l, r)
-                         | Tip(element) -> Node(element, left, Empty)
-            root <- recRemove value root
