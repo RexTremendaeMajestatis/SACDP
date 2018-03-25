@@ -74,8 +74,18 @@ module task1 =
         member this.Remove data = 
             let rec recGetMin (node: Node<'a>) = 
                 match node with
-                | Tip(x) -> x
+                | Tip(x) -> Tip (x)
                 | Node(_, l, _) -> recGetMin l
+                | Empty -> Empty
+
+
+            let rec mostRightNode tree =
+                 match tree with
+                 | Empty -> Empty
+                 | Tip a -> Tip a
+                 | Node(x, l, r) -> match r with
+                                    | Empty -> Tip x
+                                    | _ -> mostRightNode r
 
             let rec recRemove data node = 
                 match node with 
@@ -89,7 +99,31 @@ module task1 =
                                    | _ -> match r with
                                           | Empty -> l
                                           | Node(y, Empty, rr) -> Node(y, l, rr)
-                                          | Node(y, l, r) -> let min = recGetMin l
-                                                             Node(min, recRemove min l, r)
+                                          | Node(y, ll, rr) -> let min = recGetMin ll
+                                                               match min with
+                                                               | Tip a -> Node(a, l, recRemove a r)
+                                                               | _ -> Empty
                                           | Tip(y) -> Node(y, l, Empty)
             root <- recRemove data root
+
+        member t.Remove2 value =
+            let rec findLeft tree =
+                match tree with
+                | Tip(element) -> element
+                | Node(element, l, r) -> findLeft l
+
+            let rec recRemove value tree =
+                match tree with
+                | Empty -> Empty
+                | Tip element -> 
+                    if (element = value) then Empty else tree
+                | Node (current, left, right) ->
+                    if value > current then Node(current, left, recRemove value right)
+                    elif value < current then Node(current, recRemove value left, right)
+                    else match right with
+                         | Empty -> left
+                         | Node(element, Empty, r) -> Node(element, left, r)
+                         | Node(element, l, r) -> let minLeft = findLeft l
+                                                  Node(minLeft, recRemove minLeft l, r)
+                         | Tip(element) -> Node(element, left, Empty)
+            root <- recRemove value root
