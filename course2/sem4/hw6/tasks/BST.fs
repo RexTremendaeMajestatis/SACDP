@@ -35,16 +35,6 @@ module task1 =
 
         override this.ToString() = 
             root.ToString()
-
-        member this.Show() = 
-            let rec recShow node =
-                match node with
-                | Empty -> printfn ""
-                | Tip(x) -> printfn "x"
-                | Node(x, l, r) -> printfn "x"
-                                   recShow l
-                                   recShow r
-            recShow root
         
         member this.Add data = 
             let rec recAdd data node = 
