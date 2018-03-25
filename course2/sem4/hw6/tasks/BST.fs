@@ -6,7 +6,7 @@ open System.Collections.Generic
 open System.Linq.Expressions
 
 module task1 = 
-    
+         
     type Node<'a> =
         | Node of 'a * Node<'a> * Node<'a>
         | Tip of 'a
@@ -67,15 +67,6 @@ module task1 =
                 | Tip(x) -> Tip (x)
                 | Node(_, l, _) -> recGetMin l
                 | Empty -> Empty
-
-
-            let rec mostRightNode tree =
-                 match tree with
-                 | Empty -> Empty
-                 | Tip a -> Tip a
-                 | Node(x, l, r) -> match r with
-                                    | Empty -> Tip x
-                                    | _ -> mostRightNode r
 
             let rec recRemove data node = 
                 match node with 
