@@ -36,6 +36,16 @@ module task1 =
         override this.ToString() = 
             root.ToString()
 
+        member this.Show() = 
+            let rec recShow node =
+                match node with
+                | Empty -> printfn ""
+                | Tip(x) -> printfn "x"
+                | Node(x, l, r) -> printfn "x"
+                                   recShow l
+                                   recShow r
+            recShow root
+        
         member this.Add data = 
             let rec recAdd data node = 
                 match node with
@@ -45,8 +55,8 @@ module task1 =
                             | data when data > x -> Node(x, Empty, Tip(data))
                             | _ -> Node(x, Empty, Empty)
                 | Node(x, l, r) -> match data with  
-                                   | data when data > x -> Node(x, recAdd data l, r)
-                                   | data when data < x -> Node(x, l, recAdd data r)
+                                   | data when data < x -> Node(x, recAdd data l, r)
+                                   | data when data > x -> Node(x, l, recAdd data r)
                                    | _ -> Node(x, l, r)
             root <- recAdd data root
         
@@ -62,7 +72,7 @@ module task1 =
             recFind data root
 
         member this.Remove data = 
-            let rec recGetMin node = 
+            let rec recGetMin (node: Node<'a>) = 
                 match node with
                 | Tip(x) -> x
                 | Node(_, l, _) -> recGetMin l
@@ -74,12 +84,12 @@ module task1 =
                             | data when data = x -> Empty
                             | _ -> node
                 | Node(x, l, r) -> match data with
-                                   | data when data < x -> recRemove data l
-                                   | data when data > x -> recRemove data r
+                                   | data when data < x -> Node(x, recRemove data l, r)
+                                   | data when data > x -> Node(x, l, recRemove data r)
                                    | _ -> match r with
                                           | Empty -> l
-                                          | Tip(x) -> Node(x, l, Empty)
-                                          | Node(x, Empty, rr) -> Node(x, l, rr)
-                                          | Node(x, l, r) -> let min = recGetMin l
+                                          | Node(y, Empty, rr) -> Node(y, l, rr)
+                                          | Node(y, l, r) -> let min = recGetMin l
                                                              Node(min, recRemove min l, r)
+                                          | Tip(y) -> Node(y, l, Empty)
             root <- recRemove data root
