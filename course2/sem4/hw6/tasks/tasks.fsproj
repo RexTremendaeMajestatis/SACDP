@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Network.fs" />
     <Compile Include="BST.fs" />
   </ItemGroup>
 
