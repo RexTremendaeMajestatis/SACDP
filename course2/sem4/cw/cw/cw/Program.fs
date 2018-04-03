@@ -29,7 +29,7 @@ module task2 =
                                   if ldist < rdist then ldist
                                   else rdist
 
-    let actual = minDist (Tip(9)) 0
+    let actual = minDist (Node(2, Tip(3), Tip(3))) 0
 
 module task3 = 
 

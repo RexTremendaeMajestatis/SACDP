@@ -44,5 +44,20 @@ let ``Tree test2``() =
     let expected = 1
     let actual = minDist (Node(2, Tip(3), Tip(3))) 0
     Assert.Equal(actual, expected)
+
+[<Fact>]
+let ``Tree test3``() = 
+    let expected = 1
+    let actual = minDist (Node(2, Node(2, Tip(3), Tip(3)), Tip(3))) 0
+    Assert.Equal(actual, expected)
+
+[<Fact>]
+let ``Tree test4``() = 
+    let expected = 2
+    let actual = minDist (Node(2, Node(2, Tip(3), Tip(3)), Node(2, Tip(3), Tip(3)))) 0
+    Assert.Equal(actual, expected)
+
+
+
     
     
