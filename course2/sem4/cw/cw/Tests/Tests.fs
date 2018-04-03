@@ -4,6 +4,7 @@ open System
 open Xunit
 open System.Collections.Generic
 open cw.task3
+open cw.task2
 open cw.task1
 
 [<Fact>]
@@ -31,4 +32,17 @@ let ``Sin test2``() =
     let expected = 0.0
     let deltha = actual - expected
     Assert.True(deltha < 0.01)
+
+[<Fact>]
+let ``Tree test1``() = 
+    let expected = 0
+    let actual = minDist (Tip(9)) 0
+    Assert.Equal(actual, expected)
+
+[<Fact>]
+let ``Tree test2``() = 
+    let expected = 1
+    let actual = minDist (Node(2, Tip(3), Tip(3))) 0
+    Assert.Equal(actual, expected)
+    
     
