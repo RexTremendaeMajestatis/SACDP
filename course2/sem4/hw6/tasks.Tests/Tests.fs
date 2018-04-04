@@ -1,8 +1,9 @@
 namespace tasks.Tests.Tests
 
 open NUnit.Framework
-open tasks.task1
-open tasks.task2
+open BST.task1
+open Network.Network
+open Network.Computer
 
 module TreeTests = 
     let tree = Tree<int>()
@@ -46,13 +47,15 @@ module NetworkTests =
         interface ICustomRandom with
             member this.Random() = 0
 
+    let cr = CustomTestRandom()
+
     let Computers = [
-                    new Computer(CustomTestRandom(), "MacOs"); 
-                    new Computer(CustomTestRandom(), "MacOs");
-                    new Computer(CustomTestRandom(), "Windows"); 
-                    new Computer(CustomTestRandom(), "MacOs");
-                    new Computer(CustomTestRandom(), "MacOs");
-                    new Computer(CustomTestRandom(), "Ubuntu");
+                    new Computer(cr, "MacOs"); 
+                    new Computer(cr, "MacOs");
+                    new Computer(cr, "Windows"); 
+                    new Computer(cr, "MacOs");
+                    new Computer(cr, "MacOs");
+                    new Computer(cr, "Ubuntu");
                     ]
     Computers.[2].Infect
 

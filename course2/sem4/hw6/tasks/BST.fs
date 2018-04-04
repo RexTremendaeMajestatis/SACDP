@@ -1,4 +1,4 @@
-namespace tasks
+namespace BST
 
 open System
 open System.Collections
