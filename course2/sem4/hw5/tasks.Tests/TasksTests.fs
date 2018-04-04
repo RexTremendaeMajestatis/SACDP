@@ -5,6 +5,7 @@ open NUnit.Framework
 open tasks.task1
 open tasks.task2
 open tasks.task3
+open FsCheck
 
 let records = [record("Pavel", "89213636398"); record("Sergey", "89213457665")]
 
@@ -55,25 +56,21 @@ let ``Find name by phone number`` () =
     Assert.AreEqual(actual, expected)
 
 [<Test>]
-let ``functionsTest0`` () = 
-    ((func'0 2 [1; 2; 3])) |> should equal [2;4;6]
-
-[<Test>]
 let ``functionsTest1`` () = 
-    ((func'1 2 [1; 2; 3])) |> should equal [2;4;6]
+    Check.Quick (fun x y -> func'1 x y = func'0 x y)
 
 [<Test>]
 let ``functionsTest2`` () = 
-    ((func'2 2 [1; 2; 3])) |> should equal [2;4;6]
+    Check.Quick (fun x y -> func'2 x y = func'0 x y)
 
 [<Test>]
 let ``functionsTest3`` () = 
-    ((func'3 2 [1; 2; 3])) |> should equal [2;4;6]
+    Check.Quick (fun x y -> func'3 x y = func'0 x y)
 
 [<Test>]
 let ``functionsTest4`` () = 
-    ((func'4 2 [1; 2; 3])) |> should equal [2;4;6]
+    Check.Quick (fun x y -> func'4 x y = func'0 x y)
 
 [<Test>]
 let ``functionsTest5`` () = 
-    ((func'5 2 [1; 2; 3])) |> should equal [2;4;6]
+    Check.Quick (fun x y -> func'5 x y = func'0 x y)
