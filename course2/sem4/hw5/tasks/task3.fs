@@ -26,7 +26,7 @@ module task3 =
 
     let rec showAllData (records: list<record>) = 
         match records with
-        | head :: tail -> printfn "%s" (head.ToString())
+        | head :: tail -> printfn "%O" head
                           showAllData tail
         | [] -> ()
 
