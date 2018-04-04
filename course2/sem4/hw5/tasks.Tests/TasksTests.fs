@@ -1,6 +1,5 @@
 module Tests
 
-open FsUnit
 open NUnit.Framework
 open tasks.task1
 open tasks.task2
