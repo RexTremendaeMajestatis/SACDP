@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="db.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\tasks\tasks.fsproj" />
   </ItemGroup>
 

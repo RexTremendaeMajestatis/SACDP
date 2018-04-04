@@ -1,12 +1,13 @@
 ﻿namespace tasks
 
 module task3 = 
+    open System.IO
 
     type record (name: string, phoneNumber: string) = 
         member this.name = name
         member this.phoneNumber = phoneNumber
         override this.ToString() = 
-            this.name + " | " + this.phoneNumber
+            this.name + " " + this.phoneNumber
     
     let addRecord (name: string) (phoneNumber: string) (records: list<record>) = 
         let newRecord = record(name, phoneNumber)
@@ -29,30 +30,48 @@ module task3 =
         | head :: tail -> printfn "%O" head
                           showAllData tail
         | [] -> ()
+ 
+    let recordsToString (records: list<record>) = 
+        let rec recordsToStringRec (records: list<record>) strList =
+            match records with
+            | head :: tail -> recordsToStringRec tail (head.ToString() :: strList)
+            | [] -> strList
+        recordsToStringRec records []
 
-    let save (path: string) (records: list<record>) = 
-        let recordsToString (records: list<record>) = 
-            let rec recordsToStringRec (records: list<record>) strList =
-                match records with
-                | head :: tail -> recordsToStringRec tail (head.ToString() :: strList)
-                | [] -> strList
-            recordsToStringRec records []
-        let recordsList = recordsToString records
-        System.IO.File.WriteAllLines(path, recordsList)
+    let rec writeData (records: list<string>) (sw: StreamWriter) = 
+        match records with
+        | head :: tail -> sw.WriteLine(head.ToString())
+                          writeData tail sw
+        | [] -> ()
+
+    let save (path: string) (records: list<record>) =
+        let stringRecords = recordsToString records
+        use sw = new StreamWriter(File.OpenWrite(path))
+        writeData stringRecords sw
+        
+    let recordsFromString (strList: list<string>) =
+        let rec recordsFromStringRec recordsList (strList: List<string>) = 
+            match strList with
+            | head :: tail -> let split = head.Split(' ')
+                              recordsFromStringRec (record(split.[0], split.[1]) :: recordsList) tail
+            | [] -> recordsList
+        recordsFromStringRec [] strList
     
+    let rec readData (records: list<string>) (sr: StreamReader) =
+        if (not sr.EndOfStream) then 
+            let newData = sr.ReadLine()
+            readData (newData :: records) sr
+        else
+            sr.Close()
+            records
+
     let load (path: string) = 
-        if  System.IO.File.Exists path then
-            let records = List.ofArray (System.IO.File.ReadAllLines(path))
-            let recordsFromString (strList: List<string>) =
-                let rec recordsFromStringRec recordsList (strList: List<string>) = 
-                    match strList with
-                    | head :: tail -> let split = head.Split(' ')
-                                      recordsFromStringRec (record(split.[0], split.[1]) :: recordsList) tail
-                    | [] -> recordsList
-                recordsFromStringRec [] strList
-            recordsFromString records
+        if File.Exists path then
+            use sr = new StreamReader(File.OpenRead(path))
+            let stringRecords = readData [] sr
+            recordsFromString stringRecords
         else []
-    
+            
     let rec phoneBook (records: list<record>) = 
         printfn "Enter command"
         let command = System.Console.ReadLine()

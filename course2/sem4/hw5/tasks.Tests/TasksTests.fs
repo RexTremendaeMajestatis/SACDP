@@ -8,6 +8,19 @@ open tasks.task3
 open FsCheck
 
 let records = [record("Pavel", "89213636398"); record("Sergey", "89213457665")]
+let stringRecords = ["Sergey 89213457665"; "Pavel 89213636398"]
+
+[<Test>]
+let ``Records to string tets`` () = 
+    let actual  = recordsToString records
+    let expected = stringRecords
+    Assert.AreEqual(actual, expected)
+
+[<Test>]
+let ``Strings to records`` () = 
+    let actual = recordsFromString stringRecords
+    let expected = records
+    Assert.AreEqual(actual.ToString(), expected.ToString())
 
 [<Test>]
 let ``Brackets test1`` () = 
@@ -40,7 +53,7 @@ let ``Brackets test4`` () =
 [<Test>]
 let ``Add record test`` () = 
     let actual = addRecord ("Victor") ("89214332287") records
-    let expected = "Victor | 89214332287"
+    let expected = "Victor 89214332287"
     Assert.AreEqual(actual.[0].ToString(), expected)
 
 [<Test>]
