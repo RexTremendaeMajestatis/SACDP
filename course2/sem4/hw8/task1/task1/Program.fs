@@ -1,10 +1,7 @@
-﻿// Learn more about F# at http://fsharp.org
-
-open System.Net
+﻿open System.Net
 open System.IO
 open System.Text.RegularExpressions
 
-let sites = ["https://www.site-do.ru/db/db.php";"http://spisok.math.spbu.ru"]
 let fetchAsync (url: string) = 
     async
         {
@@ -30,4 +27,4 @@ let getInfo (url: string) =
                      ]    
     Async.Parallel proc |> Async.RunSynchronously |> ignore
 
-getInfo "http://hwproj.me/courses/9/terms/4"
+getInfo "http://hwproj.me/"
