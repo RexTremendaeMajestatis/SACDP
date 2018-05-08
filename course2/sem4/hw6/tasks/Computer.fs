@@ -24,9 +24,7 @@ module Computer =
         member this.Os
             with get() = os
 
-        member this.IsInfected 
-            with get() = isInfected
-            and set x = isInfected <- x 
+        member val IsInfected = isInfected with get, set
         
         member this.TryToInfect = 
             let probability = randomizer.Random()
