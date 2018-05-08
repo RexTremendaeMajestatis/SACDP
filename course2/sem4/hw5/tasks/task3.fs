@@ -34,7 +34,7 @@ module task3 =
     let recordsToString (records: list<record>) = 
         let rec recordsToStringRec (records: list<record>) strList =
             match records with
-            | head :: tail -> recordsToStringRec tail (head.ToString() :: strList)
+            | head :: tail -> recordsToStringRec tail (head.ToString() :: strList) 
             | [] -> strList
         recordsToStringRec records []
 
@@ -45,7 +45,7 @@ module task3 =
         | [] -> ()
 
     let save (path: string) (records: list<record>) =
-        let stringRecords = recordsToString records
+        let stringRecords = recordsToString records |> List.rev
         use sw = new StreamWriter(File.OpenWrite(path))
         writeData stringRecords sw
         
