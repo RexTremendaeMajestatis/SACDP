@@ -20,11 +20,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="db.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+  <ItemGroup />
 
   <ItemGroup>
     <ProjectReference Include="..\tasks\tasks.fsproj" />

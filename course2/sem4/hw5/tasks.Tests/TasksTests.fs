@@ -11,8 +11,8 @@ let stringRecords = ["Sergey 89213457665"; "Pavel 89213636398"]
 
 [<Test>]
 let ``Save & load test`` () = 
-    save @"C:\Users\Admin\Desktop\temp.txt" records
-    let actual = load @"C:\Users\Admin\Desktop\temp.txt"
+    save "db.txt" records
+    let actual = load "db.txt"
     let expected = records
     Assert.AreEqual(expected.ToString(), actual.ToString())
 
