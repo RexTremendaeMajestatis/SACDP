@@ -11,7 +11,7 @@ let stringRecords = ["Sergey 89213457665"; "Pavel 89213636398"]
 
 [<Test>]
 let ``Save & load test`` () = 
-    save "db.txt" records
+    save "db.txt" records (*creates file here: hw5\tasks.Tests\bin\Debug\netcoreapp2.0*)
     let actual = load "db.txt"
     let expected = records
     Assert.AreEqual(expected.ToString(), actual.ToString())

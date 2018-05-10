@@ -4,10 +4,10 @@ module task3 =
     open System.IO
 
     type record (name: string, phoneNumber: string) = 
-        member this.name = name
-        member this.phoneNumber = phoneNumber
+        member this.Name = name
+        member this.PhoneNumber = phoneNumber
         override this.ToString() = 
-            this.name + " " + this.phoneNumber
+            this.Name + " " + this.PhoneNumber
     
     let addRecord (name: string) (phoneNumber: string) (records: list<record>) = 
         let newRecord = record(name, phoneNumber)
@@ -15,13 +15,13 @@ module task3 =
 
     let rec findByName (name: string) (records: list<record>) = 
         match records with
-        | head :: tail -> if head.name = name then head.phoneNumber
+        | head :: tail -> if head.Name = name then head.PhoneNumber
                           else findByName name tail
         | [] -> "No matches found"
 
     let rec findByNumber (number: string) (records: list<record>) = 
         match records with
-        | head :: tail -> if head.phoneNumber = number then head.name
+        | head :: tail -> if head.PhoneNumber = number then head.Name
                           else findByNumber number tail
         | [] -> "No matches found"
 
