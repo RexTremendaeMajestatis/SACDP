@@ -1,0 +1,16 @@
+\documentclass[fleqn]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{mathexam}
+\usepackage{amsmath}
+
+\begin{document}
+\ExamInstrBox{
+Proove S K K = I }
+$S K K = (\lambda x y z. x \, z \, (y \, z)) \, K \, K =
+\\* = (\lambda x. \lambda y. \lambda z. x \, z \, (y \, z)) \, K \, K \to
+\\* \to (\lambda y. \lambda z. K \, z (y \, z)) \, K \to
+\\* \to  (\lambda z. K \, z \, (K \, z)) = (\lambda z. K \, z \, ((\lambda x \, y.x) \, z)) \to
+\\* \to (\lambda z. ((\lambda x \, y.x) \, z \, (\lambda y.z)) \to
+\\* \to  (\lambda z. ((\lambda y.z) \, (\lambda y.z))) \to (\lambda z.z) = I$
+\end{document}
+
