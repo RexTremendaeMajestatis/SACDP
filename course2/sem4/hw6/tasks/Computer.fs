@@ -1,37 +1,39 @@
 ﻿namespace Network
 
+open CustomRandom
+open CustomOS
+
 module Computer = 
 
-    type ICustomRandom =
-        abstract member Random: unit -> int
+    /// <summary>
+    /// Computer class
+    /// </summary>
+    /// <param name="os">OS of the computer</param>
+    /// <param name="isInfected">Viral condition of the computer</param>
+    /// <param name="customRandomizer">Randomizer that sets a chance of infection</param>
+    type Computer(os: CustomOS, isInfected: bool, customRandomizer: ICustomRandom) =
 
-    type CustomRandom() = 
-        interface ICustomRandom with
-            member this.Random() = System.Random().Next(100)
+        let mutable isInfected = isInfected
 
-    type Computer(randomizer: ICustomRandom, os: string) =
-        let mutable isInfected = false
+        let randomizer = customRandomizer
 
-        let os = os
+        let OS = os
 
-        let criticalProbability = 
-            match os with
-            | "Windows" -> 70
-            | "Ubuntu" -> 30
-            | "MacOs" -> 15
-            | _ -> failwith "Wrong OS"
+        /// <summary>
+        /// Is computer infected
+        /// </summary>
+        member this.IsInfected = isInfected
 
-        member this.Os
-            with get() = os
-
-        member val IsInfected = isInfected with get, set
-        
-        member this.TryToInfect = 
+        /// <summary>
+        /// Try to infect the computer
+        /// </summary>
+        member this.TryToInfect() =
             let probability = randomizer.Random()
-            isInfected <- (probability <= criticalProbability)
-
-        member this.Infect = 
-            isInfected <- true
+            isInfected <- (probability <= OS.CriticalProbability)
         
-        override this.ToString() = 
-            os + " | " + isInfected.ToString()
+        /// <summary>
+        /// Converts the value of this instance to its equivalent string representation
+        /// </summary>
+        override this.ToString() =
+            OS.ToString() + " " + isInfected.ToString()
+

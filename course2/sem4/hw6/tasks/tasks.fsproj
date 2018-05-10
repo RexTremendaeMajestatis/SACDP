@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="CustomRandom.fs" />
+    <Compile Include="CustomOS.fs" />
     <Compile Include="Computer.fs" />
     <Compile Include="Network.fs" />
     <Compile Include="BST.fs" />

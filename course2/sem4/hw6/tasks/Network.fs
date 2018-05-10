@@ -1,51 +1,58 @@
 ﻿namespace Network
 
+open Computer
+
 module Network = 
-    open Network.Computer
-
+        
+    /// <summary>
+    /// Network class
+    /// </summary>
     type Network(computers: list<Computer>, matrix: list<list<bool>>) = 
-        let matrix = matrix
-        let mutable computers = computers
-        let mutable infected = List.Empty
-        let updateInfected (list : list<int>) (i : int) =
-            if (computers.[i].IsInfected)
-            then (i :: list)
-            else list
+
+        let networkMatrix = matrix
+        let computersList = computers
+        let mutable infectedList = List.Empty
+        let refreshInfected (infectedList: list<int>) (i: int) = 
+            if (computersList.[i].IsInfected) then i :: infectedList else infectedList
+        
         do
-            for i in [0..computers.Length - 1] do
-                infected <- updateInfected infected i
-        new() = 
-            let computer = [Computer(CustomRandom(), "Windows")]
-            let matrix = [[true]]
-            Network(computer, matrix)
+            for i in [0..computersList.Length - 1] do
+                infectedList <- refreshInfected infectedList i
 
-        member this.Step = 
-            for i in [0..infected.Length - 1] do
-                for j in [0..computers.Length - 1] do
-                    if (not computers.[j].IsInfected && matrix.[infected.[i]].[j]) then computers.[j].TryToInfect
-            for k in [0..computers.Length - 1] do
-            infected <- updateInfected infected k
+        let step() = 
+            for i in [0..infectedList.Length - 1] do
+                for j in [0..computersList.Length - 1] do
+                    if (not computersList.[j].IsInfected && networkMatrix.[infectedList.[i]].[j]) 
+                    then computersList.[j].TryToInfect()
+            for k in [0..computersList.Length - 1] do
+            infectedList <- refreshInfected infectedList k
 
-        member this.Play = 
-            while (this.Uninfected <> 0) do 
-                this.Step
-                this.State
+        let uninfected() = 
+            let rec uninfectedRec (computersList: list<Computer>) (i: int) = 
+                match computersList with
+                | [] -> i
+                | head :: tail -> if not head.IsInfected 
+                                  then uninfectedRec tail (i + 1)
+                                  else uninfectedRec tail i
+            uninfectedRec computersList 0
 
-        member this.Uninfected = 
-            let rec uninfectedRec (counter: int) (computers: list<Computer>) = 
-                match computers with
-                | [] -> counter
-                | head :: tail -> if head.IsInfected then uninfectedRec counter tail
-                                  else uninfectedRec (counter + 1) tail
-            uninfectedRec 0 computers
-
-        member n.State =
-            for i in [0..computers.Length - 1] do
-                if (computers.[i].IsInfected) then
-                    printfn "Infected  %d" (i + 1)
+        let state() = 
+            for i in [0..computersList.Length - 1] do
+                if computersList.[i].IsInfected then printf "%d) Infected\n" (i + 1)
             printf "\n"
-    
-        override this.ToString() = 
-            computers.ToString()
 
-    
+        member this.Step() = 
+            step()
+
+        /// <summary>
+        /// Let the plague to spread
+        /// </summary>
+        member this.Play() = 
+            while (uninfected() <> 0) do
+                step()
+                state()
+
+        /// <summary>
+        /// Amount of uninfected computers in the network
+        /// </summary>
+        member this.Uninfected = uninfected()

@@ -4,6 +4,8 @@ open NUnit.Framework
 open BST.task1
 open Network.Network
 open Network.Computer
+open Network.CustomRandom
+open Network.CustomOS
 
 module TreeTests = 
     let tree = Tree<int>()
@@ -49,15 +51,14 @@ module NetworkTests =
 
     let cr = CustomTestRandom()
 
-    let Computers = [
-                    new Computer(cr, "MacOs"); 
-                    new Computer(cr, "MacOs");
-                    new Computer(cr, "Windows"); 
-                    new Computer(cr, "MacOs");
-                    new Computer(cr, "MacOs");
-                    new Computer(cr, "Ubuntu");
-                    ]
-    Computers.[2].Infect
+    let comps = [
+                Computer(CustomOS("MacOS"), false, cr)
+                Computer(CustomOS("MacOS"), false, cr)
+                Computer(CustomOS("Windows"), true, cr)
+                Computer(CustomOS("MacOS"), false, cr)
+                Computer(CustomOS("MacOS"), false, cr)
+                Computer(CustomOS("Linux"), false, cr)
+    ]
 
     let connectionMatrix = [
                             [false; false; true; false; false; true]; 
@@ -68,19 +69,29 @@ module NetworkTests =
                             [true; false; false; false; false; false];
                             ]
 
-    let network = new Network(Computers, connectionMatrix)
+    let network = Network(comps, connectionMatrix)
+
+    let emptyComps = []
+    let emptyConnectionMatrix = [[false]]
+    let emptyNetwork = Network(emptyComps, emptyConnectionMatrix)
 
     [<Test>]
-    let ``Network Test1``() = 
-        Assert.IsTrue(network.Uninfected = 5)
+    let ``Network test1`` () = 
+        let actual = network.Uninfected
+        Assert.IsTrue((actual = 5))
 
     [<Test>]
     let ``Network Test2``() = 
-        network.Step
+        network.Step()
         Assert.IsTrue(network.Uninfected = 1)
-      
+
     [<Test>]
     let ``Network Test3``() = 
-        network.Play
+        network.Play()
         Assert.IsTrue(network.Uninfected = 0)
 
+    [<Test>]
+    let ``Network Test4`` () = 
+        let actual = emptyNetwork.Uninfected
+        let expected = 0
+        Assert.AreEqual(actual, expected)
