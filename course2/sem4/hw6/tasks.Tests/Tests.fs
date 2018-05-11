@@ -52,9 +52,6 @@ module TreeTests =
             actual <- actual + 1
         Assert.AreEqual(actual, expected)
         
-        
-
-
 module NetworkTests = 
 
     type CustomTestRandom() = 
