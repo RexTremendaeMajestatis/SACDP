@@ -8,6 +8,8 @@ open Network.CustomRandom
 open Network.CustomOS
 
 module TreeTests = 
+    open NUnit.Framework.Constraints
+
     let tree = Tree<int>()
     tree.Add 10
     tree.Add 20
@@ -39,8 +41,18 @@ module TreeTests =
     let ``Removing test2``() = 
         tree.Remove 10
         let actual = tree.ToString()
-        let expected = "[{15} -> (5) | [{20} -> (*) | (30)]]"
+        let expected = "Node(15, Node(5, Empty, Empty), Node(20, Empty, Node(30, Empty, Empty)))"
         Assert.AreEqual(actual, expected)
+
+    [<Test>]
+    let ``Enumerator test`` () = 
+        let mutable actual = 0
+        let expected = 5
+        for i in tree do
+            actual <- actual + 1
+        Assert.AreEqual(actual, expected)
+        
+        
 
 
 module NetworkTests = 

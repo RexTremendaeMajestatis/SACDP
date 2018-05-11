@@ -1,88 +1,149 @@
 namespace BST
 
-open System
-open System.Collections
-open System.Collections.Generic
-open System.Linq.Expressions
-
 module task1 = 
-         
+    open System.Collections
+    open System.Collections.Generic
+        
+    /// <summary>
+    /// Node of binary search tree
+    /// </summary>
     type Node<'a> =
         | Node of 'a * Node<'a> * Node<'a>
-        | Tip of 'a
         | Empty
         with
+
+            /// <summary>
+            /// Amount of children
+            /// </summary>
             member this.Size = 
                 match this with
                 | Node(_, l, r) -> 1 + l.Size + r.Size
-                | Tip(_) -> 1
                 | Empty -> 0
 
+            /// <summary>
+            /// Converts the value of this instance to its equivalent string representation
+            /// </summary>
             override this.ToString() = 
                 match this with
-                | Node(x, l, r) -> "[{" + x.ToString() + "} -> " + l.ToString() + " | " + r.ToString() + "]"
-                | Tip(x) -> "(" + x.ToString() + ")"
-                | Empty -> "(*)"
+                | Node(x, l, r) -> "Node(" + x.ToString() + ", " + l.ToString() + ", " + r.ToString() + ")"
+                | Empty -> "Empty"
 
-    type Tree<'a when 'a : comparison>() = 
-        let mutable (root: Node<'a>) = Empty
+    /// <summary>
+    /// Enumerator for binary search tree
+    /// </summary>
+    type TreeEnumerator<'a when 'a : comparison> (root: Node<'a>) = 
+        let mutable index = -1
 
+        let toList (node: Node<'a>) = 
+            let rec toListRec (node: Node<'a>) list = 
+                match node with
+                | Empty -> list
+                | Node(x, l, r) -> x :: ((toListRec l list) @ (toListRec r list))
+            toListRec node []
+
+        let mutable nodesList = toList root
+
+        interface IEnumerator<'a> with
+            member this.Reset() = index <- -1
+
+            member this.MoveNext() = 
+                index <- index + 1
+                nodesList.Length > index
+
+            member this.Current = nodesList.[index]
+
+            member this.Dispose() = nodesList <- List.Empty
+
+            member this.get_Current() = (this :> IEnumerator<'a>).Current :> obj
+
+
+
+    /// <summary>
+    /// Binary search tree class
+    /// </summary>
+    type Tree<'a when 'a : comparison>(root: Node<'a>) = 
+        let mutable (root: Node<'a>) = root
+        new() = 
+            Tree(Empty)
+
+        /// <summary>
+        /// Size of binary search tree
+        /// </summary>
         member this.Size = 
             root.Size
 
+        /// <summary>
+        /// Check if binary search tree is empty
+        /// </summary>
         member this.IsEmpty = 
             root = Empty
 
+        /// <summary>
+        /// Converts the value of this instance to its equivalent string representation
+        /// </summary>
         override this.ToString() = 
             root.ToString()
         
-        member this.Add data = 
-            let rec recAdd data node = 
+        /// <summary>
+        /// Add a new node to the binary search tree
+        /// </summary>
+        /// <param name="data">Node data</param>
+        member this.Add (data: 'a) = 
+            let rec addRec (data: 'a) (node: Node<'a>) = 
                 match node with
-                | Empty -> Tip(data)
-                | Tip(x) -> match data with
-                            | data when data < x -> Node(x, Tip(data), Empty)
-                            | data when data > x -> Node(x, Empty, Tip(data))
-                            | _ -> Node(x, Empty, Empty)
+                | Empty -> Node(data, Empty, Empty)
                 | Node(x, l, r) -> match data with  
-                                   | data when data < x -> Node(x, recAdd data l, r)
-                                   | data when data > x -> Node(x, l, recAdd data r)
+                                   | data when data < x -> Node(x, addRec data l, r)
+                                   | data when data > x -> Node(x, l, addRec data r)
                                    | _ -> Node(x, l, r)
-            root <- recAdd data root
-        
-        member this.Find data =
-            let rec recFind data node = 
+            root <- addRec data root
+
+        /// <summary>
+        /// Check if the binary search tree contains a node with the data
+        /// </summary>
+        /// <param name="data">Node data</param>
+        member this.Find (data: 'a) =
+            let rec findRec (data: 'a) (node: Node<'a>) = 
                 match node with
                 | Empty -> false
-                | Tip(x) -> data = x
                 | Node(x, l, r) -> match data with
-                                   | data when data < x -> recFind data l
-                                   | data when data > x -> recFind data r
+                                   | data when data < x -> findRec data l
+                                   | data when data > x -> findRec data r
                                    | _ -> true
-            recFind data root
+            findRec data root
 
-        member this.Remove data = 
-            let rec recGetMin (node: Node<'a>) = 
+        /// <summary>
+        /// Remove a node with the data
+        /// </summary>
+        /// <param name="data">Node data</param>
+        member this.Remove (data: 'a) = 
+            let rec getMin (node: Node<'a>) = 
                 match node with
-                | Tip(x) -> Tip (x)
-                | Node(_, l, _) -> recGetMin l
+                | Node(_, Empty, _) -> node
+                | Node(_, l, _) -> getMin l
                 | Empty -> Empty
 
-            let rec recRemove data node = 
+            let rec removeRec (data: 'a) (node: Node<'a>) = 
                 match node with 
                 | Empty -> Empty
-                | Tip(x) -> match data with
-                            | data when data = x -> Empty
-                            | _ -> node
+                | Node(x, Empty, Empty) -> match data with
+                                           | data when data = x -> Empty
+                                           | _ -> node
                 | Node(x, l, r) -> match data with
-                                   | data when data < x -> Node(x, recRemove data l, r)
-                                   | data when data > x -> Node(x, l, recRemove data r)
+                                   | data when data < x -> Node(x, removeRec data l, r)
+                                   | data when data > x -> Node(x, l, removeRec data r)
                                    | _ -> match r with
                                           | Empty -> l
-                                          | Node(y, Empty, rr) -> Node(y, l, rr)
-                                          | Node(y, ll, rr) -> let min = recGetMin ll
-                                                               match min with
-                                                               | Tip a -> Node(a, l, recRemove a r)
-                                                               | _ -> Empty
-                                          | Tip(y) -> Node(y, l, Empty)
-            root <- recRemove data root
+                                          | Node(y, Empty, Empty) -> Node(y, l, Empty)
+                                          | Node(y, Empty, newR) -> Node(y, l, newR)
+                                          | Node(y, newL, Empty) -> Node(y, l, newL)
+                                          | Node(y, newL, newR) -> let min = getMin newL
+                                                                   match min with
+                                                                   | Node(z, Empty, Empty) -> Node(z, l, removeRec z r)
+                                                                   | _ -> Empty
+                                          
+            root <- removeRec data root
+
+        interface IEnumerable with
+            member this.GetEnumerator() = new TreeEnumerator<'a>(root) :> IEnumerator
+                
