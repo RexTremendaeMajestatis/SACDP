@@ -58,6 +58,7 @@ module TreeTests =
         let enumTree = Tree<int>()
         let expected1 = 4
         let expected2 = 3
+        let expected3 = 5
         enumTree.Add 5
         enumTree.Add 3
         enumTree.Add 6
@@ -74,6 +75,15 @@ module TreeTests =
         for i in enumTree do
             counter <- counter + 1
         Assert.AreEqual(counter, expected2)
+
+        counter <- 0
+        enumTree.Add 228
+        enumTree.Add 221
+
+        for i in enumTree do
+            counter <- counter + 1
+        Assert.AreEqual(counter, expected3)
+
 
         
 module NetworkTests = 
