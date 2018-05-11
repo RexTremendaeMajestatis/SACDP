@@ -5,7 +5,6 @@ module CustomOS =
     /// <summary>
     /// Custom OS class
     /// </summary>
-    /// <param name="name">Name of OS</param>
     type CustomOS(osName: string) =
 
         let name = osName

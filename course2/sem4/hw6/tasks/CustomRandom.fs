@@ -14,4 +14,3 @@ module CustomRandom =
     type CustomRandom() = 
         interface ICustomRandom with
             member this.Random() = System.Random().Next(100)
-

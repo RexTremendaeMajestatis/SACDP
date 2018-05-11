@@ -8,9 +8,6 @@ module Computer =
     /// <summary>
     /// Computer class
     /// </summary>
-    /// <param name="os">OS of the computer</param>
-    /// <param name="isInfected">Viral condition of the computer</param>
-    /// <param name="customRandomizer">Randomizer that sets a chance of infection</param>
     type Computer(os: CustomOS, isInfected: bool, customRandomizer: ICustomRandom) =
 
         let mutable isInfected = isInfected

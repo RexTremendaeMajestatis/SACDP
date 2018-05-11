@@ -45,12 +45,36 @@ module TreeTests =
         Assert.AreEqual(actual, expected)
 
     [<Test>]
+    let ``Empty enumerator test`` () =
+        let emptyTree = Tree<int>()
+        let expected = 0
+        let mutable counter = 0
+        for i in emptyTree do
+            counter <- counter + 1
+        Assert.AreEqual(counter, expected)
+
+    [<Test>]
     let ``Enumerator test`` () = 
-        let mutable actual = 0
-        let expected = 5
-        for i in tree do
-            actual <- actual + 1
-        Assert.AreEqual(actual, expected)
+        let enumTree = Tree<int>()
+        let expected1 = 4
+        let expected2 = 3
+        enumTree.Add 5
+        enumTree.Add 3
+        enumTree.Add 6
+        enumTree.Add 10
+        let mutable counter = 0
+
+        for i in enumTree do
+            counter <- counter + 1
+        Assert.AreEqual(counter, expected1)
+
+        counter <- 0
+        enumTree.Remove 10
+
+        for i in enumTree do
+            counter <- counter + 1
+        Assert.AreEqual(counter, expected2)
+
         
 module NetworkTests = 
 

@@ -43,16 +43,22 @@ module task1 =
 
         let mutable nodesList = toList root
 
+        let refresh() = 
+            nodesList <- toList root
+
         interface IEnumerator<'a> with
             member this.Reset() = index <- -1
 
             member this.MoveNext() = 
+                refresh()
                 index <- index + 1
                 nodesList.Length > index
 
             member this.Current = nodesList.[index]
 
-            member this.Dispose() = nodesList <- List.Empty
+            member this.Dispose() = 
+                nodesList <- List.Empty
+                index <- -1
 
             member this.get_Current() = (this :> IEnumerator<'a>).Current :> obj
 
@@ -87,7 +93,6 @@ module task1 =
         /// <summary>
         /// Add a new node to the binary search tree
         /// </summary>
-        /// <param name="data">Node data</param>
         member this.Add (data: 'a) = 
             let rec addRec (data: 'a) (node: Node<'a>) = 
                 match node with
@@ -101,7 +106,6 @@ module task1 =
         /// <summary>
         /// Check if the binary search tree contains a node with the data
         /// </summary>
-        /// <param name="data">Node data</param>
         member this.Find (data: 'a) =
             let rec findRec (data: 'a) (node: Node<'a>) = 
                 match node with
@@ -115,7 +119,6 @@ module task1 =
         /// <summary>
         /// Remove a node with the data
         /// </summary>
-        /// <param name="data">Node data</param>
         member this.Remove (data: 'a) = 
             let rec getMin (node: Node<'a>) = 
                 match node with
@@ -146,4 +149,3 @@ module task1 =
 
         interface IEnumerable with
             member this.GetEnumerator() = new TreeEnumerator<'a>(root) :> IEnumerator
-                
