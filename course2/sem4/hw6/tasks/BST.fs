@@ -67,10 +67,9 @@ module task1 =
     /// <summary>
     /// Binary search tree class
     /// </summary>
-    type Tree<'a when 'a : comparison>(root: Node<'a>) = 
-        let mutable (root: Node<'a>) = root
-        new() = 
-            Tree(Empty)
+    type Tree<'a when 'a : comparison>() = 
+
+        let mutable (root: Node<'a>) = Empty
 
         /// <summary>
         /// Size of binary search tree
