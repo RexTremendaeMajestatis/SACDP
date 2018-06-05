@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <Compile Include="Tests.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
-
-  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
@@ -21,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\task1\task1.fsproj" />
+    <ProjectReference Include="..\task1\Task.fsproj" />
   </ItemGroup>
 
 </Project>

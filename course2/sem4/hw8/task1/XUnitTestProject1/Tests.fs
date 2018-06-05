@@ -2,9 +2,9 @@ module Tests
 
 open System.IO
 open Xunit
+open Task
 
 open Task1
-open task1
 
 let href = """<a href="http://hwproj.me/courses/9/terms/mailto:yurii.litvinov@gmail.com">"""
 let path = "html.txt"
