@@ -12,10 +12,6 @@ module Computer =
 
         let mutable isInfected = isInfected
 
-        let randomizer = customRandomizer
-
-        let OS = os
-
         /// <summary>
         /// Is computer infected
         /// </summary>
@@ -25,12 +21,12 @@ module Computer =
         /// Try to infect the computer
         /// </summary>
         member this.TryToInfect() =
-            let probability = randomizer.Random()
-            isInfected <- (probability <= OS.CriticalProbability)
+            let probability = customRandomizer.Random()
+            isInfected <- (probability <= os.CriticalProbability)
         
         /// <summary>
         /// Converts the value of this instance to its equivalent string representation
         /// </summary>
         override this.ToString() =
-            OS.ToString() + " " + isInfected.ToString()
+            os.ToString() + " " + isInfected.ToString()
 

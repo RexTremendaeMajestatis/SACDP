@@ -1,4 +1,4 @@
-namespace tasks.Tests.Tests
+namespace Tests
 
 open NUnit.Framework
 open BST.task1
@@ -95,12 +95,12 @@ module NetworkTests =
     let cr = CustomTestRandom()
 
     let comps = [
-                Computer(CustomOS("MacOS"), false, cr)
-                Computer(CustomOS("MacOS"), false, cr)
-                Computer(CustomOS("Windows"), true, cr)
-                Computer(CustomOS("MacOS"), false, cr)
-                Computer(CustomOS("MacOS"), false, cr)
-                Computer(CustomOS("Linux"), false, cr)
+                Computer(CustomOS(MacOS), false, cr)
+                Computer(CustomOS(MacOS), false, cr)
+                Computer(CustomOS(Windows), true, cr)
+                Computer(CustomOS(MacOS), false, cr)
+                Computer(CustomOS(MacOS), false, cr)
+                Computer(CustomOS(Linux), false, cr)
     ]
 
     let connectionMatrix = [

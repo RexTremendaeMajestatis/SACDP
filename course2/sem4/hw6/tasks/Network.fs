@@ -9,23 +9,21 @@ module Network =
     /// </summary>
     type Network(computers: list<Computer>, matrix: list<list<bool>>) = 
 
-        let networkMatrix = matrix
-        let computersList = computers
         let mutable infectedList = List.Empty
         let refreshInfected (infectedList: list<int>) (i: int) = 
-            if (computersList.[i].IsInfected) then i :: infectedList else infectedList
+            if (computers.[i].IsInfected) then i :: infectedList else infectedList
         
         do
-            for i in [0..computersList.Length - 1] do
+            for i in [0..computers.Length - 1] do
                 infectedList <- refreshInfected infectedList i
 
         let step() = 
             for i in [0..infectedList.Length - 1] do
-                for j in [0..computersList.Length - 1] do
-                    if (not computersList.[j].IsInfected && networkMatrix.[infectedList.[i]].[j]) 
-                    then computersList.[j].TryToInfect()
-            for k in [0..computersList.Length - 1] do
-            infectedList <- refreshInfected infectedList k
+                for j in [0..computers.Length - 1] do
+                    if (not computers.[j].IsInfected && matrix.[infectedList.[i]].[j]) 
+                    then computers.[j].TryToInfect()
+            for k in [0..computers.Length - 1] do
+                infectedList <- refreshInfected infectedList k
 
         let uninfected() = 
             let rec uninfectedRec (computersList: list<Computer>) (i: int) = 
@@ -34,11 +32,11 @@ module Network =
                 | head :: tail -> if not head.IsInfected 
                                   then uninfectedRec tail (i + 1)
                                   else uninfectedRec tail i
-            uninfectedRec computersList 0
+            uninfectedRec computers 0
 
         let state() = 
-            for i in [0..computersList.Length - 1] do
-                if computersList.[i].IsInfected then printf "%d) Infected\n" (i + 1)
+            for i in [0..computers.Length - 1] do
+                if computers.[i].IsInfected then printf "%d) Infected\n" (i + 1)
             printf "\n"
 
         member this.Step() = 
