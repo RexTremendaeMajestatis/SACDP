@@ -5,7 +5,7 @@ open System.Text.RegularExpressions
 module Task1 =
 
     /// <summary>
-    /// Fetch the main page
+    /// Fetch page info
     /// </summary>
     /// <param name="url">URL of the page</param>
     let fetchPageInfo (url: string) =
